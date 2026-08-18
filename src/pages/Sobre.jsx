@@ -132,11 +132,11 @@ export default function Sobre() {
           <Reveal delay={0.1}>
             <div className="flex flex-col sm:flex-row items-start gap-8">
               <img
-                src="/img/foto-isis.png"
+                src="/img/foto-isis-round.png"
                 alt="Isis Alencastro, fundadora da IBA Estúdio"
                 width="160"
-                height="213"
-                className="w-40 h-[213px] rounded-xl object-cover border border-gray-200 shadow shrink-0"
+                height="160"
+                className="w-40 h-40 rounded-full object-cover border border-gray-200 shadow shrink-0"
               />
               <div className="pt-1">
                 <h2 id="fundadora-titulo" className="text-[1.5rem] mb-1">Isis Alencastro</h2>
