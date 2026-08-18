@@ -13,9 +13,15 @@ export default function Politicas() {
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">
-          <p className="eyebrow">Legal</p>
-          <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Política de privacidade e termos de uso</h1>
-          <p className="lede max-w-[62ch]">Texto direto, sem letra miúda escondida. Leia com calma.</p>
+          <Reveal>
+            <p className="eyebrow">Legal</p>
+          </Reveal>
+          <Reveal delay={0.08} blur>
+            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Política de privacidade e termos de uso</h1>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="lede max-w-[62ch]">Texto direto, sem letra miúda escondida. Leia com calma.</p>
+          </Reveal>
         </div>
       </section>
 

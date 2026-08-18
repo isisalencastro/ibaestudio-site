@@ -18,9 +18,15 @@ export default function Sobre() {
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">
-          <p className="eyebrow">Sobre</p>
-          <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Tecnologia de verdade para quem toca um negócio pequeno</h1>
-          <p className="lede max-w-[62ch]">A IBA Estúdio nasceu com um objetivo simples: levar soluções digitais a pequenos negócios, sem jargão e sem enrolação.</p>
+          <Reveal>
+            <p className="eyebrow">Sobre</p>
+          </Reveal>
+          <Reveal delay={0.08} blur>
+            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Tecnologia de verdade para quem toca um negócio pequeno</h1>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="lede max-w-[62ch]">A IBA Estúdio nasceu com um objetivo simples: levar soluções digitais a pequenos negócios, sem jargão e sem enrolação.</p>
+          </Reveal>
         </div>
       </section>
 

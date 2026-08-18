@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import Seo from '../components/Seo'
@@ -58,9 +59,15 @@ export default function Contato() {
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">
-          <p className="eyebrow">Contato</p>
-          <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Vamos conversar sobre o seu projeto</h1>
-          <p className="lede max-w-[62ch]">Escolha o canal que preferir. Pelo WhatsApp ou pelo formulário, você fala direto com quem desenvolve.</p>
+          <Reveal>
+            <p className="eyebrow">Contato</p>
+          </Reveal>
+          <Reveal delay={0.08} blur>
+            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Vamos conversar sobre o seu projeto</h1>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="lede max-w-[62ch]">Escolha o canal que preferir. Pelo WhatsApp ou pelo formulário, você fala direto com quem desenvolve.</p>
+          </Reveal>
         </div>
       </section>
 
@@ -120,11 +127,20 @@ export default function Contato() {
                 <span className="block text-gray-500 text-[0.82rem] mt-1">Ao enviar, seu resumo abre no WhatsApp para você confirmar e enviar.</span>
               </div>
 
-              {error && (
-                <div role="alert" className="bg-[#FDECEC] border border-[#F5B5B5] text-[#9B1C1C] rounded-lg px-3.5 py-3 text-[0.9rem] mb-5">
-                  Preencha nome, e-mail e mensagem para continuar.
-                </div>
-              )}
+              <AnimatePresence>
+                {error && (
+                  <motion.div
+                    role="alert"
+                    initial={{ opacity: 0, y: -8, height: 0, marginBottom: 0 }}
+                    animate={{ opacity: 1, y: 0, height: 'auto', marginBottom: 20 }}
+                    exit={{ opacity: 0, y: -8, height: 0, marginBottom: 0 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="overflow-hidden bg-[#FDECEC] border border-[#F5B5B5] text-[#9B1C1C] rounded-lg px-3.5 py-3 text-[0.9rem]"
+                  >
+                    Preencha nome, e-mail e mensagem para continuar.
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <button type="submit" className="btn btn-primary w-full">Enviar pelo WhatsApp</button>
             </form>

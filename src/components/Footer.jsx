@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 import { waLink, mailLink } from '../lib/site'
+import Reveal from './Reveal'
 
 export default function Footer() {
   return (
     <footer className="bg-gray-100 border-t border-gray-200 pt-14">
-      <div className="container-site grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
+      <Reveal className="container-site grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
         <div className="col-span-2 lg:col-span-1">
           <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center gap-2.5 text-ink hover:no-underline">
             <img src="/img/logo-oficial-iba.png" alt="" width="40" height="40" className="w-10 h-10 rounded-lg object-cover shrink-0" />
@@ -40,7 +41,7 @@ export default function Footer() {
             <li><Link to="/politicas" className="text-gray-600 text-[0.95rem] hover:text-blue">Termos de uso</Link></li>
           </ul>
         </div>
-      </div>
+      </Reveal>
 
       <div className="border-t border-gray-200">
         <div className="container-site flex flex-wrap gap-2 items-center justify-between py-5">
