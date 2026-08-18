@@ -131,9 +131,15 @@ export default function Sobre() {
           <SectionLabel>Quem fundou</SectionLabel>
 
           <Reveal delay={0.1}>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="w-20 h-20 rounded-full bg-blue text-white flex items-center justify-center font-display font-extrabold text-3xl shrink-0" aria-hidden="true">I</div>
-              <div>
+            <div className="flex flex-col sm:flex-row items-start gap-8">
+              <img
+                src="/img/foto-isis.png"
+                alt="Isis Alencastro, fundadora da IBA Estúdio"
+                width="160"
+                height="213"
+                className="w-40 h-[213px] rounded-xl object-cover border border-gray-200 shadow shrink-0"
+              />
+              <div className="pt-1">
                 <h2 id="fundadora-titulo" className="text-[1.5rem] mb-1">Isis Alencastro</h2>
                 <p className="text-gray-500">fundadora, à frente da IBA desde 2026</p>
                 <p className="text-gray-600 mt-3 max-w-[52ch]">É ela quem desenvolve, atende e decide. Na IBA, quem você chama é quem resolve.</p>
