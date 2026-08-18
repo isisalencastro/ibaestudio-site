@@ -7,7 +7,6 @@ export default function Politicas() {
   return (
     <Page>
       <Seo
-        title="Política de Privacidade e Termos de Uso | IBA Estúdio"
         description="Política de privacidade e termos de uso da IBA Estúdio, em conformidade com a LGPD."
       />
 

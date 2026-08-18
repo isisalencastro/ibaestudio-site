@@ -14,13 +14,7 @@ function ScrollToTop() {
   const { pathname, hash } = useLocation()
 
   useEffect(() => {
-    if (hash) {
-      const el = document.querySelector(hash)
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' })
-        return
-      }
-    }
+    if (hash) return
     window.scrollTo({ top: 0, behavior: 'auto' })
   }, [pathname, hash])
 

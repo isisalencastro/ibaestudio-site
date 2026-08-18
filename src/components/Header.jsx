@@ -62,8 +62,10 @@ export default function Header() {
                 key={l.to}
                 to={l.to}
                 className={({ isActive }) =>
-                  `inline-flex items-center min-h-[44px] px-3.5 rounded-lg font-semibold transition-colors ${
-                    isActive && l.to !== '/#processo' ? 'text-blue bg-blue-soft2' : 'text-gray-600 hover:text-blue hover:bg-blue-soft2'
+                  `relative inline-flex items-center min-h-[44px] px-3.5 rounded-lg font-semibold transition-colors ${
+                    isActive && l.to !== '/#processo'
+                      ? 'text-blue after:absolute after:left-3.5 after:right-3.5 after:bottom-[6px] after:h-[2px] after:rounded-full after:bg-blue'
+                      : 'text-gray-600 hover:text-blue hover:bg-blue-soft2'
                   }`
                 }
               >
@@ -103,8 +105,10 @@ export default function Header() {
                   key={l.to}
                   to={l.to}
                   className={({ isActive }) =>
-                    `px-3.5 py-3 rounded-lg text-[1.05rem] font-semibold ${
-                      isActive && l.to !== '/#processo' ? 'text-blue bg-blue-soft2' : 'text-gray-600'
+                    `relative px-3.5 py-3 rounded-lg text-[1.05rem] font-semibold ${
+                      isActive && l.to !== '/#processo'
+                        ? 'text-blue bg-blue-soft2 after:absolute after:left-0 after:top-2 after:bottom-2 after:w-[3px] after:rounded-full after:bg-blue'
+                        : 'text-gray-600'
                     }`
                   }
                 >

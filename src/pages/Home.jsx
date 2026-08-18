@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
@@ -87,11 +88,17 @@ function Mockup() {
 
 export default function Home() {
   const reduce = useReducedMotion()
+  const { hash } = useLocation()
+
+  useEffect(() => {
+    if (!hash) return
+    const el = document.getElementById(hash.slice(1))
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }, [hash])
 
   return (
     <Page>
       <Seo
-        title="IBA Estúdio | Sites, Automação com IA e Sistemas para pequenos negócios"
         description="Sites, automação com IA e sistemas sob medida para pequenos negócios. Atendimento direto, processo claro e prazos cumpridos."
       />
 
