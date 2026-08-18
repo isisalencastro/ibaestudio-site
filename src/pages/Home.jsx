@@ -12,8 +12,8 @@ const heroContainer = {
 }
 
 const heroItem = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+  hidden: { opacity: 0, y: 28, scale: 0.98, filter: 'blur(8px)' },
+  show: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } }
 }
 
 const proofs = [
@@ -148,13 +148,13 @@ export default function Home() {
 
       <section className="py-[72px]" id="servicos" aria-labelledby="servicos-titulo">
         <div className="container-site">
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
               <p className="eyebrow">Serviços</p>
               <h2 id="servicos-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">O que a IBA faz por você</h2>
             </div>
             <p className="lede">Você não precisa entender de tecnologia. A gente cuida de tudo, do começo ao fim.</p>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((s, i) => (
@@ -198,13 +198,13 @@ export default function Home() {
 
       <section className="py-[72px] bg-blue-soft" id="processo" aria-labelledby="processo-titulo">
         <div className="container-site">
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
               <p className="eyebrow">Processo</p>
               <h2 id="processo-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">Como funciona</h2>
             </div>
             <p className="lede">Quatro passos simples. Você sabe exatamente onde estamos, sempre.</p>
-          </div>
+          </Reveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((s, i) => (

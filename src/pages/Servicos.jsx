@@ -77,25 +77,31 @@ export default function Servicos() {
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">
-          <p className="eyebrow">Serviços</p>
-          <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Tecnologia sob medida para o seu negócio</h1>
-          <p className="lede max-w-[62ch]">Três frentes de trabalho, um mesmo objetivo: fazer seu negócio atender melhor e vender mais. Escolha o que resolve a sua dor hoje.</p>
+          <Reveal>
+            <p className="eyebrow">Serviços</p>
+          </Reveal>
+          <Reveal delay={0.08} blur>
+            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Tecnologia sob medida para o seu negócio</h1>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p className="lede max-w-[62ch]">Três frentes de trabalho, um mesmo objetivo: fazer seu negócio atender melhor e vender mais. Escolha o que resolve a sua dor hoje.</p>
+          </Reveal>
         </div>
       </section>
 
       {services.map((s) => (
         <section key={s.id} id={s.id} className="container-site">
-          <Reveal>
-            <div className="grid md:grid-cols-2 gap-12 items-start py-14 border-b border-gray-200">
-              <div className="service-body">
-                <p className="eyebrow">{s.eyebrow}</p>
-                <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] mb-4">{s.title}</h2>
-                {s.paras.map((p) => (
-                  <p key={p} className="text-gray-600 mb-4 max-w-[60ch]">{p}</p>
-                ))}
-                <a className="btn btn-primary mt-2" href={waLink(s.message)} target="_blank" rel="noopener noreferrer">Quero um orçamento</a>
-              </div>
+          <div className="grid md:grid-cols-2 gap-12 items-start py-14 border-b border-gray-200">
+            <Reveal className="service-body">
+              <p className="eyebrow">{s.eyebrow}</p>
+              <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] mb-4">{s.title}</h2>
+              {s.paras.map((p) => (
+                <p key={p} className="text-gray-600 mb-4 max-w-[60ch]">{p}</p>
+              ))}
+              <a className="btn btn-primary mt-2" href={waLink(s.message)} target="_blank" rel="noopener noreferrer">Quero um orçamento</a>
+            </Reveal>
 
+            <Reveal delay={0.12} x={24} y={0}>
               <aside className="bg-gray-100 border border-gray-200 rounded-lg p-7">
                 <dl className="flex flex-col gap-5">
                   {s.aside.map(([dt, dd]) => (
@@ -106,8 +112,8 @@ export default function Servicos() {
                   ))}
                 </dl>
               </aside>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
         </section>
       ))}
 
