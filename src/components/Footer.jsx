@@ -21,7 +21,7 @@ export default function Footer() {
           <ul className="flex flex-col gap-2.5">
             <li><Link to="/servicos" className="text-gray-600 text-[0.95rem] hover:text-blue">Serviços</Link></li>
             <li><Link to="/sobre" className="text-gray-600 text-[0.95rem] hover:text-blue">Sobre</Link></li>
-            <li><Link to="/#processo" className="text-gray-600 text-[0.95rem] hover:text-blue">Processo</Link></li>
+            <li><Link to="/blog" className="text-gray-600 text-[0.95rem] hover:text-blue">Blog</Link></li>
             <li><Link to="/contato" className="text-gray-600 text-[0.95rem] hover:text-blue">Contato</Link></li>
           </ul>
         </nav>
