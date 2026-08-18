@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const links = [
   { to: '/servicos', label: 'Serviços' },
   { to: '/sobre', label: 'Sobre' },
-  { to: '/#processo', label: 'Processo' },
-  { to: '/contato', label: 'Contato' }
+  { to: '/blog', label: 'Blog' }
 ]
 
 function Brand() {
@@ -63,7 +62,7 @@ export default function Header() {
                 to={l.to}
                 className={({ isActive }) =>
                   `relative inline-flex items-center min-h-[44px] px-3.5 rounded-lg font-semibold transition-colors ${
-                    isActive && l.to !== '/#processo'
+                    isActive
                       ? 'text-blue after:absolute after:left-3.5 after:right-3.5 after:bottom-[6px] after:h-[2px] after:rounded-full after:bg-blue'
                       : 'text-gray-600 hover:text-blue hover:bg-blue-soft2'
                   }`
@@ -72,7 +71,7 @@ export default function Header() {
                 {l.label}
               </NavLink>
             ))}
-            <Link to="/contato" className="btn btn-secondary min-h-[44px] px-5 py-2.5 text-[0.95rem] ml-2.5">Pedir orçamento</Link>
+            <Link to="/contato" className="btn btn-secondary min-h-[44px] px-5 py-2.5 text-[0.95rem] ml-2.5">Entre em Contato</Link>
           </nav>
 
           <button
@@ -106,7 +105,7 @@ export default function Header() {
                   to={l.to}
                   className={({ isActive }) =>
                     `relative px-3.5 py-3 rounded-lg text-[1.05rem] font-semibold ${
-                      isActive && l.to !== '/#processo'
+                      isActive
                         ? 'text-blue bg-blue-soft2 after:absolute after:left-0 after:top-2 after:bottom-2 after:w-[3px] after:rounded-full after:bg-blue'
                         : 'text-gray-600'
                     }`
@@ -115,7 +114,7 @@ export default function Header() {
                   {l.label}
                 </NavLink>
               ))}
-              <Link to="/contato" className="btn btn-secondary mt-3">Pedir orçamento</Link>
+              <Link to="/contato" className="btn btn-secondary mt-3">Entre em Contato</Link>
             </div>
           </motion.nav>
         )}

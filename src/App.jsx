@@ -9,6 +9,7 @@ import Servicos from './pages/Servicos'
 import Sobre from './pages/Sobre'
 import Contato from './pages/Contato'
 import Politicas from './pages/Politicas'
+import Blog from './pages/Blog'
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
@@ -32,6 +33,7 @@ function AnimatedRoutes() {
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<Contato />} />
         <Route path="/politicas" element={<Politicas />} />
+        <Route path="/blog" element={<Blog />} />
       </Routes>
     </AnimatePresence>
   )
