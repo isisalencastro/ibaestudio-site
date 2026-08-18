@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-export default function Seo({ title, description }) {
+export default function Seo({ description }) {
   useEffect(() => {
-    document.title = title
+    document.title = 'IBA | Estúdio de desenvolvimento'
     if (description) {
       let meta = document.querySelector('meta[name="description"]')
       if (!meta) {
@@ -12,7 +12,7 @@ export default function Seo({ title, description }) {
       }
       meta.setAttribute('content', description)
     }
-  }, [title, description])
+  }, [description])
 
   return null
 }

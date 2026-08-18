@@ -71,7 +71,6 @@ export default function Servicos() {
   return (
     <Page>
       <Seo
-        title="Serviços | IBA Estúdio"
         description="Sites, automação com IA e sistemas sob medida para pequenos negócios. Veja o que a IBA faz, para quem é e quanto custa."
       />
 

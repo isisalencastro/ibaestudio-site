@@ -53,7 +53,6 @@ export default function Contato() {
   return (
     <Page>
       <Seo
-        title="Contato | IBA Estúdio"
         description="Fale com a IBA Estúdio pelo WhatsApp ou pelo formulário. Respondemos em até 1 dia útil."
       />
 

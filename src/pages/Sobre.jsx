@@ -22,7 +22,6 @@ export default function Sobre() {
   return (
     <Page>
       <Seo
-        title="Sobre a IBA | IBA Estúdio"
         description="Conheça a IBA Estúdio: estúdio de tecnologia fundado em 2026 por Isis Alencastro, criado para levar sites, automação e sistemas a pequenos negócios."
       />
 
