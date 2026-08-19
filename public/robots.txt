@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /politicas
+
+Sitemap: https://www.ibaestudio.com/sitemap.xml
