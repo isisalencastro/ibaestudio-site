@@ -158,7 +158,7 @@ Sequência de seções, na ordem:
 ## 9. Pendências do projeto
 
 - [ ] Número real do WhatsApp nos links wa.me (número atual no código: 555193307386, confirmar)
-- [ ] E-mail de contato (ex: contato@ibaestudio.com)
+- [x] E-mail de contato: **contato@ibaestudio.com** (Cloudflare Email Routing, 19/08/2026)
 - [ ] Logo final em SVG (mascote Nó discreto)
 - [ ] Redes sociais reais quando existirem
 - [ ] Depoimentos reais quando existirem clientes
