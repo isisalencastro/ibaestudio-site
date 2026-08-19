@@ -1,7 +1,7 @@
 export const SITE_NAME = 'IBA Estúdio'
 
 export const WA_NUMBER = '555193307386'
-export const EMAIL = 'ibaestudios@gmail.com'
+export const EMAIL = 'contato@ibaestudio.com'
 
 export const WA_MESSAGES = {
   orcamento: 'Olá! Vim pelo site da IBA e quero pedir um orçamento.',
