@@ -118,7 +118,7 @@ export default function Politicas() {
               <li className="mb-1">Correção de dados incompletos ou desatualizados</li>
               <li className="mb-1">Eliminação dos dados tratados com seu consentimento</li>
             </ul>
-            <p className="text-gray-600 mb-3.5">Para exercer esses direitos, escreva para <a href={mailLink()} className="text-blue font-semibold hover:underline">ibaestudios@gmail.com</a>.</p>
+            <p className="text-gray-600 mb-3.5">Para exercer esses direitos, escreva para <a href={mailLink()} className="text-blue font-semibold hover:underline">contato@ibaestudio.com</a>.</p>
 
             <h2 className="text-[1.5rem] mt-10 mb-4">Termos de uso</h2>
             <p className="text-gray-600 mb-3.5">Ao acessar este site, você concorda com os termos a seguir.</p>
@@ -136,7 +136,7 @@ export default function Politicas() {
             <p className="text-gray-600 mb-3.5">A IBA Estúdio se empenha para manter as informações do site atualizadas e corretas, mas não garante ausência total de erros ou indisponibilidades temporárias.</p>
 
             <h3 className="text-[1.15rem] mt-8 mb-2">Contato</h3>
-            <p className="text-gray-600 mb-3.5">Dúvidas sobre esta política ou sobre os termos de uso podem ser enviadas para <a href={mailLink()} className="text-blue font-semibold hover:underline">ibaestudios@gmail.com</a>.</p>
+            <p className="text-gray-600 mb-3.5">Dúvidas sobre esta política ou sobre os termos de uso podem ser enviadas para <a href={mailLink()} className="text-blue font-semibold hover:underline">contato@ibaestudio.com</a>.</p>
           </Reveal>
         </div>
       </section>
