@@ -88,7 +88,7 @@ export default function Contato() {
               Respondemos em até 1 dia útil.
             </p>
 
-            <p className="lede mt-6">Prefere e-mail? Escreva para <a href={mailLink()} className="text-blue font-semibold hover:underline">ibaestudios@gmail.com</a>.</p>
+            <p className="lede mt-6">Prefere e-mail? Escreva para <a href={mailLink()} className="text-blue font-semibold hover:underline">contato@ibaestudio.com</a>.</p>
           </Reveal>
 
           <Reveal delay={0.12}>
