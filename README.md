@@ -27,4 +27,4 @@ Gera a versão de produção em `dist/`.
 ## Contato
 
 - WhatsApp: 555193307386
-- E-mail: ibaestudios@gmail.com
+- E-mail: contato@ibaestudio.com
