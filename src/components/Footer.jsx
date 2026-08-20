@@ -29,7 +29,7 @@ export default function Footer() {
         <div className="footer-col">
           <h3 className="text-[0.85rem] font-body font-bold uppercase tracking-wider text-gray-500 mb-4">Contato</h3>
           <ul className="flex flex-col gap-2.5">
-            <li><a href={mailLink()} className="text-gray-600 text-[0.95rem] hover:text-blue">ibaestudios@gmail.com</a></li>
+            <li><a href={mailLink()} className="text-gray-600 text-[0.95rem] hover:text-blue">contato@ibaestudio.com</a></li>
             <li><a href={waLink()} target="_blank" rel="noopener noreferrer" className="text-gray-600 text-[0.95rem] hover:text-blue">WhatsApp</a></li>
           </ul>
         </div>
