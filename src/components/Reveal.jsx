@@ -10,13 +10,12 @@ export default function Reveal({
   scale = 1,
   blur = false,
   once = true,
-  className = '',
-  as: Tag = 'div'
+  className = ''
 }) {
   const reduce = useReducedMotion()
 
   if (reduce) {
-    return <Tag className={className}>{children}</Tag>
+    return <div className={className}>{children}</div>
   }
 
   return (
@@ -26,7 +25,6 @@ export default function Reveal({
       whileInView={{ opacity: 1, y: 0, x: 0, scale: 1, filter: 'blur(0px)' }}
       viewport={{ once, margin: '0px 0px -60px 0px' }}
       transition={{ duration: 0.7, delay, ease: EASE }}
-      as={Tag}
     >
       {children}
     </motion.div>
