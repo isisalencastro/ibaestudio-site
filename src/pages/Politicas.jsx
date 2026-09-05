@@ -34,6 +34,7 @@ export default function Politicas() {
   return (
     <Page>
       <Seo
+        title="Políticas, privacidade e termos de uso | IBA Estúdio"
         description="Postura, compromissos e respostas para dúvidas frequentes da IBA Estúdio, além da política de privacidade e termos de uso."
       />
 

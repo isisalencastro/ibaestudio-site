@@ -22,7 +22,8 @@ export default {
         gray: {
           100: '#F7F9FC',
           200: '#EEF2F8',
-          500: '#718096',
+          // 500 escurecido de #718096 (4.0:1) para #667085 (5.0:1): WCAG AA em texto pequeno
+          500: '#667085',
           600: '#4A5568'
         }
       },

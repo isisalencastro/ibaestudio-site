@@ -7,6 +7,7 @@ export default function Blog() {
   return (
     <Page>
       <Seo
+        title="Blog da IBA Estúdio | Novidades e anúncios"
         description="Novidades e anúncios da IBA Estúdio: matérias, lançamentos e atualizações importantes do estúdio."
       />
 

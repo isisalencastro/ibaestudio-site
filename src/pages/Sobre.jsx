@@ -22,6 +22,7 @@ export default function Sobre() {
   return (
     <Page>
       <Seo
+        title="Sobre a IBA Estúdio | Tecnologia para pequenos negócios"
         description="Conheça a IBA Estúdio: estúdio de tecnologia fundado em 2026 por Isis Alencastro, criado para levar sites, automação e sistemas a pequenos negócios."
       />
 
@@ -73,7 +74,7 @@ export default function Sobre() {
           <div className="grid lg:grid-cols-[0.45fr_0.55fr] gap-10 items-center">
             <Reveal className="flex justify-center">
               <div className="w-52 h-52 bg-white border border-gray-200 rounded-2xl shadow flex items-center justify-center">
-                <img src="/img/mascote-no.png" alt="Mascote Nó da IBA" width="150" height="150" className="w-40 h-40 object-contain" />
+                <img src="/img/mascote-no.png" alt="Nó, o mascote polvo da IBA" width="150" height="150" loading="lazy" decoding="async" className="w-40 h-40 object-contain" />
               </div>
             </Reveal>
 
@@ -97,7 +98,7 @@ export default function Sobre() {
       <section className="py-[88px] bg-blue text-white">
         <div className="container-site max-w-[820px]">
           <Reveal>
-            <p className="eyebrow text-white/70">Missão</p>
+            <p className="eyebrow text-white/80">Missão</p>
             <h2 className="text-white text-[clamp(1.8rem,3.4vw,2.6rem)] leading-tight">
               Transformar a presença digital de pequenos negócios com automação inteligente e tecnologia acessível.
             </h2>
@@ -136,6 +137,8 @@ export default function Sobre() {
                 alt="Isis Alencastro, fundadora da IBA Estúdio"
                 width="160"
                 height="160"
+                loading="lazy"
+                decoding="async"
                 className="w-40 h-40 rounded-full object-cover border border-gray-200 shadow shrink-0"
               />
               <div className="pt-1">

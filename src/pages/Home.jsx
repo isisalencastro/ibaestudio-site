@@ -91,6 +91,7 @@ export default function Home() {
   return (
     <Page>
       <Seo
+        title="IBA Estúdio | Sites, Automação com IA e Sistemas para pequenos negócios"
         description="Sites, automação com IA e sistemas sob medida para pequenos negócios. Atendimento direto, processo claro e prazos cumpridos."
       />
 

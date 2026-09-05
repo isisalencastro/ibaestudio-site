@@ -8,7 +8,7 @@ export default function Footer() {
       <Reveal className="container-site grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
         <div className="col-span-2 lg:col-span-1">
           <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center gap-2.5 text-ink hover:no-underline">
-            <img src="/img/logo-oficial-iba.png" alt="" width="40" height="40" className="w-10 h-10 rounded-lg object-cover shrink-0" />
+            <img src="/img/logo-oficial-iba.png" alt="" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 rounded-lg object-cover shrink-0" />
             <span className="font-display font-extrabold text-lg leading-none">
               <span className="text-blue">Estúdio</span>
             </span>

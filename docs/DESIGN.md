@@ -34,7 +34,7 @@ colors:
     white: "#FFFFFF"  # fundo
     gray_100: "#F7F9FC"  # superfície secundária
     gray_200: "#EEF2F8"  # superfície elevada / hover
-    gray_500: "#718096"  # texto secundário
+    gray_500: "#667085"  # texto secundário (escurecido de #718096 em 04/09/2026: o antigo dava 4.0:1 no branco e reprovava no WCAG AA)
     gray_600: "#4A5568"  # texto terciário
 ```
 
