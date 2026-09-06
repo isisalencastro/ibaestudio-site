@@ -7,12 +7,12 @@ import { mailLink } from '../lib/site'
 const postura = [
   { title: 'Atendimento direto', text: 'Quem te atende é quem desenvolve. Sem intermediário, sem telemarketing.' },
   { title: 'Escopo e prazo por escrito', text: 'Você aprova cada etapa antes de seguirmos. Nada de surpresa no meio.' },
-  { title: 'Preço pensado para pequeno negócio', text: 'Projetos que cabem no orçamento, sem vender o que você não precisa.' },
+  { title: 'Orçamento sob medida', text: 'Projetos desenhados para a sua realidade, sem vender o que você não precisa.' },
   { title: 'Depois da entrega, a gente não some', text: 'Seguimos por perto para ajustes e dúvidas após o projeto pronto.' }
 ]
 
 const faq = [
-  { q: 'Quanto custa um site?', a: 'Sites partem de R$ 1.500, para institucional ou página de venda. Automações com IA e sistemas têm valor sob consulta, sempre formalizado por escrito antes de começar.' },
+  { q: 'Quanto custa um site?', a: 'Sites institucionais e páginas de venda partem de R$ 1.500. Portais, sistemas, IA e automações têm valor sob consulta, sempre formalizado por escrito antes de começar.' },
   { q: 'Quanto tempo demora?', a: 'Depende do escopo. O prazo é combinado por escrito na proposta e você acompanha cada etapa do desenvolvimento.' },
   { q: 'O que eu preciso para começar?', a: 'Só uma conversa. Você conta como o seu negócio funciona hoje e a gente desenha a solução em cima do seu processo.' },
   { q: 'Vocês atendem a distância?', a: 'Sim. Todo o atendimento é remoto, pelo WhatsApp e por videochamada.' },

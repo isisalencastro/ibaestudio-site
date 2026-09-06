@@ -7,51 +7,51 @@ import { waLink, WA_MESSAGES } from '../lib/site'
 
 const services = [
   {
-    id: 'sites',
-    eyebrow: '01 · Sites',
-    title: 'Site que transforma visita em contato',
+    id: 'web-e-sistemas',
+    eyebrow: '01 · Desenvolvimento web e sistemas',
+    title: 'Sites, portais e sistemas que crescem com a operação',
     paras: [
-      'Seu cliente procura seu negócio no Google e no Instagram. O site é onde ele decide se vai te chamar ou seguir para o concorrente. A gente cria uma presença profissional que passa confiança e leva direto para o WhatsApp.',
-      'Você não precisa escrever nada nem entender de design. A gente cuida do conteúdo, do visual e da publicação.'
+      'Sites institucionais, portais e sistemas sob medida, construídos para crescer com a sua operação.',
+      'O site é onde o seu cliente decide se vai chamar você ou seguir para o concorrente. E quando a empresa cresce, um sistema sob medida organiza cadastros, processos e dados do jeito que o seu time já trabalha, sem obrigar ninguém a mudar a rotina.'
     ],
-    message: WA_MESSAGES.sites,
+    message: WA_MESSAGES.desenvolvimento,
     aside: [
-      ['Para quem é', 'Comércios, serviços e profissionais que precisam ser encontrados e passar credibilidade.'],
-      ['O que resolve', 'Site institucional e páginas de venda que transformam visita em contato.'],
-      ['Como funciona', 'Conteúdo, design e publicação por nossa conta. Você só aprova cada etapa.'],
-      ['Investimento', 'A partir de R$ 1.500']
+      ['Para quem é', 'Empresas que precisam de presença profissional e de sistemas que acompanhem o ritmo da operação.'],
+      ['O que resolve', 'Sites institucionais, portais e sistemas sob medida, prontos para crescer com a operação.'],
+      ['Como funciona', 'Conteúdo, design e desenvolvimento por nossa conta. Você aprova cada etapa.'],
+      ['Investimento', 'Sob consulta, com escopo, prazo e valor formalizados por escrito.']
+    ]
+  },
+  {
+    id: 'ia-integrada',
+    eyebrow: '02 · IA integrada aos processos',
+    title: 'IA treinada no contexto da sua empresa',
+    paras: [
+      'Atendimento automatizado, análise de dados e agentes de IA treinados no contexto da sua empresa.',
+      'Mapeamos os seus processos de atendimento, vendas e dados do jeito que eles acontecem hoje e treinamos a IA no contexto do seu negócio. Você testa junto antes de colocar no ar.'
+    ],
+    message: WA_MESSAGES.iaProcessos,
+    aside: [
+      ['Para quem é', 'Empresas com operação de atendimento, vendas ou dados que precisa responder mais rápido e com mais consistência.'],
+      ['O que resolve', 'Atendimento automatizado, análise de dados e agentes de IA treinados no contexto da empresa.'],
+      ['Como funciona', 'Mapeamos o processo atual, treinamos a IA no contexto e testamos junto com o seu time.'],
+      ['Investimento', 'Sob consulta, com escopo, prazo e valor formalizados por escrito.']
     ]
   },
   {
     id: 'automacao',
-    eyebrow: '02 · Automação com IA',
-    title: 'Seu negócio respondendo 24 horas',
+    eyebrow: '03 · Automação de operações',
+    title: 'Tarefas repetitivas rodando sozinhas',
     paras: [
-      'Cliente chama fora do horário e não recebe resposta. Pedido se perde no meio da conversa. Tarefa repetitiva come o seu dia. Automação com IA resolve isso: fluxos que respondem, organizam leads e eliminam o trabalho manual.',
-      'Mapeamos o seu atendimento do jeito que ele acontece hoje e montamos a automação em volta dele. Você testa junto antes de soltar para os clientes.'
+      'Integramos suas ferramentas para que tarefas repetitivas de vendas, marketing e gestão rodem sozinhas.',
+      'Mapeamos como a sua operação funciona hoje, integramos as ferramentas que você já usa e eliminamos o trabalho manual que trava o time.'
     ],
-    message: WA_MESSAGES.automacao,
+    message: WA_MESSAGES.automacaoOperacoes,
     aside: [
-      ['Para quem é', 'Negócios que atendem muito pelo WhatsApp e perdem cliente sem resposta.'],
-      ['O que resolve', 'Resposta na hora, pedidos organizados e tarefa repetitiva eliminada.'],
-      ['Como funciona', 'Mapeamos o fluxo, montamos a automação e testamos junto com você.'],
-      ['Investimento', 'Sob consulta']
-    ]
-  },
-  {
-    id: 'sistemas',
-    eyebrow: '03 · Sistemas sob medida',
-    title: 'Operação organizada, sem planilha e papel',
-    paras: [
-      'Seu negócio cresceu e agora se enrola com planilha, caderno e grupos de WhatsApp. Um sistema sob medida organiza cadastros, agenda e pedidos em um só lugar, do jeito que você já trabalha.',
-      'Nada de sistema de prateleira que te obriga a mudar seu processo. A ferramenta é desenhada em volta do seu jeito de trabalhar.'
-    ],
-    message: WA_MESSAGES.sistemas,
-    aside: [
-      ['Para quem é', 'Negócios que cresceram e estão perdendo tempo com controle manual.'],
-      ['O que resolve', 'Painéis e ferramentas web que organizam a operação em um só lugar.'],
-      ['Como funciona', 'Desenhamos a ferramenta em volta do seu processo, não o contrário.'],
-      ['Investimento', 'Sob consulta']
+      ['Para quem é', 'Empresas que perdem tempo com tarefas manuais de vendas, marketing e gestão.'],
+      ['O que resolve', 'Ferramentas integradas para que as tarefas repetitivas da operação rodem sozinhas.'],
+      ['Como funciona', 'Mapeamos o fluxo, integramos as ferramentas e automatizamos as tarefas repetitivas.'],
+      ['Investimento', 'Sob consulta, com escopo, prazo e valor formalizados por escrito.']
     ]
   }
 ]
@@ -71,8 +71,8 @@ export default function Servicos() {
   return (
     <Page>
       <Seo
-        title="Serviços: sites, automação com IA e sistemas | IBA Estúdio"
-        description="Sites, automação com IA e sistemas sob medida para pequenos negócios. Veja o que a IBA faz, para quem é e quanto custa."
+        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
+        description="Desenvolvimento web e sistemas, IA integrada aos processos e automação de operações para a sua empresa. Veja o que a IBA faz e como funciona."
       />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
@@ -81,10 +81,10 @@ export default function Servicos() {
             <p className="eyebrow">Serviços</p>
           </Reveal>
           <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Tecnologia sob medida para o seu negócio</h1>
+            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Desenvolvimento, IA e automação para a sua operação</h1>
           </Reveal>
           <Reveal delay={0.16}>
-            <p className="lede max-w-[62ch]">Três frentes de trabalho, um mesmo objetivo: fazer seu negócio atender melhor e vender mais. Escolha o que resolve a sua dor hoje.</p>
+            <p className="lede max-w-[62ch]">Três frentes de trabalho, um mesmo objetivo: sua operação rodando com IA. Escolha por onde começar.</p>
           </Reveal>
         </div>
       </section>

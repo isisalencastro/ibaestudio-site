@@ -19,19 +19,19 @@ const heroItem = {
 const proofs = [
   'Atendimento direto com quem desenvolve',
   'Prazos cumpridos, por escrito',
-  'Cabe no orçamento do seu negócio'
+  'Integramos as ferramentas que você já usa'
 ]
 
 const trust = [
   { Icon: ClockIcon, title: 'Compromisso de entrega', text: 'Combinamos prazo e escopo por escrito. Você acompanha cada etapa.' },
-  { Icon: CardIcon, title: 'Solução que cabe no bolso', text: 'Projetos pensados para o orçamento de um pequeno negócio.' },
+  { Icon: CardIcon, title: 'Sob medida para a operação', text: 'Projetos desenhados para o tamanho e a realidade da sua empresa.' },
   { Icon: ChatIcon, title: 'Suporte depois da entrega', text: 'Não sumimos na entrega. Seguimos por perto para ajustes e dúvidas.' }
 ]
 
 const services = [
-  { num: '01', title: 'Sites', text: 'Site institucional e páginas de venda que transformam visita em contato no WhatsApp.', price: 'A partir de R$ 1.500', note: 'site institucional ou página de venda', anchor: '/servicos#sites' },
-  { num: '02', title: 'Automação com IA', text: 'Fluxos que respondem cliente no WhatsApp e eliminam tarefa repetitiva. Negócio trabalhando 24 horas.', price: 'Sob consulta', note: 'varia com a complexidade do fluxo', anchor: '/servicos#automacao' },
-  { num: '03', title: 'Sistemas sob medida', text: 'Painéis e ferramentas web que organizam a operação: cadastros, agenda e pedidos.', price: 'Sob consulta', note: 'sistema desenhado para o seu jeito de trabalhar', anchor: '/servicos#sistemas' }
+  { num: '01', title: 'Desenvolvimento web e sistemas', text: 'Sites institucionais, portais e sistemas sob medida, construídos para crescer com a sua operação.', anchor: '/servicos#web-e-sistemas' },
+  { num: '02', title: 'IA integrada aos processos', text: 'Atendimento automatizado, análise de dados e agentes de IA treinados no contexto da sua empresa.', anchor: '/servicos#ia-integrada' },
+  { num: '03', title: 'Automação de operações', text: 'Integramos suas ferramentas para que tarefas repetitivas de vendas, marketing e gestão rodem sozinhas.', anchor: '/servicos#automacao' }
 ]
 
 const steps = [
@@ -91,8 +91,8 @@ export default function Home() {
   return (
     <Page>
       <Seo
-        title="IBA Estúdio | Sites, Automação com IA e Sistemas para pequenos negócios"
-        description="Sites, automação com IA e sistemas sob medida para pequenos negócios. Atendimento direto, processo claro e prazos cumpridos."
+        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
+        description="A IBA desenvolve sites, sistemas e integrações de IA que fazem sua operação rodar: atendimento, vendas, marketing, dados e processos internos. Atendimento direto e prazos cumpridos."
       />
 
       <section className="relative bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-[72px] overflow-hidden">
@@ -104,15 +104,15 @@ export default function Home() {
             </motion.span>
 
             <motion.h1 variants={heroItem} className="text-[clamp(2.1rem,4.6vw,3.4rem)] mt-6 mb-5">
-              Tecnologia que faz seu negócio atender melhor e <span className="text-blue border-b-4 border-orange pb-0.5">vender mais</span>
+              A IA trabalhando em toda a operação da sua empresa
             </motion.h1>
 
             <motion.p variants={heroItem} className="text-gray-600 text-[1.12rem] max-w-[52ch] mb-8">
-              Sites, automação com IA e sistemas sob medida para pequenos negócios. Processo claro, atendimento direto e prazos cumpridos.
+              A IBA desenvolve sites, sistemas e integrações de IA que fazem sua operação rodar: atendimento, vendas, marketing, dados e processos internos.
             </motion.p>
 
             <motion.div variants={heroItem} className="flex flex-wrap gap-3 mb-9">
-              <a className="btn btn-primary" href={waLink(WA_MESSAGES.orcamento)} target="_blank" rel="noopener noreferrer">Pedir um orçamento</a>
+              <a className="btn btn-primary" href={waLink(WA_MESSAGES.orcamento)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
               <a className="btn btn-secondary" href="#auditoria">Auditoria gratuita</a>
             </motion.div>
 
@@ -151,7 +151,7 @@ export default function Home() {
           <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
               <p className="eyebrow">Serviços</p>
-              <h2 id="servicos-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">O que a IBA faz por você</h2>
+              <h2 id="servicos-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">O que a IBA faz pela sua operação</h2>
             </div>
             <p className="lede">Você não precisa entender de tecnologia. A gente cuida de tudo, do começo ao fim.</p>
           </Reveal>
@@ -167,10 +167,6 @@ export default function Home() {
                   <span className="font-mono text-[0.85rem] font-bold text-blue mb-4 tracking-wide">{s.num}</span>
                   <h3 className="text-[1.4rem] mb-2.5">{s.title}</h3>
                   <p className="text-gray-600 text-[0.98rem] mb-6 flex-grow">{s.text}</p>
-                  <div className="border-t border-gray-200 pt-4 mb-4">
-                    <strong className="block font-display text-[1.1rem] text-ink">{s.price}</strong>
-                    <span className="text-[0.85rem] text-gray-500">{s.note}</span>
-                  </div>
                   <Link to={s.anchor} className="font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
                     Ver detalhes
                     <ArrowRightIcon size={16} />

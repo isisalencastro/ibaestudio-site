@@ -13,7 +13,7 @@ export default function Footer() {
               <span className="text-blue">Estúdio</span>
             </span>
           </Link>
-          <p className="text-gray-600 text-[0.95rem] mt-4 max-w-[34ch]">Sites, automação com IA e sistemas sob medida para pequenos negócios.</p>
+          <p className="text-gray-600 text-[0.95rem] mt-4 max-w-[34ch]">Desenvolvimento web, sistemas e IA para a operação da sua empresa.</p>
         </div>
 
         <nav className="footer-col" aria-label="Navegação do rodapé">

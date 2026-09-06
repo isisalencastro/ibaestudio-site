@@ -7,9 +7,9 @@ import { waLink, WA_MESSAGES, mailLink, WA_NUMBER } from '../lib/site'
 import { WhatsAppIcon, ClockIcon } from '../components/Icons'
 
 const projectTypes = [
-  'Sites',
-  'Automação com IA',
-  'Sistemas sob medida',
+  'Desenvolvimento web e sistemas',
+  'IA integrada aos processos',
+  'Automação de operações',
   'Auditoria gratuita',
   'outro projeto'
 ]
@@ -53,8 +53,8 @@ export default function Contato() {
   return (
     <Page>
       <Seo
-        title="Contato | IBA Estúdio: orçamento e auditoria gratuita"
-        description="Fale com a IBA Estúdio pelo WhatsApp ou pelo formulário. Respondemos em até 1 dia útil."
+        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
+        description="Conte o principal gargalo da sua operação. A IBA devolve um caminho prático com IA. Fale pelo WhatsApp ou pelo formulário."
       />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
@@ -66,7 +66,7 @@ export default function Contato() {
             <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Vamos conversar sobre o seu projeto</h1>
           </Reveal>
           <Reveal delay={0.16}>
-            <p className="lede max-w-[62ch]">Escolha o canal que preferir. Pelo WhatsApp ou pelo formulário, você fala direto com quem desenvolve.</p>
+            <p className="lede max-w-[62ch]">Conte o principal gargalo da sua operação. A gente devolve um caminho prático com IA.</p>
           </Reveal>
         </div>
       </section>
