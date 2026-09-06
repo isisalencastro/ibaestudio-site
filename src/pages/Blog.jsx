@@ -7,7 +7,7 @@ export default function Blog() {
   return (
     <Page>
       <Seo
-        title="Blog da IBA Estúdio | Novidades e anúncios"
+        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
         description="Novidades e anúncios da IBA Estúdio: matérias, lançamentos e atualizações importantes do estúdio."
       />
 
@@ -33,7 +33,7 @@ export default function Blog() {
             </span>
             <h2 className="text-[clamp(1.5rem,3vw,2rem)] mb-4">Estamos preparando as primeiras matérias</h2>
             <p className="text-gray-600 max-w-[52ch] mx-auto mb-8">
-              Em breve, você encontra aqui novidades sobre a IBA, casos de clientes e conteúdo sobre tecnologia para pequenos negócios.
+              Em breve, você encontra aqui novidades sobre a IBA e conteúdo sobre IA aplicada à operação de empresas.
             </p>
             <a href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               Falar com a IBA

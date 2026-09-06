@@ -22,8 +22,8 @@ export default function Sobre() {
   return (
     <Page>
       <Seo
-        title="Sobre a IBA Estúdio | Tecnologia para pequenos negócios"
-        description="Conheça a IBA Estúdio: estúdio de tecnologia fundado em 2026 por Isis Alencastro, criado para levar sites, automação e sistemas a pequenos negócios."
+        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
+        description="A IBA é um estúdio de desenvolvimento fundado em Porto Alegre por Isis Alencastro que integra inteligência artificial em toda a operação de empresas."
       />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-20">
@@ -32,11 +32,11 @@ export default function Sobre() {
             <p className="eyebrow">Sobre a IBA</p>
           </Reveal>
           <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Um estúdio de tecnologia para pequenos negócios</h1>
+            <h1 className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Desenvolvimento e IA para a operação da sua empresa</h1>
           </Reveal>
           <Reveal delay={0.16}>
-            <p className="lede text-[1.15rem] max-w-[56ch]">
-              Criamos sites, automações com IA e sistemas para quem vende pelo WhatsApp e não quer perder cliente por falta de tecnologia.
+            <p className="lede text-[1.15rem] max-w-[62ch]">
+              A IBA é um estúdio de desenvolvimento fundado em Porto Alegre que integra inteligência artificial em toda a operação de empresas. Nossa tese é simples: a distância entre empresas que usam IA de forma isolada e as que a incorporam aos processos está crescendo. Trabalhamos para que nossos clientes fiquem no lado certo dessa distância, com entregas práticas: sistemas, automações e agentes de IA que resolvem problemas reais. Nossa própria operação é o primeiro case: usamos IA no atendimento, na prospecção, na produção de conteúdo e na gestão.
             </p>
           </Reveal>
           <Reveal delay={0.24}>
@@ -54,9 +54,9 @@ export default function Sobre() {
 
           <div className="max-w-[65ch]">
             <Reveal>
-              <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-7">Nascida de um problema que todo pequeno negócio conhece</h2>
-              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Quem toca um pequeno negócio costuma ter a mesma história: já tentou resolver sozinho, já contratou errado uma vez e agora quer alguém que explique direito e entregue o que promete. A IBA existe para essa pessoa.</p>
-              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Nascida em 2026, a IBA é um estúdio pequeno de propósito. Você fala direto com quem desenvolve, do primeiro contato até a entrega. Sem gerente de conta que repassa recado, sem atendimento em série.</p>
+              <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-7">Nascida de um problema que toda operação conhece</h2>
+              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Quem gere uma empresa costuma ter a mesma história: já tentou resolver sozinho, já contratou errado uma vez e agora quer alguém que explique direito e entregue o que promete. A IBA existe para essa pessoa.</p>
+              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Nascida em 2026, a IBA é um estúdio enxuto de propósito. Você fala direto com quem desenvolve, do primeiro contato até a entrega. Sem gerente de conta que repassa recado, sem atendimento em série.</p>
               <p className="text-gray-600 text-[1.08rem] leading-relaxed">A gente acredita que tecnologia boa é a que some do caminho. O cliente chama, o fluxo responde, o pedido se organiza, e você volta a cuidar do que importa: o seu cliente.</p>
             </Reveal>
           </div>
@@ -81,7 +81,7 @@ export default function Sobre() {
             <div>
               <Reveal>
                 <h3 className="text-[1.35rem] mb-2">Nós de automação</h3>
-                <p className="text-gray-600 mb-8">Cada fluxo que montamos é feito de nós: um passo atende, o outro organiza, o outro responde. A gente amarra essas pontas para o seu negócio rodar sozinho.</p>
+                <p className="text-gray-600 mb-8">Cada fluxo que montamos é feito de nós: um passo atende, o outro organiza, o outro responde. A gente amarra essas pontas para a sua operação rodar sozinha.</p>
               </Reveal>
               <Reveal delay={0.1}>
                 <h3 className="text-[1.35rem] mb-2">O polvo</h3>
@@ -100,7 +100,7 @@ export default function Sobre() {
           <Reveal>
             <p className="eyebrow text-white/80">Missão</p>
             <h2 className="text-white text-[clamp(1.8rem,3.4vw,2.6rem)] leading-tight">
-              Transformar a presença digital de pequenos negócios com automação inteligente e tecnologia acessível.
+              Integrar inteligência artificial em toda a operação de empresas, com entregas práticas e tecnologia que resolve problemas reais.
             </h2>
           </Reveal>
         </div>
@@ -155,7 +155,7 @@ export default function Sobre() {
         <div className="container-site max-w-[560px]">
           <Reveal>
             <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Quer conhecer o que a gente faz?</h2>
-            <p className="text-gray-600 mb-8">Veja como a IBA ajuda pequenos negócios a atender melhor e vender mais.</p>
+            <p className="text-gray-600 mb-8">Veja como a IBA integra IA à operação de empresas, com entregas práticas para o seu caso.</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <a className="btn btn-primary" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
               <Link to="/servicos" className="btn btn-secondary">Ver serviços</Link>

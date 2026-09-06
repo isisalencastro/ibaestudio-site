@@ -7,9 +7,9 @@ export const WA_MESSAGES = {
   orcamento: 'Olá! Vim pelo site da IBA e quero pedir um orçamento.',
   auditoria: 'Olá! Vim pelo site da IBA e quero agendar minha auditoria gratuita.',
   geral: 'Olá! Vim pelo site da IBA e quero falar com vocês.',
-  sites: 'Olá! Vim pelo site da IBA e quero saber mais sobre Sites.',
-  automacao: 'Olá! Vim pelo site da IBA e quero saber mais sobre Automação com IA.',
-  sistemas: 'Olá! Vim pelo site da IBA e quero saber mais sobre Sistemas sob medida.'
+  desenvolvimento: 'Olá! Vim pelo site da IBA e quero saber mais sobre Desenvolvimento web e sistemas.',
+  iaProcessos: 'Olá! Vim pelo site da IBA e quero saber mais sobre IA integrada aos processos.',
+  automacaoOperacoes: 'Olá! Vim pelo site da IBA e quero saber mais sobre Automação de operações.'
 }
 
 export function waLink(message = WA_MESSAGES.geral) {
