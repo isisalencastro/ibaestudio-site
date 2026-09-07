@@ -117,15 +117,15 @@ export default function Servicos() {
         </section>
       ))}
 
-      <section className="py-[72px]" id="auditoria" aria-labelledby="auditoria-titulo">
+      <section className="py-[72px]" id="diagnostico" aria-labelledby="diagnostico-titulo">
         <div className="container-site">
           <Reveal>
             <div className="bg-blue text-white rounded-lg p-12 flex flex-wrap items-center justify-between gap-6 shadow-lg">
               <div>
-                <h2 id="auditoria-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Não sabe por onde começar?</h2>
-                <p className="text-white/90 max-w-[52ch]">Faça a auditoria gratuita. Analisamos seu site e seu WhatsApp e mostramos onde dá para ganhar cliente. Sem compromisso.</p>
+                <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Não sabe por onde começar?</h2>
+                <p className="text-white/90 max-w-[52ch]">Agende um diagnóstico gratuito. Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar. Sem compromisso.</p>
               </div>
-              <a className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.auditoria)} target="_blank" rel="noopener noreferrer">Agendar auditoria</a>
+              <a className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar diagnóstico</a>
             </div>
           </Reveal>
         </div>

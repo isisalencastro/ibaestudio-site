@@ -5,7 +5,7 @@ import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES } from '../lib/site'
 
 const values = [
-  { title: 'Simplicidade', text: 'Explicamos tudo em linguagem clara. Você não precisa entender de tecnologia para tomar uma boa decisão.' },
+  { title: 'Simplicidade', text: 'Explicamos tudo em linguagem clara, sem jargão. Você decide com informação, não com promessa.' },
   { title: 'Honestidade', text: 'Se algo não vale a pena para o seu caso, a gente avisa. Preferimos perder um contrato a vender o que você não precisa.' },
   { title: 'Entrega', text: 'Prazo combinado é prazo cumprido. E se algo mudar no caminho, você fica sabendo antes, não depois.' }
 ]
