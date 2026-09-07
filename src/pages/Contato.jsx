@@ -10,7 +10,7 @@ const projectTypes = [
   'Desenvolvimento web e sistemas',
   'IA integrada aos processos',
   'Automação de operações',
-  'Auditoria gratuita',
+  'Diagnóstico gratuito',
   'outro projeto'
 ]
 
@@ -75,7 +75,7 @@ export default function Contato() {
         <div className="container-site grid md:grid-cols-2 gap-14 items-start">
           <Reveal>
             <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] mb-4">Fale direto com a gente</h2>
-            <p className="lede">Sem robô, sem atendente no meio. Você fala com quem vai colocar a mão no seu projeto.</p>
+            <p className="lede">Você fala com quem desenvolve e entende do seu projeto do início ao fim, sem atravessador.</p>
 
             <div className="my-6">
               <a className="btn btn-whatsapp" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">

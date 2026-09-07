@@ -12,11 +12,11 @@ const postura = [
 ]
 
 const faq = [
-  { q: 'Quanto custa um site?', a: 'Sites institucionais e páginas de venda partem de R$ 1.500. Portais, sistemas, IA e automações têm valor sob consulta, sempre formalizado por escrito antes de começar.' },
+  { q: 'Quanto custa?', a: 'Depende do escopo e das frentes que a sua operação precisa. Trabalhamos com implantação única e valor mensal por frente, sempre formalizado por escrito antes de começar.' },
   { q: 'Quanto tempo demora?', a: 'Depende do escopo. O prazo é combinado por escrito na proposta e você acompanha cada etapa do desenvolvimento.' },
-  { q: 'O que eu preciso para começar?', a: 'Só uma conversa. Você conta como o seu negócio funciona hoje e a gente desenha a solução em cima do seu processo.' },
+  { q: 'O que eu preciso para começar?', a: 'Só uma conversa. Você conta como a operação funciona hoje e a gente desenha a solução em cima do seu processo.' },
   { q: 'Vocês atendem a distância?', a: 'Sim. Todo o atendimento é remoto, pelo WhatsApp e por videochamada.' },
-  { q: 'Como funciona o pagamento?', a: 'Por etapas, conforme a proposta. Você paga à medida que as entregas avançam.' },
+  { q: 'Como funciona o pagamento?', a: 'Projetos de implantação começam com 50% de entrada e o restante ao longo da entrega. Frentes mensais (conteúdo, anúncios, atendimento ou automação) têm valor recorrente, formalizado por escrito.' },
   { q: 'Preciso entender de tecnologia?', a: 'Não. A gente explica tudo em linguagem simples e cuida da parte técnica por você.' },
   { q: 'O que é automação com IA?', a: 'São fluxos que respondem clientes e executam tarefas repetitivas sozinhos, como atender pelo WhatsApp a qualquer hora.' },
   { q: 'Tem suporte depois que fica pronto?', a: 'Sim. Seguimos por perto para ajustes e dúvidas após a entrega.' }

@@ -8,9 +8,9 @@ export default function Footer() {
       <Reveal className="container-site grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
         <div className="col-span-2 lg:col-span-1">
           <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center gap-2.5 text-ink hover:no-underline">
-            <img src="/img/logo-oficial-iba.png" alt="" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 rounded-lg object-cover shrink-0" />
+            <img src="/img/mascote-no.png" alt="Nó, o mascote da IBA Estúdio" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 object-contain shrink-0" />
             <span className="font-display font-extrabold text-lg leading-none">
-              <span className="text-blue">Estúdio</span>
+              <span className="text-blue">IBA</span> <span className="text-ink">Estúdio</span>
             </span>
           </Link>
           <p className="text-gray-600 text-[0.95rem] mt-4 max-w-[34ch]">Desenvolvimento web, sistemas e IA para a operação da sua empresa.</p>

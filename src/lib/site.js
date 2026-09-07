@@ -5,7 +5,7 @@ export const EMAIL = 'contato@ibaestudio.com'
 
 export const WA_MESSAGES = {
   orcamento: 'Olá! Vim pelo site da IBA e quero pedir um orçamento.',
-  auditoria: 'Olá! Vim pelo site da IBA e quero agendar minha auditoria gratuita.',
+  diagnostico: 'Olá! Vim pelo site da IBA e quero agendar um diagnóstico gratuito.',
   geral: 'Olá! Vim pelo site da IBA e quero falar com vocês.',
   desenvolvimento: 'Olá! Vim pelo site da IBA e quero saber mais sobre Desenvolvimento web e sistemas.',
   iaProcessos: 'Olá! Vim pelo site da IBA e quero saber mais sobre IA integrada aos processos.',
