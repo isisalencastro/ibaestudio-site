@@ -112,7 +112,7 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={heroItem} className="flex flex-wrap gap-3 mb-9">
-              <a className="btn btn-primary" href="#diagnostico">Diagnóstico gratuito</a>
+              <a className="btn btn-primary" href="#diagnostico">Sessão estratégica gratuita</a>
               <a className="btn btn-secondary" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
             </motion.div>
 
@@ -153,7 +153,7 @@ export default function Home() {
               <p className="eyebrow">Serviços</p>
               <h2 id="servicos-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">O que a IBA faz pela sua operação</h2>
             </div>
-            <p className="lede">Cada frente é desenhada para a sua operação, do diagnóstico à entrega, com você acompanhando tudo.</p>
+            <p className="lede">Cada frente é desenhada para a sua operação, do mapeamento à entrega, com você acompanhando tudo.</p>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -183,10 +183,10 @@ export default function Home() {
           <Reveal>
             <div className="bg-blue text-white rounded-lg p-12 flex flex-wrap items-center justify-between gap-6 shadow-lg">
               <div>
-                <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Diagnóstico gratuito</h2>
+                <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Sessão estratégica gratuita</h2>
                 <p className="text-white/90 max-w-[52ch]">Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar: atendimento, conteúdo, anúncios ou processos. Sem compromisso.</p>
               </div>
-              <a className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar diagnóstico</a>
+              <a className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
             </div>
           </Reveal>
         </div>
@@ -221,7 +221,7 @@ export default function Home() {
           <Reveal className="text-center max-w-[640px] mx-auto">
             <p className="eyebrow">Próximo passo</p>
             <h2 id="cta-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Pronto para começar?</h2>
-            <p className="text-gray-600 mb-8">Agende um diagnóstico gratuito. Em 30 minutos, você sai com um mapa de onde a IA entra na sua operação.</p>
+            <p className="text-gray-600 mb-8">Agende uma sessão estratégica gratuita. Em 30 minutos, você sai com um mapa de onde a IA entra na sua operação.</p>
             <a className="btn btn-whatsapp" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon size={20} />
               Falar no WhatsApp
