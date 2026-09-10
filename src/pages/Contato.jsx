@@ -10,7 +10,7 @@ const projectTypes = [
   'Desenvolvimento web e sistemas',
   'IA integrada aos processos',
   'Automação de operações',
-  'Diagnóstico gratuito',
+  'Sessão estratégica gratuita',
   'outro projeto'
 ]
 
