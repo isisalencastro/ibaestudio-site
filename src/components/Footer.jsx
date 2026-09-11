@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
-import { waLink, mailLink } from '../lib/site'
+import { waLink, mailLink, REDES } from '../lib/site'
 import Reveal from './Reveal'
+import { InstagramIcon, LinkedInIcon } from './Icons'
+
+const ICONE = { Instagram: InstagramIcon, LinkedIn: LinkedInIcon }
 
 export default function Footer() {
   return (
@@ -49,8 +52,30 @@ export default function Footer() {
       </Reveal>
 
       <div className="border-t border-gray-200">
-        <div className="container-site flex flex-wrap gap-2 items-center justify-between py-5">
+        <div className="container-site flex flex-wrap gap-x-5 gap-y-2 items-center py-5">
           <p className="text-gray-500 text-[0.88rem]">&copy; {new Date().getFullYear()} IBA Estúdio. Todos os direitos reservados.</p>
+
+          {/* Os icones ficam a esquerda de proposito: o botao flutuante do WhatsApp ocupa o canto
+              inferior direito e cobriria os links das redes. */}
+          <ul className="flex items-center gap-1" aria-label="Redes da IBA Estúdio">
+            {REDES.map((r) => {
+              const Icone = ICONE[r.nome]
+              return (
+                <li key={r.nome}>
+                  <a
+                    href={r.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`IBA Estúdio no ${r.nome}: ${r.usuario}`}
+                    title={`${r.nome}: ${r.usuario}`}
+                    className="inline-flex items-center justify-center w-11 h-11 rounded-lg text-gray-500 hover:text-blue hover:bg-white border border-transparent hover:border-gray-200 transition-colors"
+                  >
+                    <Icone size={20} />
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
         </div>
       </div>
     </footer>
