@@ -74,7 +74,7 @@ export default function Sobre() {
           <div className="grid lg:grid-cols-[0.45fr_0.55fr] gap-10 items-center">
             <Reveal className="flex justify-center">
               <div className="w-52 h-52 bg-white border border-gray-200 rounded-2xl shadow flex items-center justify-center">
-                <img src="/img/mascote-no.png" alt="Nó, o mascote polvo da IBA" width="150" height="150" loading="lazy" decoding="async" className="w-40 h-40 object-contain" />
+                <img src="/img/simbolo-iba.png" alt="Nó, o mascote polvo da IBA Estúdio" width="160" height="140" loading="lazy" decoding="async" className="w-40 h-auto object-contain" />
               </div>
             </Reveal>
 

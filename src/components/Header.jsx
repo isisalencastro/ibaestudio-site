@@ -10,11 +10,14 @@ const links = [
 
 function Brand() {
   return (
-    <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center gap-2.5 text-ink hover:no-underline">
-      <img src="/img/mascote-no.png" alt="Nó, o mascote da IBA Estúdio" width="40" height="40" className="w-10 h-10 object-contain shrink-0" />
-      <span className="font-display font-extrabold text-lg leading-none">
-        <span className="text-blue">IBA</span> <span className="text-ink">Estúdio</span>
-      </span>
+    <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center text-ink hover:no-underline">
+      <img
+        src="/img/logo-iba-horizontal.png"
+        alt="IBA Estúdio"
+        width="133"
+        height="44"
+        className="h-11 w-auto shrink-0 object-contain"
+      />
     </Link>
   )
 }
