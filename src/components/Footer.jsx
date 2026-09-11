@@ -7,11 +7,16 @@ export default function Footer() {
     <footer className="bg-gray-100 border-t border-gray-200 pt-14">
       <Reveal className="container-site grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
         <div className="col-span-2 lg:col-span-1">
-          <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center gap-2.5 text-ink hover:no-underline">
-            <img src="/img/mascote-no.png" alt="Nó, o mascote da IBA Estúdio" width="40" height="40" loading="lazy" decoding="async" className="w-10 h-10 object-contain shrink-0" />
-            <span className="font-display font-extrabold text-lg leading-none">
-              <span className="text-blue">IBA</span> <span className="text-ink">Estúdio</span>
-            </span>
+          <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center text-ink hover:no-underline">
+            <img
+              src="/img/logo-iba-horizontal.png"
+              alt="IBA Estúdio"
+              width="121"
+              height="40"
+              loading="lazy"
+              decoding="async"
+              className="h-10 w-auto object-contain shrink-0"
+            />
           </Link>
           <p className="text-gray-600 text-[0.95rem] mt-4 max-w-[34ch]">Desenvolvimento web, sistemas e IA para a operação da sua empresa.</p>
         </div>
