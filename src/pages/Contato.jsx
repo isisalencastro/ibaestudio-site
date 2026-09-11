@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import Seo from '../components/Seo'
-import { waLink, WA_MESSAGES, mailLink, WA_NUMBER } from '../lib/site'
+import { waLink, WA_MESSAGES, mailLink, WA_NUMBER, INSTAGRAM_URL, LINKEDIN_URL } from '../lib/site'
 import { WhatsAppIcon, ClockIcon } from '../components/Icons'
 
 const projectTypes = [
@@ -90,6 +90,13 @@ export default function Contato() {
             </p>
 
             <p className="lede mt-6">Prefere e-mail? Escreva para <a href={mailLink()} className="text-blue font-semibold hover:underline">contato@ibaestudio.com</a>.</p>
+
+            <p className="text-gray-600 mt-4">
+              Para acompanhar o trabalho da IBA:{' '}
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="text-blue font-semibold hover:underline">Instagram</a>
+              {' '}e{' '}
+              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="text-blue font-semibold hover:underline">LinkedIn</a>.
+            </p>
           </Reveal>
 
           <Reveal delay={0.12}>
