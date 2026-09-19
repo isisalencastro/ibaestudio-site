@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rodovia Sul Logística | Transportadora de cargas fracionadas e lotação</title>
+<meta name="description" content="Cargas fracionadas e lotação para o Sul e o Sudeste, com rastreio por etapa e um responsável que atende pelo nome. Quem contrata não precisa ligar para saber onde está a carga." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --primary: #2563EB;
+  --primary-dark: #1E40AF;
+  --accent: #F59E0B;
+  --ink: #0F172A;
+  --soft: #F1F5F9;
+  --radius: 10px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: 'Inter', system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.6; }
+h1, h2, h3 { font-family: 'Archivo', system-ui, sans-serif; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -.01em; }
+a { color: inherit; }
+img { max-width: 100%; }
+.wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
+.tarja { background: #101828; color: #fff; font-size: .82rem; padding: 8px 0; }
+.tarja span { opacity: .85; }
+header { border-bottom: 1px solid rgba(16,24,40,.08); position: sticky; top: 0; background: #fff; z-index: 5; }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
+.marca { font-family: 'Archivo', system-ui, sans-serif; font-weight: 800; font-size: 1.15rem; letter-spacing: -.02em; }
+.marca b { color: var(--primary); }
+nav a { text-decoration: none; margin-left: 20px; font-size: .95rem; color: #475467; }
+nav a:hover { color: var(--primary); }
+.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 12px 22px; border-radius: var(--radius);
+        background: var(--accent); color: #101828; font-weight: 700; text-decoration: none; }
+.btn.ghost { background: transparent; border: 1.5px solid currentColor; color: var(--primary); }
+.hero { background: #0B1220; color: #fff; padding: 84px 0 72px; }
+.hero .wrap { display: grid; gap: 40px; grid-template-columns: 1.05fr .95fr; align-items: center; }
+.hero p { font-size: 1.08rem; opacity: .88; max-width: 52ch; }
+.hero .selo { display: inline-block; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+               color: var(--accent); margin-bottom: 18px; }
+.hero h1 { font-size: clamp(2rem, 4.6vw, 3.1rem); max-width: 20ch; }
+.hero-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 60px rgba(16,24,40,.18); background: #fff; }
+.hero-img div { height: 320px; background: linear-gradient(150deg, var(--primary), var(--primary-dark)); }
+.faixa { background: #2563EB; color: #fff; padding: 20px 0; }
+.faixa .wrap { display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; }
+.faixa div { font-size: .95rem; opacity: .95; }
+.faixa b { display: block; font-family: 'Archivo', system-ui, sans-serif; font-size: 1.35rem; }
+section { padding: 76px 0; }
+section + section { border-top: 1px solid rgba(16,24,40,.07); }
+.olho { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); font-weight: 700; margin-bottom: 10px; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); max-width: 24ch; }
+.lista-servicos { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 28px; }
+.servico { background: var(--soft); border-radius: var(--radius); padding: 26px 24px; }
+.servico h3 { font-size: 1.08rem; margin-bottom: 8px; }
+.servico p { margin: 0; color: #475467; font-size: .96rem; }
+.diferenciais { display: grid; gap: 30px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 26px; }
+.diferenciais div { border-top: 3px solid var(--accent); padding-top: 16px; }
+.contato { background: var(--ink); color: #fff; padding: 72px 0; }
+.contato .wrap { display: grid; gap: 36px; grid-template-columns: 1.1fr .9fr; align-items: center; }
+.contato a.btn { justify-self: start; }
+.dados { list-style: none; padding: 0; margin: 0; }
+.dados li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.14); font-size: .98rem; }
+.dados li:last-child { border-bottom: 0; }
+footer { padding: 30px 0; font-size: .88rem; color: #667085; }
+@media (max-width: 900px) {
+  .hero .wrap, .contato .wrap { grid-template-columns: 1fr; }
+  .hero { padding-top: 60px; }
+  nav { display: none; }
+}
+</style>
+</head>
+<body>
+  <div class="tarja"><div class="wrap"><span>Modelo demonstrativo feito para logística · conteúdo de exemplo, empresa fictícia · IBA Estúdio</span></div></div>
+
+  <header>
+    <div class="wrap">
+      <div class="marca">Rodovia <b>Sul Logística</b></div>
+      <nav>
+        <a href="#servicos">Serviços</a>
+        <a href="#estrutura">Estrutura</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="selo">Transporte de cargas no Sul do país</span>
+        <h1>Sua carga chega, e você sabe onde ela está</h1>
+        <p>Cargas fracionadas e lotação para o Sul e o Sudeste, com rastreio por etapa e um responsável que atende pelo nome. Quem contrata não precisa ligar para saber onde está a carga.</p>
+        <p style="margin-top:26px"><a class="btn" href="#contato">Pedir cotação de frete</a></p>
+      </div>
+      <div class="hero-img"><div aria-hidden="true"></div></div>
+    </div>
+  </section>
+
+      <div class="faixa">
+        <div class="wrap">
+        <div><b>Sul e Sudeste</b>cobertura com saída diária</div>
+        <div><b>Rastreio por etapa</b>atualizado até a entrega</div>
+        <div><b>Cotação em 1 dia útil</b>com valor fechado, sem taxa surpresa</div>
+        </div>
+      </div>
+  <section id="servicos">
+    <div class="wrap">
+      <p class="olho">O que fazemos</p>
+      <h2>Como trabalhamos</h2>
+      <div class="lista-servicos">
+        <div class="servico">
+          <h3>Carga fracionada</h3>
+          <p>Sua mercadoria sai com outras na mesma rota, com data de coleta combinada e comprovante por etapa.</p>
+        </div>
+        <div class="servico">
+          <h3>Lotação e carreta fechada</h3>
+          <p>Veículo dedicado para volume maior, com motorista designado e contato direto durante o trajeto.</p>
+        </div>
+        <div class="servico">
+          <h3>Distribuição urbana</h3>
+          <p>Entregas na região metropolitana com janela de horário combinada, para o cliente receber sem esperar o dia inteiro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="estrutura">
+    <div class="wrap">
+      <p class="olho">Por que Rodovia</p>
+      <h2>Por que as empresas ficam</h2>
+      <div class="diferenciais">
+        <div>
+          <h3>Um responsável por conta</h3>
+          <p>O cliente fala sempre com a mesma pessoa, que já conhece a carga e a rotina dele.</p>
+        </div>
+        <div>
+          <h3>Aviso antes de sair</h3>
+          <p>Coleta, trânsito e entrega avisados por mensagem, sem o cliente precisar perguntar.</p>
+        </div>
+        <div>
+          <h3>Comprovante sem papelada</h3>
+          <p>Canhoto, ocorrência e nota ficam disponíveis na hora, para o financeiro fechar rápido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contato" id="contato">
+    <div class="wrap">
+      <div>
+        <h2 style="color:#fff">Manda o trecho e a carga</h2>
+        <p style="opacity:.85">Com origem, destino e peso, a gente devolve a cotação com prazo e valor fechado.</p>
+        <p style="margin-top:24px"><a class="btn" href="tel:5130001111">Falar agora</a></p>
+      </div>
+      <ul class="dados">
+        <li><strong>Telefone</strong><br />(51) 3000-1111</li>
+        <li><strong>Endereço</strong><br />Av. Exemplo, 2500 · Porto Alegre/RS</li>
+        <li><strong>Horário</strong><br />Segunda a sábado, 7h às 18h</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>Rodovia Sul Logística · site de demonstração, conteúdo de exemplo. Página feita pela IBA Estúdio para mostrar o modelo do setor de logística.</p>
+    </div>
+  </footer>
+</body>
+</html>

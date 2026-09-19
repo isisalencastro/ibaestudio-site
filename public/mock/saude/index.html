@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clínica Horizonte | Clínica médica com consultas e exames</title>
+<meta name="description" content="Consultas, exames e acompanhamento no mesmo lugar, com agendamento rápido e resposta no WhatsApp no mesmo dia. Aqui o paciente sabe o que vai acontecer antes de chegar." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --primary: #0F766E;
+  --primary-dark: #115E59;
+  --accent: #F59E0B;
+  --ink: #10201F;
+  --soft: #ECFDF5;
+  --radius: 18px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: 'Inter', system-ui, sans-serif; color: var(--ink); background: #fff; line-height: 1.6; }
+h1, h2, h3 { font-family: 'Archivo', system-ui, sans-serif; line-height: 1.15; margin: 0 0 .5em; letter-spacing: -.01em; }
+a { color: inherit; }
+img { max-width: 100%; }
+.wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
+.tarja { background: #101828; color: #fff; font-size: .82rem; padding: 8px 0; }
+.tarja span { opacity: .85; }
+header { border-bottom: 1px solid rgba(16,24,40,.08); position: sticky; top: 0; background: #fff; z-index: 5; }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; }
+.marca { font-family: 'Archivo', system-ui, sans-serif; font-weight: 800; font-size: 1.15rem; letter-spacing: -.02em; }
+.marca b { color: var(--primary); }
+nav a { text-decoration: none; margin-left: 20px; font-size: .95rem; color: #475467; }
+nav a:hover { color: var(--primary); }
+.btn { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 12px 22px; border-radius: var(--radius);
+        background: var(--accent); color: #101828; font-weight: 700; text-decoration: none; }
+.btn.ghost { background: transparent; border: 1.5px solid currentColor; color: var(--primary); }
+.hero { background: var(--soft); color: var(--ink); padding: 84px 0 72px; }
+.hero .wrap { display: grid; gap: 40px; grid-template-columns: 1.05fr .95fr; align-items: center; }
+.hero p { font-size: 1.08rem; opacity: .95; max-width: 52ch; }
+.hero .selo { display: inline-block; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700;
+               color: var(--primary); margin-bottom: 18px; }
+.hero h1 { font-size: clamp(2rem, 4.6vw, 3.1rem); max-width: 20ch; }
+.hero-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 60px rgba(16,24,40,.18); background: #fff; }
+.hero-img div { height: 320px; background: linear-gradient(150deg, var(--primary), var(--primary-dark)); }
+.faixa { background: #0F766E; color: #fff; padding: 20px 0; }
+.faixa .wrap { display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; }
+.faixa div { font-size: .95rem; opacity: .95; }
+.faixa b { display: block; font-family: 'Archivo', system-ui, sans-serif; font-size: 1.35rem; }
+section { padding: 76px 0; }
+section + section { border-top: 1px solid rgba(16,24,40,.07); }
+.olho { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); font-weight: 700; margin-bottom: 10px; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); max-width: 24ch; }
+.lista-servicos { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 28px; }
+.servico { background: var(--soft); border-radius: var(--radius); padding: 26px 24px; }
+.servico h3 { font-size: 1.08rem; margin-bottom: 8px; }
+.servico p { margin: 0; color: #475467; font-size: .96rem; }
+.diferenciais { display: grid; gap: 30px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 26px; }
+.diferenciais div { border-top: 3px solid var(--accent); padding-top: 16px; }
+.contato { background: var(--ink); color: #fff; padding: 72px 0; }
+.contato .wrap { display: grid; gap: 36px; grid-template-columns: 1.1fr .9fr; align-items: center; }
+.contato a.btn { justify-self: start; }
+.dados { list-style: none; padding: 0; margin: 0; }
+.dados li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.14); font-size: .98rem; }
+.dados li:last-child { border-bottom: 0; }
+footer { padding: 30px 0; font-size: .88rem; color: #667085; }
+@media (max-width: 900px) {
+  .hero .wrap, .contato .wrap { grid-template-columns: 1fr; }
+  .hero { padding-top: 60px; }
+  nav { display: none; }
+}
+</style>
+</head>
+<body>
+  <div class="tarja"><div class="wrap"><span>Modelo demonstrativo feito para saúde · conteúdo de exemplo, empresa fictícia · IBA Estúdio</span></div></div>
+
+  <header>
+    <div class="wrap">
+      <div class="marca">Clínica <b>Horizonte</b></div>
+      <nav>
+        <a href="#servicos">Serviços</a>
+        <a href="#estrutura">Estrutura</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="selo">Clínica médica em Porto Alegre</span>
+        <h1>Atendimento que começa antes da consulta</h1>
+        <p>Consultas, exames e acompanhamento no mesmo lugar, com agendamento rápido e resposta no WhatsApp no mesmo dia. Aqui o paciente sabe o que vai acontecer antes de chegar.</p>
+        <p style="margin-top:26px"><a class="btn" href="#contato">Agendar pelo WhatsApp</a></p>
+      </div>
+      <div class="hero-img"><div aria-hidden="true"></div></div>
+    </div>
+  </section>
+
+      <div class="faixa">
+        <div class="wrap">
+        <div><b>3 unidades</b>para atender sem fila de espera</div>
+        <div><b>Resposta no mesmo dia</b>para todo agendamento pedido pelo site</div>
+        <div><b>Retorno incluso</b>no acompanhamento de cada tratamento</div>
+        </div>
+      </div>
+  <section id="servicos">
+    <div class="wrap">
+      <p class="olho">O que fazemos</p>
+      <h2>O que o paciente resolve aqui</h2>
+      <div class="lista-servicos">
+        <div class="servico">
+          <h3>Consultas com especialistas</h3>
+          <p>Clínico geral, cardiologia e dermatologia, com agenda aberta no site e confirmação por mensagem.</p>
+        </div>
+        <div class="servico">
+          <h3>Exames no mesmo dia</h3>
+          <p>Coleta e resultados online, para o paciente não voltar só para buscar laudo.</p>
+        </div>
+        <div class="servico">
+          <h3>Acompanhamento contínuo</h3>
+          <p>Retorno marcado antes de sair, com histórico do tratamento acessível para a equipe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="estrutura">
+    <div class="wrap">
+      <p class="olho">Por que Clínica</p>
+      <h2>O que muda no dia a dia</h2>
+      <div class="diferenciais">
+        <div>
+          <h3>Agenda sem telefone ocupado</h3>
+          <p>O agendamento chega organizado e a recepção trabalha sem interromper o atendimento.</p>
+        </div>
+        <div>
+          <h3>Lembrete antes da consulta</h3>
+          <p>Menos falta no dia marcado, porque o paciente é avisado na véspera.</p>
+        </div>
+        <div>
+          <h3>Histórico na mão do médico</h3>
+          <p>Cada consulta começa com o contexto do paciente, sem procurar em papel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contato" id="contato">
+    <div class="wrap">
+      <div>
+        <h2 style="color:#fff">Marque a sua consulta</h2>
+        <p style="opacity:.85">Manda uma mensagem com o que você precisa e a nossa equipe responde com os horários disponíveis.</p>
+        <p style="margin-top:24px"><a class="btn" href="tel:5130000000">Falar agora</a></p>
+      </div>
+      <ul class="dados">
+        <li><strong>Telefone</strong><br />(51) 3000-0000</li>
+        <li><strong>Endereço</strong><br />Rua Exemplo, 100 · Porto Alegre/RS</li>
+        <li><strong>Horário</strong><br />Segunda a sexta, 8h às 19h</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>Clínica Horizonte · site de demonstração, conteúdo de exemplo. Página feita pela IBA Estúdio para mostrar o modelo do setor de saúde.</p>
+    </div>
+  </footer>
+</body>
+</html>

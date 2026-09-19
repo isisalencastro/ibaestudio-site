@@ -1,0 +1,43 @@
+[
+  {
+    "slug": "logistica",
+    "setor": "logistica",
+    "setor_nome": "logística",
+    "nome": "Rodovia Sul Logística",
+    "selo": "Transporte de cargas no Sul do país",
+    "titulo": "Sua carga chega, e você sabe onde ela está",
+    "resumo": "Transportadora de cargas fracionadas e lotação",
+    "descricao": "Cargas fracionadas e lotação para o Sul e o Sudeste, com rastreio por etapa e um responsável que atende pelo nome. Quem contrata não precisa ligar para saber onde está a carga.",
+    "cta": "Pedir cotação de frete",
+    "cores": {
+      "primary": "#2563EB",
+      "primary_dark": "#1E40AF",
+      "accent": "#F59E0B",
+      "ink": "#0F172A",
+      "soft": "#F1F5F9",
+      "hero_bg": "#0B1220"
+    },
+    "numeros": [
+      { "valor": "Sul e Sudeste", "rotulo": "cobertura com saída diária" },
+      { "valor": "Rastreio por etapa", "rotulo": "atualizado até a entrega" },
+      { "valor": "Cotação em 1 dia útil", "rotulo": "com valor fechado, sem taxa surpresa" }
+    ],
+    "titulo_servicos": "Como trabalhamos",
+    "servicos": [
+      { "nome": "Carga fracionada", "texto": "Sua mercadoria sai com outras na mesma rota, com data de coleta combinada e comprovante por etapa." },
+      { "nome": "Lotação e carreta fechada", "texto": "Veículo dedicado para volume maior, com motorista designado e contato direto durante o trajeto." },
+      { "nome": "Distribuição urbana", "texto": "Entregas na região metropolitana com janela de horário combinada, para o cliente receber sem esperar o dia inteiro." }
+    ],
+    "titulo_diferenciais": "Por que as empresas ficam",
+    "diferenciais": [
+      { "titulo": "Um responsável por conta", "texto": "O cliente fala sempre com a mesma pessoa, que já conhece a carga e a rotina dele." },
+      { "titulo": "Aviso antes de sair", "texto": "Coleta, trânsito e entrega avisados por mensagem, sem o cliente precisar perguntar." },
+      { "titulo": "Comprovante sem papelada", "texto": "Canhoto, ocorrência e nota ficam disponíveis na hora, para o financeiro fechar rápido." }
+    ],
+    "titulo_contato": "Manda o trecho e a carga",
+    "texto_contato": "Com origem, destino e peso, a gente devolve a cotação com prazo e valor fechado.",
+    "telefone": "(51) 3000-1111",
+    "endereco": "Av. Exemplo, 2500 · Porto Alegre/RS",
+    "horario": "Segunda a sábado, 7h às 18h"
+  }
+]

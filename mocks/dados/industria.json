@@ -1,0 +1,43 @@
+[
+  {
+    "slug": "industria",
+    "setor": "industria",
+    "setor_nome": "indústria",
+    "nome": "Metalúrgica Bento",
+    "selo": "Usinagem e caldeiraria sob medida",
+    "titulo": "Peça sob medida, prazo combinado, sem retrabalho",
+    "resumo": "Usinagem, caldeiraria e manutenção industrial",
+    "descricao": "Usinagem, caldeiraria e manutenção de equipamentos para indústrias da região. O orçamento sai com desenho, prazo e material definidos, para a sua linha não parar esperando resposta.",
+    "cta": "Enviar desenho para orçamento",
+    "cores": {
+      "primary": "#B45309",
+      "primary_dark": "#92400E",
+      "accent": "#F97316",
+      "ink": "#101828",
+      "soft": "#F2F4F7",
+      "hero_bg": "#14181F"
+    },
+    "numeros": [
+      { "valor": "Orçamento com desenho", "rotulo": "antes de qualquer peça ser cortada" },
+      { "valor": "Prazo em dias úteis", "rotulo": "combinado na aprovação, sem surpresa" },
+      { "valor": "Manutenção no cliente", "rotulo": "equipe que vai até a sua planta" }
+    ],
+    "titulo_servicos": "O que a fábrica faz",
+    "servicos": [
+      { "nome": "Usinagem de precisão", "texto": "Torno e fresadora para peças de reposição e componentes, com tolerância conferida e laudo de medição." },
+      { "nome": "Caldeiraria sob medida", "texto": "Estruturas, chassi e reservatórios em aço, cortados e soldados conforme o seu desenho." },
+      { "nome": "Manutenção industrial", "texto": "Conserto e recuperação de equipamentos, com atendimento na planta para reduzir parada de linha." }
+    ],
+    "titulo_diferenciais": "Como a produção anda",
+    "diferenciais": [
+      { "titulo": "Orçamento sem enrolação", "texto": "Desenho, material, prazo e valor na mesma resposta, para o seu setor de compras decidir." },
+      { "titulo": "Acompanhamento da ordem", "texto": "Você sabe em que etapa está a sua peça, sem precisar ligar para a fábrica." },
+      { "titulo": "Histórico de cada peça", "texto": "Desenho, medidas e material ficam guardados para a próxima reposição sair igual." }
+    ],
+    "titulo_contato": "Precisa de peça ou manutenção?",
+    "texto_contato": "Manda o desenho ou a foto do equipamento. A gente responde com o que dá para fazer, o prazo e o valor.",
+    "telefone": "(54) 3000-2222",
+    "endereco": "Distrito Industrial · Bento Gonçalves/RS",
+    "horario": "Segunda a sexta, 7h30 às 17h30"
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "slug": "saude",
+    "setor": "saude",
+    "setor_nome": "saúde",
+    "nome": "Clínica Horizonte",
+    "selo": "Clínica médica em Porto Alegre",
+    "titulo": "Atendimento que começa antes da consulta",
+    "resumo": "Clínica médica com consultas e exames",
+    "descricao": "Consultas, exames e acompanhamento no mesmo lugar, com agendamento rápido e resposta no WhatsApp no mesmo dia. Aqui o paciente sabe o que vai acontecer antes de chegar.",
+    "cta": "Agendar pelo WhatsApp",
+    "cores": {
+      "primary": "#0F766E",
+      "primary_dark": "#115E59",
+      "accent": "#F59E0B",
+      "ink": "#10201F",
+      "soft": "#ECFDF5",
+      "hero_bg": "#F0FDFA"
+    },
+    "numeros": [
+      { "valor": "3 unidades", "rotulo": "para atender sem fila de espera" },
+      { "valor": "Resposta no mesmo dia", "rotulo": "para todo agendamento pedido pelo site" },
+      { "valor": "Retorno incluso", "rotulo": "no acompanhamento de cada tratamento" }
+    ],
+    "titulo_servicos": "O que o paciente resolve aqui",
+    "servicos": [
+      { "nome": "Consultas com especialistas", "texto": "Clínico geral, cardiologia e dermatologia, com agenda aberta no site e confirmação por mensagem." },
+      { "nome": "Exames no mesmo dia", "texto": "Coleta e resultados online, para o paciente não voltar só para buscar laudo." },
+      { "nome": "Acompanhamento contínuo", "texto": "Retorno marcado antes de sair, com histórico do tratamento acessível para a equipe." }
+    ],
+    "titulo_diferenciais": "O que muda no dia a dia",
+    "diferenciais": [
+      { "titulo": "Agenda sem telefone ocupado", "texto": "O agendamento chega organizado e a recepção trabalha sem interromper o atendimento." },
+      { "titulo": "Lembrete antes da consulta", "texto": "Menos falta no dia marcado, porque o paciente é avisado na véspera." },
+      { "titulo": "Histórico na mão do médico", "texto": "Cada consulta começa com o contexto do paciente, sem procurar em papel." }
+    ],
+    "titulo_contato": "Marque a sua consulta",
+    "texto_contato": "Manda uma mensagem com o que você precisa e a nossa equipe responde com os horários disponíveis.",
+    "telefone": "(51) 3000-0000",
+    "endereco": "Rua Exemplo, 100 · Porto Alegre/RS",
+    "horario": "Segunda a sexta, 8h às 19h"
+  }
+]
