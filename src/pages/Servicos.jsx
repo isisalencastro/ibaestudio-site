@@ -19,7 +19,8 @@ const services = [
       ['Para quem é', 'Empresas que precisam de presença profissional e de sistemas que acompanhem o ritmo da operação.'],
       ['O que resolve', 'Sites institucionais, portais e sistemas sob medida, prontos para crescer com a operação.'],
       ['Como funciona', 'Conteúdo, design e desenvolvimento por nossa conta. Você aprova cada etapa.'],
-      ['Investimento', 'Sob consulta, com escopo, prazo e valor formalizados por escrito.']
+      ['Investimento', 'Site institucional: R$ 1.000 de implantação + R$ 197,90/mês de manutenção'],
+      ['Prazo e pagamento', 'Até 10 dias úteis depois de receber o material. Metade na aprovação, metade na entrega, com o primeiro mês de manutenção já incluído. Portais e sistemas sob medida saem por escopo e valor por escrito.']
     ]
   },
   {
@@ -35,7 +36,8 @@ const services = [
       ['Para quem é', 'Empresas com operação de atendimento, vendas ou dados que precisa responder mais rápido e com mais consistência.'],
       ['O que resolve', 'Atendimento automatizado, análise de dados e agentes de IA treinados no contexto da empresa.'],
       ['Como funciona', 'Mapeamos o processo atual, treinamos a IA no contexto e testamos junto com o seu time.'],
-      ['Investimento', 'Sob consulta, com escopo, prazo e valor formalizados por escrito.']
+      ['Investimento', 'R$ 2.000 de implantação + R$ 900/mês de operação'],
+      ['Prazo e pagamento', 'Até 20 dias úteis. Metade na aprovação, metade na entrega. A mensalidade cobre os ajustes que você pedir, o acompanhamento e o relatório do mês.']
     ]
   },
   {

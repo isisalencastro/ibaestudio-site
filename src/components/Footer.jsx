@@ -28,6 +28,7 @@ export default function Footer() {
           <h3 className="text-[0.85rem] font-body font-bold uppercase tracking-wider text-gray-500 mb-4">Navegação</h3>
           <ul className="flex flex-col gap-2.5">
             <li><Link to="/servicos" className="text-gray-600 text-[0.95rem] hover:text-blue">Serviços</Link></li>
+            <li><Link to="/praxe" className="text-gray-600 text-[0.95rem] hover:text-blue">Praxe</Link></li>
             <li><Link to="/sobre" className="text-gray-600 text-[0.95rem] hover:text-blue">Sobre</Link></li>
             <li><Link to="/blog" className="text-gray-600 text-[0.95rem] hover:text-blue">Blog</Link></li>
             <li><Link to="/contato" className="text-gray-600 text-[0.95rem] hover:text-blue">Contato</Link></li>

@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import Seo from '../components/Seo'
-import { waLink, WA_MESSAGES, PRAXE_URL } from '../lib/site'
+import { waLink, WA_MESSAGES, PRAXE_PAGINA } from '../lib/site'
 import { CheckIcon, ArrowRightIcon, WhatsAppIcon } from '../components/Icons'
 
 const heroContainer = {
@@ -47,7 +47,8 @@ const servicosApoio = [
 const packsPraxe = [
   { nome: 'Prospecção', texto: 'Encher a agenda com quem decide.' },
   { nome: 'Conteúdo', texto: 'Uma ideia virando muitas peças.' },
-  { nome: 'Operação', texto: 'A casa rodando sem você no meio.' }
+  { nome: 'Operação', texto: 'A casa rodando sem você no meio.' },
+  { nome: 'Transversais', texto: 'As cinco que valem em qualquer trabalho.' }
 ]
 
 const steps = [
@@ -269,17 +270,14 @@ export default function Home() {
                 <p className="eyebrow">Da nossa operação</p>
                 <h2 id="praxe-titulo" className="text-[clamp(1.6rem,2.8vw,2.1rem)] mb-4">A Praxe empacota as skills que a gente usa todo dia</h2>
                 <p className="text-gray-600 text-[1.02rem] max-w-[54ch] mb-7">
-                  A operação da IBA roda dentro de agente de código, e a gente documentou esse jeito de trabalhar em três packs de skills. Se você já usa agente de código no seu estúdio ou na sua agência, dá para instalar o mesmo método. Pagamento único de R$ 97, sem mensalidade.
+                  A operação da IBA roda dentro de agente de código, e a gente escreveu esse jeito de trabalhar em skills. São 32 skills em quatro packs e 32 scripts em Python. Se você já usa agente de código no seu estúdio ou na sua agência, dá para instalar o mesmo método: R$ 197 o completo, R$ 97 cada pack avulso, sem mensalidade.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
-                  <a className="btn btn-secondary" href={PRAXE_URL} target="_blank" rel="noopener noreferrer">
+                  <Link className="btn btn-secondary" to={PRAXE_PAGINA}>
                     Conhecer a Praxe
                     <ArrowRightIcon size={16} />
-                  </a>
-                  <a href={PRAXE_URL} target="_blank" rel="noopener noreferrer" className="text-blue font-semibold hover:underline break-all">
-                    praxeskills.com.br
-                  </a>
+                  </Link>
                 </div>
               </div>
 

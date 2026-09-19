@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
 import Home from './pages/Home'
 import Servicos from './pages/Servicos'
+import Praxe from './pages/Praxe'
 import Sobre from './pages/Sobre'
 import Contato from './pages/Contato'
 import Politicas from './pages/Politicas'
@@ -31,6 +32,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/servicos" element={<Servicos />} />
+        <Route path="/praxe" element={<Praxe />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<Contato />} />
         <Route path="/politicas" element={<Politicas />} />
