@@ -102,7 +102,7 @@ export default function Servicos() {
             </Reveal>
 
             <Reveal delay={0.12} x={24} y={0}>
-              <aside className="bg-gray-100 border border-gray-200 rounded-lg p-7">
+              <aside className="bg-gray-100 border border-gray-200 rounded-3xl p-7 sm:p-8 lg:p-9">
                 <dl className="flex flex-col gap-5">
                   {s.aside.map(([dt, dd]) => (
                     <div key={dt}>
@@ -120,7 +120,7 @@ export default function Servicos() {
       <section className="py-[72px]" id="diagnostico" aria-labelledby="diagnostico-titulo">
         <div className="container-site">
           <Reveal>
-            <div className="bg-blue text-white rounded-lg p-12 flex flex-wrap items-center justify-between gap-6 shadow-lg">
+            <div className="bg-blue text-white rounded-3xl p-8 sm:p-12 lg:p-14 flex flex-wrap items-center justify-between gap-6 shadow-lg">
               <div>
                 <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Não sabe por onde começar?</h2>
                 <p className="text-white/90 max-w-[52ch]">Agende uma sessão estratégica gratuita. Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar. Sem compromisso.</p>

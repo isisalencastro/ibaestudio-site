@@ -3,8 +3,8 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import Seo from '../components/Seo'
-import { waLink, WA_MESSAGES } from '../lib/site'
-import { CheckIcon, ArrowRightIcon, ClockIcon, CardIcon, ChatIcon, WhatsAppIcon } from '../components/Icons'
+import { waLink, WA_MESSAGES, PRAXE_URL } from '../lib/site'
+import { CheckIcon, ArrowRightIcon, WhatsAppIcon } from '../components/Icons'
 
 const heroContainer = {
   hidden: {},
@@ -23,15 +23,31 @@ const proofs = [
 ]
 
 const trust = [
-  { Icon: ClockIcon, title: 'Compromisso de entrega', text: 'Combinamos prazo e escopo por escrito. Você acompanha cada etapa.' },
-  { Icon: CardIcon, title: 'Sob medida para a operação', text: 'Projetos desenhados para o tamanho e a realidade da sua empresa.' },
-  { Icon: ChatIcon, title: 'Suporte depois da entrega', text: 'Não sumimos na entrega. Seguimos por perto para ajustes e dúvidas.' }
+  { title: 'Compromisso de entrega', text: 'Combinamos prazo e escopo por escrito. Você acompanha cada etapa.' },
+  { title: 'Sob medida para a operação', text: 'Projetos desenhados para a realidade da sua empresa.' },
+  { title: 'Suporte depois da entrega', text: 'Não sumimos na entrega. Seguimos por perto para ajustes e dúvidas.' }
 ]
 
-const services = [
-  { num: '01', title: 'Desenvolvimento web e sistemas', text: 'Sites institucionais, portais e sistemas sob medida, construídos para crescer com a sua operação.', anchor: '/servicos#web-e-sistemas' },
-  { num: '02', title: 'IA integrada aos processos', text: 'Atendimento automatizado, análise de dados e agentes de IA treinados no contexto da sua empresa.', anchor: '/servicos#ia-integrada' },
-  { num: '03', title: 'Automação de operações', text: 'Integramos suas ferramentas para que tarefas repetitivas de vendas, marketing e gestão rodem sozinhas.', anchor: '/servicos#automacao' }
+const servicoDestaque = {
+  title: 'IA integrada aos processos',
+  text: 'Atendimento que responde sozinho, dados organizados sem planilha manual e agentes treinados no contexto da sua empresa. É a frente que mais muda o dia a dia de quem já tem operação rodando.',
+  exemplos: [
+    'Atendimento no WhatsApp que qualifica e encaminha',
+    'Relatórios e dados atualizados sem trabalho manual',
+    'Agentes treinados nos seus documentos e processos'
+  ],
+  anchor: '/servicos#ia-integrada'
+}
+
+const servicosApoio = [
+  { title: 'Desenvolvimento web e sistemas', text: 'Sites institucionais, portais e sistemas sob medida, construídos para crescer com a sua operação.', anchor: '/servicos#web-e-sistemas' },
+  { title: 'Automação de operações', text: 'Integramos suas ferramentas para que tarefas repetitivas de vendas, marketing e gestão rodem sozinhas.', anchor: '/servicos#automacao' }
+]
+
+const packsPraxe = [
+  { nome: 'Prospecção', texto: 'Encher a agenda com quem decide.' },
+  { nome: 'Conteúdo', texto: 'Uma ideia virando muitas peças.' },
+  { nome: 'Operação', texto: 'A casa rodando sem você no meio.' }
 ]
 
 const steps = [
@@ -44,7 +60,7 @@ const steps = [
 function Mockup() {
   return (
     <motion.div
-      className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
+      className="bg-white border border-gray-200 rounded-3xl shadow-lg overflow-hidden"
       aria-hidden="true"
       initial={{ opacity: 0, y: 40, rotate: -1 }}
       animate={{ opacity: 1, y: 0, rotate: 0 }}
@@ -66,7 +82,7 @@ function Mockup() {
           <span className="w-11 h-2 rounded bg-gray-200" />
           <span className="w-11 h-2 rounded bg-gray-200" />
         </div>
-        <div className="bg-blue-soft rounded-lg p-5 flex flex-col gap-2.5">
+        <div className="bg-blue-soft rounded-2xl p-5 flex flex-col gap-2.5">
           <span className="block w-4/5 h-3.5 rounded bg-blue opacity-90" />
           <span className="block w-3/5 h-2.5 rounded bg-gray-200" />
           <span className="block w-[44%] h-2.5 rounded bg-gray-200" />
@@ -130,19 +146,21 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y border-gray-200 bg-white" aria-label="Por que confiar na IBA">
-        <div className="container-site grid md:grid-cols-3 gap-8 py-10">
-          {trust.map(({ Icon, title, text }, i) => (
-            <Reveal key={title} delay={i * 0.1} className="flex gap-4 items-start">
-              <div className="w-12 h-12 rounded-lg bg-blue-soft2 text-blue flex items-center justify-center shrink-0">
-                <Icon size={24} />
-              </div>
-              <div>
-                <h3 className="text-[1.05rem] mb-1">{title}</h3>
-                <p className="text-gray-600 text-[0.94rem]">{text}</p>
-              </div>
-            </Reveal>
-          ))}
+      <section className="border-y border-gray-200 bg-white" aria-labelledby="compromissos-titulo">
+        <div className="container-site grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,2.2fr)] gap-x-14 gap-y-8 py-12">
+          <Reveal>
+            <p className="eyebrow">Como a gente trabalha</p>
+            <h2 id="compromissos-titulo" className="text-[1.3rem] leading-snug">O que combinamos em todo projeto</h2>
+          </Reveal>
+
+          <dl className="grid sm:grid-cols-3 gap-x-10 gap-y-7">
+            {trust.map(({ title, text }, i) => (
+              <Reveal key={title} delay={i * 0.1}>
+                <dt className="text-blue-dark font-display font-bold text-[1.02rem] mb-1.5">{title}</dt>
+                <dd className="text-gray-600 text-[0.94rem]">{text}</dd>
+              </Reveal>
+            ))}
+          </dl>
         </div>
       </section>
 
@@ -156,24 +174,51 @@ export default function Home() {
             <p className="lede">Cada frente é desenhada para a sua operação, do mapeamento à entrega, com você acompanhando tudo.</p>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {services.map((s, i) => (
-              <Reveal key={s.num} delay={i * 0.12} className="h-full">
-                <motion.article
-                  className="h-full bg-white border border-gray-200 rounded-lg p-8 shadow-sm flex flex-col"
-                  whileHover={{ y: -6 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-                >
-                  <span className="font-mono text-[0.85rem] font-bold text-blue mb-4 tracking-wide">{s.num}</span>
-                  <h3 className="text-[1.4rem] mb-2.5">{s.title}</h3>
-                  <p className="text-gray-600 text-[0.98rem] mb-6 flex-grow">{s.text}</p>
-                  <Link to={s.anchor} className="font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
-                    Ver detalhes
-                    <ArrowRightIcon size={16} />
-                  </Link>
-                </motion.article>
-              </Reveal>
-            ))}
+          <div className="grid lg:grid-cols-[1.25fr_0.9fr] gap-6 items-stretch">
+            <Reveal className="h-full">
+              <motion.article
+                className="h-full bg-blue-soft border border-blue-soft2 rounded-3xl p-7 sm:p-10 lg:p-11 flex flex-col"
+                whileHover={reduce ? undefined : { y: -6 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <p className="eyebrow mb-3">Principal frente</p>
+                <h3 className="text-[clamp(1.6rem,2.4vw,2rem)] mb-3">{servicoDestaque.title}</h3>
+                <p className="text-gray-600 text-[1.02rem] mb-6 max-w-[46ch]">{servicoDestaque.text}</p>
+
+                <ul className="list-none flex flex-col gap-2.5 mb-8">
+                  {servicoDestaque.exemplos.map((e) => (
+                    <li key={e} className="flex items-start gap-2.5 text-[0.96rem] text-ink">
+                      <CheckIcon size={16} className="text-blue shrink-0 mt-1" />
+                      {e}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link to={servicoDestaque.anchor} className="mt-auto font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
+                  Ver detalhes
+                  <ArrowRightIcon size={16} />
+                </Link>
+              </motion.article>
+            </Reveal>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-6">
+              {servicosApoio.map((s, i) => (
+                <Reveal key={s.title} delay={0.12 + i * 0.1} className="h-full">
+                  <motion.article
+                    className="h-full bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col"
+                    whileHover={reduce ? undefined : { y: -6 }}
+                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <h3 className="text-[1.25rem] mb-2.5">{s.title}</h3>
+                    <p className="text-gray-600 text-[0.96rem] mb-6 flex-grow">{s.text}</p>
+                    <Link to={s.anchor} className="font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
+                      Ver detalhes
+                      <ArrowRightIcon size={16} />
+                    </Link>
+                  </motion.article>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -181,7 +226,7 @@ export default function Home() {
       <section className="py-[72px]" id="diagnostico" aria-labelledby="diagnostico-titulo">
         <div className="container-site">
           <Reveal>
-            <div className="bg-blue text-white rounded-lg p-12 flex flex-wrap items-center justify-between gap-6 shadow-lg">
+            <div className="bg-blue text-white rounded-3xl p-8 sm:p-12 lg:p-14 flex flex-wrap items-center justify-between gap-6 shadow-lg">
               <div>
                 <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Sessão estratégica gratuita</h2>
                 <p className="text-white/90 max-w-[52ch]">Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar: atendimento, conteúdo, anúncios ou processos. Sem compromisso.</p>
@@ -205,7 +250,7 @@ export default function Home() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((s, i) => (
               <Reveal key={s.num} delay={i * 0.1} className="h-full">
-                <div className="h-full bg-white border-t-4 border-blue rounded-lg p-6 shadow-sm">
+                <div className="h-full bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm">
                   <span className="font-mono text-[0.8rem] font-bold text-blue tracking-wider mb-3 block">{s.num}</span>
                   <h3 className="text-[1.2rem] mb-2.5">{s.title}</h3>
                   <p className="text-gray-600 text-[0.95rem]">{s.text}</p>
@@ -213,6 +258,41 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-[72px]" aria-labelledby="praxe-titulo">
+        <div className="container-site">
+          <Reveal>
+            <div className="bg-gray-100 border border-gray-200 rounded-3xl p-7 sm:p-10 lg:p-14 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
+              <div>
+                <p className="eyebrow">Da nossa operação</p>
+                <h2 id="praxe-titulo" className="text-[clamp(1.6rem,2.8vw,2.1rem)] mb-4">A Praxe empacota as skills que a gente usa todo dia</h2>
+                <p className="text-gray-600 text-[1.02rem] max-w-[54ch] mb-7">
+                  A operação da IBA roda dentro de agente de código, e a gente documentou esse jeito de trabalhar em três packs de skills. Se você já usa agente de código no seu estúdio ou na sua agência, dá para instalar o mesmo método. Pagamento único de R$ 97, sem mensalidade.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
+                  <a className="btn btn-secondary" href={PRAXE_URL} target="_blank" rel="noopener noreferrer">
+                    Conhecer a Praxe
+                    <ArrowRightIcon size={16} />
+                  </a>
+                  <a href={PRAXE_URL} target="_blank" rel="noopener noreferrer" className="text-blue font-semibold hover:underline break-all">
+                    praxeskills.com.br
+                  </a>
+                </div>
+              </div>
+
+              <dl className="flex flex-col gap-5">
+                {packsPraxe.map(({ nome, texto }) => (
+                  <div key={nome} className="bg-white border border-gray-200 rounded-2xl px-6 py-5">
+                    <dt className="font-display font-bold text-[1.05rem] text-blue-dark mb-1">{nome}</dt>
+                    <dd className="text-gray-600 text-[0.95rem]">{texto}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </Reveal>
         </div>
       </section>
 

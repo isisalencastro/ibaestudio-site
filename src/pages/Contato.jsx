@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import Seo from '../components/Seo'
-import { waLink, WA_MESSAGES, mailLink, WA_NUMBER, INSTAGRAM_URL, LINKEDIN_URL } from '../lib/site'
+import { waLink, WA_MESSAGES, mailLink, WA_NUMBER, EMAIL, INSTAGRAM_URL, LINKEDIN_URL } from '../lib/site'
 import { WhatsAppIcon, ClockIcon } from '../components/Icons'
 
 const projectTypes = [
@@ -15,40 +15,53 @@ const projectTypes = [
 ]
 
 export default function Contato() {
-  const [form, setForm] = useState({ nome: '', email: '', whatsapp: '', tipo: '', mensagem: '' })
+  const [form, setForm] = useState({ nome: '', email: '', tipo: '', mensagem: '' })
   const [error, setError] = useState(false)
 
   function update(field) {
     return (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }))
   }
 
-  function handleSubmit(e) {
-    e.preventDefault()
-
+  function validar() {
     const nome = form.nome.trim()
     const email = form.email.trim()
     const mensagem = form.mensagem.trim()
 
-    if (!nome || !email || !mensagem) {
+    if (!nome || !mensagem || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError(true)
-      return
+      return null
     }
     setError(false)
-
-    const lines = [
-      `Olá! Vim pelo site da IBA e quero saber mais sobre ${form.tipo || 'outro projeto'}.`,
-      '',
-      `Nome: ${nome}`,
-      `E-mail: ${email}`
-    ]
-    if (form.whatsapp.trim()) lines.push(`WhatsApp: ${form.whatsapp.trim()}`)
-    if (mensagem) lines.push(`Mensagem: ${mensagem}`)
-
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`
-    window.open(url, '_blank', 'noopener')
+    return { nome, email, mensagem, tipo: form.tipo || 'outro projeto' }
   }
 
-  const inputClass = 'w-full min-h-[48px] px-3.5 py-3 border-[1.5px] border-gray-200 rounded-lg font-body text-base text-ink bg-white transition-colors focus:outline-none focus:border-blue focus:shadow-[0_0_0_3px_#E8F0FB]'
+  function resumo({ nome, email, mensagem, tipo }) {
+    return [
+      `Olá! Vim pelo site da IBA e quero saber mais sobre ${tipo}.`,
+      '',
+      `Nome: ${nome}`,
+      `E-mail: ${email}`,
+      `Mensagem: ${mensagem}`
+    ].join('\n')
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const dados = validar()
+    if (!dados) return
+
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(resumo(dados))}`, '_blank', 'noopener')
+  }
+
+  function enviarPorEmail() {
+    const dados = validar()
+    if (!dados) return
+
+    const assunto = `Site da IBA: ${dados.tipo}`
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(resumo(dados))}`
+  }
+
+  const inputClass = 'w-full min-h-[48px] px-4 py-3 border-[1.5px] border-gray-200 rounded-xl font-body text-base text-ink bg-white transition-colors focus:outline-none focus:border-blue focus:shadow-[0_0_0_3px_#E8F0FB]'
 
   return (
     <Page>
@@ -100,7 +113,7 @@ export default function Contato() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <form id="contact-form" noValidate onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-lg p-8 shadow">
+            <form id="contact-form" noValidate onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 lg:p-10 shadow">
               <div className="mb-5">
                 <label htmlFor="nome" className="block font-semibold text-[0.92rem] mb-2">Nome</label>
                 <input type="text" id="nome" name="nome" required autoComplete="name" placeholder="Seu nome" value={form.nome} onChange={update('nome')} className={inputClass} />
@@ -109,13 +122,6 @@ export default function Contato() {
               <div className="mb-5">
                 <label htmlFor="email" className="block font-semibold text-[0.92rem] mb-2">E-mail</label>
                 <input type="email" id="email" name="email" required autoComplete="email" placeholder="voce@email.com" value={form.email} onChange={update('email')} className={inputClass} />
-              </div>
-
-              <div className="mb-5">
-                <label htmlFor="whatsapp" className="block font-semibold text-[0.92rem] mb-2">
-                  WhatsApp <span className="font-normal text-gray-500">(opcional)</span>
-                </label>
-                <input type="tel" id="whatsapp" name="whatsapp" autoComplete="tel" placeholder="(00) 00000-0000" value={form.whatsapp} onChange={update('whatsapp')} className={inputClass} />
               </div>
 
               <div className="mb-5">
@@ -131,7 +137,6 @@ export default function Contato() {
               <div className="mb-5">
                 <label htmlFor="mensagem" className="block font-semibold text-[0.92rem] mb-2">Mensagem</label>
                 <textarea id="mensagem" name="mensagem" required placeholder="Conte um pouco sobre o que você precisa" value={form.mensagem} onChange={update('mensagem')} className={`${inputClass} min-h-[120px] resize-y`} />
-                <span className="block text-gray-500 text-[0.82rem] mt-1">Ao enviar, seu resumo abre no WhatsApp para você confirmar e enviar.</span>
               </div>
 
               <AnimatePresence>
@@ -142,14 +147,18 @@ export default function Contato() {
                     animate={{ opacity: 1, y: 0, height: 'auto', marginBottom: 20 }}
                     exit={{ opacity: 0, y: -8, height: 0, marginBottom: 0 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="overflow-hidden bg-[#FDECEC] border border-[#F5B5B5] text-[#9B1C1C] rounded-lg px-3.5 py-3 text-[0.9rem]"
+                    className="overflow-hidden bg-[#FDECEC] border border-[#F5B5B5] text-[#9B1C1C] rounded-xl px-4 py-3 text-[0.9rem]"
                   >
-                    Preencha nome, e-mail e mensagem para continuar.
+                    Preencha nome, um e-mail válido e a mensagem para continuar.
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              <button type="submit" className="btn btn-primary w-full">Enviar pelo WhatsApp</button>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button type="submit" className="btn btn-primary flex-1">Enviar pelo WhatsApp</button>
+                <button type="button" onClick={enviarPorEmail} className="btn btn-secondary flex-1">Enviar por e-mail</button>
+              </div>
+              <span className="block text-gray-500 text-[0.82rem] mt-3">Seu resumo abre no WhatsApp ou no seu programa de e-mail para você conferir antes de mandar.</span>
             </form>
           </Reveal>
         </div>

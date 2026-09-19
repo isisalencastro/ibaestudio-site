@@ -12,6 +12,10 @@ export const REDES = [
   { nome: 'LinkedIn', usuario: 'IBA Estudio', url: LINKEDIN_URL }
 ]
 
+// Praxe: produto da IBA (packs de skills para agente de codigo). A marca IBA nao aparece na
+// pagina da Praxe, entao a ligacao entre as duas so existe deste lado.
+export const PRAXE_URL = 'https://praxeskills.com.br'
+
 export const WA_MESSAGES = {
   orcamento: 'Olá! Vim pelo site da IBA e quero pedir um orçamento.',
   diagnostico: 'Olá! Vim pelo site da IBA e quero agendar uma sessão estratégica gratuita.',
