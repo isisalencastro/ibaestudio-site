@@ -39,3 +39,18 @@ Em cada uma das cinco larguras (**360, 390, 768, 1024 e 1440**):
 O verificador **não substitui olho humano**, ele encurta o caminho: o que ele marca como FALHA é defeito
 objetivo; o que ele marca como DÚVIDA é chamado para a pessoa decidir. Antes de publicar página nova,
 rodar nele é mais barato do que descobrir no celular do cliente.
+
+## Contra o site no ar: confirme antes de tratar como defeito
+
+Medição de 20/09/2026: o mesmo código passou em `/contato` e `/politicas` rodando contra o preview local e
+acusou FALHA de alvo de toque (17px e 6px) e DÚVIDA de paleta (`#0000EE`, `#EFEFEF`) rodando contra o site
+publicado. Medindo os mesmos elementos no navegador, no ar, os botões tinham 44px e 48px e não havia
+nenhuma dessas cores no DOM. O sinal bate com medição feita antes do CSS da página aplicar.
+
+Antes de abrir correção por causa de um relatório do site no ar: medir o elemento direto no navegador
+(`getBoundingClientRect`, `getComputedStyle`) e comparar com a mesma página servida local. Só tratar como
+defeito quando as duas medições concordarem.
+
+Outro caso que parece defeito e não é: "elemento fixo sobre botão" compara caixas, e o botão do WhatsApp é
+um círculo. Sobreposição de caixa não quer dizer clique bloqueado. O teste que vale é
+`document.elementFromPoint` em alguns pontos do elemento, e não a interseção das caixas.

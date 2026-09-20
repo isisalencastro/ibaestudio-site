@@ -59,6 +59,14 @@ E conferir o cabeçalho que o robô lê (o que o `curl` traz, não o que a tela 
 curl -s https://www.ibaestudio.com/servicos | grep '<title>'
 ```
 
+## Pendências conhecidas (verificadas em 20/09/2026)
+
+- Em página curta, como `/blog`, o botão flutuante do WhatsApp (`fixed right-5 bottom-5`, 56px) cobre
+  parte do link "Política de privacidade" do rodapé por volta de 1024px de largura. Medido com
+  `document.elementFromPoint` em grade: 4 de 16 pontos do link caem sob o botão, o centro continua
+  clicável. Não afeta celular (verificado a 360 e 390). Fica pendente porque corrigir mexe no
+  posicionamento do rodapé, que é decisão de layout da Isis.
+
 ## Contato
 
 - WhatsApp: 5551993307386
