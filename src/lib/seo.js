@@ -23,7 +23,7 @@ export const ROTAS = {
   '/': {
     titulo: 'IBA Estúdio | Desenvolvimento e IA para a sua operação',
     descricao:
-      'Sites, sistemas e integrações de IA que fazem a operação da sua empresa rodar: atendimento, vendas, dados e processos internos. Atendimento direto, prazos por escrito.'
+      'Sites, sistemas e integrações de IA que fazem a operação rodar: atendimento, vendas, dados e processos internos. Atendimento direto e prazos por escrito.'
   },
   '/servicos': {
     titulo: 'Serviços: sites, sistemas, IA e automação | IBA Estúdio',
@@ -43,7 +43,7 @@ export const ROTAS = {
   '/contato': {
     titulo: 'Fale com a IBA Estúdio | WhatsApp e e-mail',
     descricao:
-      'Conte o principal gargalo da sua operação e receba um caminho prático com IA. Atendimento direto por WhatsApp, e-mail ou formulário. Respondemos em até 1 dia útil.'
+      'Conte o principal gargalo da sua operação e receba um caminho prático com IA. Atendimento direto por WhatsApp, e-mail ou formulário.'
   },
   '/blog': {
     titulo: 'Blog da IBA Estúdio',
