@@ -1,4 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/servicos", "destination": "/servicos/index.html" },
+    { "source": "/praxe", "destination": "/praxe/index.html" },
+    { "source": "/sobre", "destination": "/sobre/index.html" },
+    { "source": "/contato", "destination": "/contato/index.html" },
+    { "source": "/blog", "destination": "/blog/index.html" },
+    { "source": "/politicas", "destination": "/politicas/index.html" }
+  ]
 }

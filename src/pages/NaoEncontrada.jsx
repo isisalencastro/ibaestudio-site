@@ -7,11 +7,7 @@ import { waLink, WA_MESSAGES } from '../lib/site'
 export default function NaoEncontrada() {
   return (
     <Page>
-      <Seo
-        title="Página não encontrada | IBA Estúdio"
-        description="Esta página não existe ou mudou de endereço. Veja os serviços da IBA Estúdio ou fale direto com a gente."
-        noindex
-      />
+      <Seo />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-[120px]">
         <div className="container-site max-w-[640px]">

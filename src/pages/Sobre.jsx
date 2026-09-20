@@ -21,10 +21,7 @@ function SectionLabel({ children }) {
 export default function Sobre() {
   return (
     <Page>
-      <Seo
-        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
-        description="A IBA é um estúdio de desenvolvimento fundado em Porto Alegre por Isis Alencastro que integra inteligência artificial em toda a operação de empresas."
-      />
+      <Seo />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-20">
         <div className="container-site max-w-[820px]">

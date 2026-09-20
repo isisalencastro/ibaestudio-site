@@ -15,10 +15,7 @@ function Preco({ children }) {
 export default function Praxe() {
   return (
     <Page>
-      <Seo
-        title="Praxe | Packs de skills para agentes de código"
-        description="A Praxe empacota as skills que a IBA usa na própria operação: 32 skills em quatro packs, para o seu agente de código rodar prospecção, conteúdo e operação."
-      />
+      <Seo />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">

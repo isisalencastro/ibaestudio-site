@@ -6,10 +6,7 @@ import { waLink, WA_MESSAGES } from '../lib/site'
 export default function Blog() {
   return (
     <Page>
-      <Seo
-        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
-        description="Novidades e anúncios da IBA Estúdio: matérias, lançamentos e atualizações importantes do estúdio."
-      />
+      <Seo />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">

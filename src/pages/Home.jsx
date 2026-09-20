@@ -107,10 +107,7 @@ export default function Home() {
 
   return (
     <Page>
-      <Seo
-        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
-        description="A IBA desenvolve sites, sistemas e integrações de IA que fazem sua operação rodar: atendimento, vendas, marketing, dados e processos internos. Atendimento direto e prazos cumpridos."
-      />
+      <Seo />
 
       <section className="relative bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-[72px] overflow-hidden">
         <div className="container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">

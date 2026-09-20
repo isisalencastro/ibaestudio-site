@@ -65,10 +65,7 @@ export default function Contato() {
 
   return (
     <Page>
-      <Seo
-        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
-        description="Conte o principal gargalo da sua operação. A IBA devolve um caminho prático com IA. Fale pelo WhatsApp ou pelo formulário."
-      />
+      <Seo />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">

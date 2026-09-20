@@ -46,8 +46,8 @@ export default function Footer() {
         <div className="footer-col">
           <h3 className="text-[0.85rem] font-body font-bold uppercase tracking-wider text-gray-500 mb-4">Legal</h3>
           <ul className="flex flex-col gap-2.5">
-            <li><Link to="/politicas" className="text-gray-600 text-[0.95rem] hover:text-blue">Política de privacidade</Link></li>
-            <li><Link to="/politicas" className="text-gray-600 text-[0.95rem] hover:text-blue">Termos de uso</Link></li>
+            <li><Link to="/politicas#politica-de-privacidade" className="text-gray-600 text-[0.95rem] hover:text-blue">Política de privacidade</Link></li>
+            <li><Link to="/politicas#termos-de-uso" className="text-gray-600 text-[0.95rem] hover:text-blue">Termos de uso</Link></li>
           </ul>
         </div>
       </Reveal>

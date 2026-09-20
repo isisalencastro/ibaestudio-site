@@ -33,10 +33,7 @@ function SectionLabel({ children }) {
 export default function Politicas() {
   return (
     <Page>
-      <Seo
-        title="Políticas, privacidade e termos de uso | IBA Estúdio"
-        description="Postura, compromissos e respostas para dúvidas frequentes da IBA Estúdio, além da política de privacidade e termos de uso."
-      />
+      <Seo />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">
@@ -87,29 +84,37 @@ export default function Politicas() {
         </div>
       </section>
 
-      <section className="py-[88px]">
+      <section className="py-[88px]" id="politica-de-privacidade">
         <div className="container-site max-w-[72ch]">
           <Reveal>
-            <h2 className="text-[1.5rem] mb-4">Política de privacidade</h2>
-            <p className="text-gray-600 mb-3.5">Esta política explica como a IBA Estúdio trata os dados pessoais que você fornece ao usar este site, em conformidade com a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).</p>
+            <h2 className="text-[1.5rem] mb-2">Política de privacidade</h2>
+            <p className="text-gray-500 text-[0.9rem] mb-6">Última atualização: 20 de setembro de 2026</p>
+            <p className="text-gray-600 mb-3.5">Esta política explica como a IBA Estúdio trata os dados pessoais de quem visita este site, em conformidade com a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).</p>
 
-            <h3 className="text-[1.15rem] mt-8 mb-2">Dados que coletamos</h3>
-            <p className="text-gray-600 mb-3.5">Coletamos apenas os dados que você envia voluntariamente pelo formulário de contato ou pelo WhatsApp:</p>
+            <h3 className="text-[1.15rem] mt-8 mb-2">O que este site coleta</h3>
+            <p className="text-gray-600 mb-3.5">Este site não tem cadastro, não tem login e não guarda dados em servidor próprio. Existe um único caminho de contato, o formulário da página de contato, e ele não envia nada sozinho: você confere a mensagem e escolhe por onde mandar.</p>
             <ul className="list-disc pl-[22px] mb-4 text-gray-600">
-              <li className="mb-1">Nome</li>
-              <li className="mb-1">E-mail</li>
-              <li className="mb-1">Número de WhatsApp (opcional)</li>
-              <li className="mb-1">Tipo de projeto e mensagem</li>
+              <li className="mb-1"><strong>Pelo WhatsApp:</strong> abre a conversa com o número da IBA já com o texto que você escreveu.</li>
+              <li className="mb-1"><strong>Pelo e-mail:</strong> abre o seu programa de e-mail com a mensagem pronta para contato@ibaestudio.com.</li>
             </ul>
+            <p className="text-gray-600 mb-3.5">Os campos do formulário são quatro: nome, e-mail, tipo de projeto e mensagem.</p>
 
             <h3 className="text-[1.15rem] mt-8 mb-2">Como usamos esses dados</h3>
-            <p className="text-gray-600 mb-3.5">Usamos os dados exclusivamente para responder ao seu contato, entender seu projeto e, se for o caso, enviar uma proposta. Não vendemos, não alugamos e não compartilhamos seus dados com terceiros para fins de marketing.</p>
+            <p className="text-gray-600 mb-3.5">Usamos o que você envia exclusivamente para responder ao seu contato, entender o seu projeto e, se for o caso, enviar uma proposta. Não vendemos, não alugamos e não compartilhamos seus dados com terceiros para fins de marketing.</p>
 
-            <h3 className="text-[1.15rem] mt-8 mb-2">Armazenamento</h3>
-            <p className="text-gray-600 mb-3.5">Os dados enviados pelo formulário são encaminhados para o nosso WhatsApp e tratados em nossos canais internos de atendimento. Guardamos apenas o necessário para o atendimento e o histórico comercial, pelo tempo exigido por lei ou enquanto houver relação ativa.</p>
+            <h3 className="text-[1.15rem] mt-8 mb-2">Cookies e análise de audiência</h3>
+            <p className="text-gray-600 mb-3.5">Este site não usa cookies próprios, não instala ferramentas de análise de audiência e não exibe publicidade.</p>
 
-            <h3 className="text-[1.15rem] mt-8 mb-2">Cookies</h3>
-            <p className="text-gray-600 mb-3.5">Este site não usa cookies de rastreamento. Não instalamos ferramentas de análise de audiência nem de publicidade que identifiquem você.</p>
+            <h3 className="text-[1.15rem] mt-8 mb-2">Serviços de terceiros que fazem o site funcionar</h3>
+            <p className="text-gray-600 mb-3.5">Para a página abrir, dois serviços externos recebem dados técnicos do navegador, como o endereço IP:</p>
+            <ul className="list-disc pl-[22px] mb-4 text-gray-600">
+              <li className="mb-1">Vercel, que hospeda o site.</li>
+              <li className="mb-1">Google Fonts, que entrega as fontes usadas nas páginas.</li>
+            </ul>
+            <p className="text-gray-600 mb-3.5">Esses dados servem para a página carregar, não para identificar visitantes. E se você escolher falar pelo WhatsApp, a conversa passa a ser tratada também pela Meta, conforme as regras da própria plataforma.</p>
+
+            <h3 className="text-[1.15rem] mt-8 mb-2">Por quanto tempo guardamos</h3>
+            <p className="text-gray-600 mb-3.5">Guardamos a sua mensagem e o histórico do contato comercial pelo tempo necessário ao atendimento e ao cumprimento de obrigações legais. Depois disso, os dados são descartados.</p>
 
             <h3 className="text-[1.15rem] mt-8 mb-2">Seus direitos</h3>
             <p className="text-gray-600 mb-3.5">Nos termos da LGPD, você pode solicitar, a qualquer momento:</p>
@@ -121,20 +126,39 @@ export default function Politicas() {
             </ul>
             <p className="text-gray-600 mb-3.5">Para exercer esses direitos, escreva para <a href={mailLink()} className="text-blue font-semibold hover:underline">contato@ibaestudio.com</a>.</p>
 
-            <h2 className="text-[1.5rem] mt-10 mb-4">Termos de uso</h2>
+            <h3 className="text-[1.15rem] mt-8 mb-2">Mudanças nesta política</h3>
+            <p className="text-gray-600 mb-3.5">Se algo mudar, a data de atualização no topo desta página muda junto. Mudança relevante é avisada nesta mesma página.</p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="py-[88px] bg-gray-100 border-y border-gray-200" id="termos-de-uso">
+        <div className="container-site max-w-[72ch]">
+          <Reveal>
+            <h2 className="text-[1.5rem] mb-2">Termos de uso</h2>
+            <p className="text-gray-500 text-[0.9rem] mb-6">Última atualização: 20 de setembro de 2026</p>
             <p className="text-gray-600 mb-3.5">Ao acessar este site, você concorda com os termos a seguir.</p>
 
             <h3 className="text-[1.15rem] mt-8 mb-2">Uso do site</h3>
-            <p className="text-gray-600 mb-3.5">O conteúdo deste site é informativo e tem como objetivo apresentar os serviços da IBA Estúdio. Você pode usar o site livremente e enviar mensagens pelo formulário de contato.</p>
+            <p className="text-gray-600 mb-3.5">O conteúdo deste site é informativo e tem como objetivo apresentar os serviços da IBA Estúdio e o seu produto. Você pode navegar e usar o formulário de contato livremente. Não é permitido usar o site para fins ilícitos nem tentar prejudicar o seu funcionamento.</p>
 
             <h3 className="text-[1.15rem] mt-8 mb-2">Propriedade intelectual</h3>
-            <p className="text-gray-600 mb-3.5">Textos, marcas e identidade visual deste site pertencem à IBA Estúdio. A reprodução sem autorização prévia não é permitida.</p>
+            <p className="text-gray-600 mb-3.5">Textos, marcas, identidade visual e o código deste site pertencem à IBA Estúdio. A reprodução sem autorização prévia não é permitida.</p>
 
-            <h3 className="text-[1.15rem] mt-8 mb-2">Orçamentos e propostas</h3>
-            <p className="text-gray-600 mb-3.5">Valores apresentados no site são referências de partida e podem variar conforme o escopo de cada projeto. O valor final é sempre formalizado por escrito em proposta, antes de qualquer trabalho.</p>
+            <h3 className="text-[1.15rem] mt-8 mb-2">Valores e propostas</h3>
+            <p className="text-gray-600 mb-3.5">Os valores publicados no site, como o site institucional por R$ 1.000 de implantação mais R$ 197,90 por mês, são referências de partida para o escopo descrito. O valor final do seu projeto sai por escrito em proposta, antes de qualquer trabalho começar, e é a proposta que vale.</p>
+
+            <h3 className="text-[1.15rem] mt-8 mb-2">Compra de produtos digitais</h3>
+            <p className="text-gray-600 mb-3.5">Os packs da Praxe são vendidos em plataforma de pagamento externa (Cakto). A compra, o pagamento, o acesso ao material e um eventual reembolso seguem as regras dessa plataforma, além do Código de Defesa do Consumidor.</p>
+
+            <h3 className="text-[1.15rem] mt-8 mb-2">Links para outros sites</h3>
+            <p className="text-gray-600 mb-3.5">Este site tem links para páginas de terceiros, como WhatsApp, Instagram, LinkedIn e a plataforma de pagamento. Não respondemos pelo conteúdo nem pelas práticas desses sites.</p>
 
             <h3 className="text-[1.15rem] mt-8 mb-2">Responsabilidade</h3>
-            <p className="text-gray-600 mb-3.5">A IBA Estúdio se empenha para manter as informações do site atualizadas e corretas, mas não garante ausência total de erros ou indisponibilidades temporárias.</p>
+            <p className="text-gray-600 mb-3.5">A IBA Estúdio se empenha para manter as informações do site atualizadas e corretas, mas não garante ausência total de erros nem disponibilidade ininterrupta. O conteúdo do site é informativo e não substitui a análise do seu caso: cada projeto é avaliado individualmente.</p>
+
+            <h3 className="text-[1.15rem] mt-8 mb-2">Lei aplicável</h3>
+            <p className="text-gray-600 mb-3.5">Estes termos são regidos pela legislação brasileira.</p>
 
             <h3 className="text-[1.15rem] mt-8 mb-2">Contato</h3>
             <p className="text-gray-600 mb-3.5">Dúvidas sobre esta política ou sobre os termos de uso podem ser enviadas para <a href={mailLink()} className="text-blue font-semibold hover:underline">contato@ibaestudio.com</a>.</p>

@@ -72,10 +72,7 @@ export default function Servicos() {
 
   return (
     <Page>
-      <Seo
-        title="IBA Estúdio | Desenvolvimento e IA para a operação da sua empresa"
-        description="Desenvolvimento web e sistemas, IA integrada aos processos e automação de operações para a sua empresa. Veja o que a IBA faz e como funciona."
-      />
+      <Seo />
 
       <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
         <div className="container-site">
