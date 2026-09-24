@@ -6,6 +6,10 @@ import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES, mailLink, WA_NUMBER, EMAIL, INSTAGRAM_URL, LINKEDIN_URL } from '../lib/site'
 import { WhatsAppIcon, ClockIcon } from '../components/Icons'
 
+// Endereco que GRAVA o contato antes de abrir o WhatsApp (fluxo do n8n "Site - Contato").
+// Antes disso o formulario so abria o WhatsApp: quem preenchesse e desistisse no meio desaparecia sem rastro.
+const REGISTRO_URL = 'https://infra-iba-n8n.21mxr3.easypanel.host/webhook/site-contato'
+
 const projectTypes = [
   'Desenvolvimento web e sistemas',
   'IA integrada aos processos',
@@ -49,6 +53,17 @@ export default function Contato() {
     e.preventDefault()
     const dados = validar()
     if (!dados) return
+
+    // Grava PRIMEIRO, abre o WhatsApp depois. O envio e simples de proposito (form-urlencoded, sem cabecalho
+    // proprio) para nao disparar preflight de CORS, e nao bloqueia nada: se a rede falhar, a pessoa ainda chega
+    // no WhatsApp. Quem preencheu ja demonstrou interesse: o registro tem que existir antes.
+    try {
+      fetch(REGISTRO_URL, {
+        method: 'POST',
+        body: new URLSearchParams({ ...dados, origem: 'site', quando: new Date().toISOString() }),
+        keepalive: true
+      }).catch(() => {})
+    } catch (_) { /* registro e importante, mas nunca pode impedir o contato */ }
 
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(resumo(dados))}`, '_blank', 'noopener')
   }
