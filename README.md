@@ -43,8 +43,16 @@ caso de exceção.
 - `public/robots.txt` e `public/sitemap.xml`: SEO
 - `scripts/prerender.mjs`: grava o HTML por rota depois do build
 - `verificador/verifica.cjs`: confere a página publicada em cinco larguras
+- `verificador/gate-acessibilidade.cjs`: gate **local** de contraste e nome acessível, antes de publicar
 
 ## Ao publicar
+
+Antes de publicar, com o preview local de pé (`npm run build && npm run preview`), rodar o gate de
+acessibilidade. Ele é local de propósito, não é rotina contra o site no ar:
+
+```bash
+npm run gate -- --local 4173 / /servicos /praxe /sobre /contato
+```
 
 O push na branch principal publica sozinho na Vercel. Antes de considerar pronto, rodar o verificador
 contra o endereço no ar:

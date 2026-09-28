@@ -49,7 +49,7 @@ colors:
     white: "#FFFFFF"     # fundo
     gray_100: "#F7F9FC"  # superfície secundária
     gray_200: "#EEF2F8"  # superfície elevada / hover
-    gray_500: "#667085"  # texto secundário (escurecido de #718096 em 04/09/2026: o antigo dava 4.0:1 no branco e reprovava no WCAG AA)
+    gray_500: "#667085"  # texto secundário (escurecido de #718096 em 04/09/2026: o antigo media 4.01:1 no branco e reprovava no WCAG AA; este mede 4.97:1, medido pelo gate de acessibilidade)
     gray_600: "#4A5568"  # texto terciário
 ```
 
@@ -62,6 +62,7 @@ Regras de cor:
 - Sem gradientes azul/roxo genéricos. Sem glassmorphism.
 - Gradiente permitido: só o véu vertical `blue_soft` para branco no topo de página. Nada além disso.
 - Contraste WCAG AA mínimo em todo texto.
+- **Canon de token:** o que vale é este arquivo com o `tailwind.config.js`, e o `npm run gate` confere os dois (divergência entre eles é FALHA). O documento de marca do repositório `iba-site` (o `DESIGN.md` da raiz) ainda traz `gray_500: "#718096"`, valor antigo, anterior ao escurecimento de 04/09/2026: divergência registrada em 28/09/2026, a corrigir lá quando aquele repositório for mexido. Aqui o valor é `#667085`.
 
 ## Typography tokens
 
@@ -182,7 +183,7 @@ Passo obrigatório. Com este arquivo aberto do lado, conferir item por item:
 4. **Anti-slop:** rodar os 12 itens acima e os 14 do ANTI-SLOP.md.
 5. **Copy:** sem travessão, sem clichê de IA, sem número inventado, sem depoimento que não existe.
 6. **Responsividade:** as 5 larguras da seção acima.
-7. **Acessibilidade:** contraste AA, foco visível, alvo de 44px, `prefers-reduced-motion` respeitado.
+7. **Acessibilidade:** `npm run gate` sem reprovação (contraste e nome acessível), foco visível, alvo de 44px, `prefers-reduced-motion` respeitado.
 8. **Build:** `npm run build` passa sem erro.
 
 O que foi construído tem que bater com este arquivo. Divergência é bug: ou corrige o código, ou atualiza o contrato de propósito e anota a data.
