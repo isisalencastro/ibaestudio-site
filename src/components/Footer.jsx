@@ -7,7 +7,7 @@ const ICONE = { Instagram: InstagramIcon, LinkedIn: LinkedInIcon }
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 border-t border-gray-200 pt-14">
+    <footer className="reserva-do-flutuante bg-gray-100 border-t border-gray-200 pt-14">
       <Reveal className="container-site grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
         <div className="col-span-2 lg:col-span-1">
           <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center text-ink hover:no-underline">
@@ -57,7 +57,9 @@ export default function Footer() {
           <p className="text-gray-500 text-[0.88rem]">&copy; {new Date().getFullYear()} IBA Estúdio. Todos os direitos reservados.</p>
 
           {/* Os icones ficam a esquerda de proposito: o botao flutuante do WhatsApp ocupa o canto
-              inferior direito e cobriria os links das redes. */}
+              inferior direito. A reserva de fim de documento (`.reserva-do-flutuante`, no <footer>)
+              ja garante que ele nao cubra a ultima linha de texto; a esquerda e para os icones
+              nunca ficarem embaixo dele enquanto a pessoa rola. */}
           <ul className="flex items-center gap-1" aria-label="Redes da IBA Estúdio">
             {REDES.map((r) => {
               const Icone = ICONE[r.nome]

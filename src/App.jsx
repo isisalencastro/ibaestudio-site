@@ -27,6 +27,25 @@ function ScrollToTop() {
   return null
 }
 
+/**
+ * O botão flutuante do WhatsApp sai das rotas que já têm CTA grande de WhatsApp no corpo.
+ *
+ * Motivo medido em 28/09/2026, em 390px: na página de Contato o flutuante caía exatamente
+ * sobre a última linha de texto da coluna da esquerda ("Para acompanhar o trabalho da IBA:
+ * Instagram e LinkedIn"). Além de cobrir o texto, seria o segundo convite para o mesmo
+ * WhatsApp na mesma tela. Onde ele fica, a garantia de não cobrir texto no fim da página
+ * vem do `.reserva-do-flutuante`, no rodapé.
+ */
+const ROTAS_SEM_FLUTUANTE = ['/contato']
+
+function FlutuanteWhatsApp() {
+  const { pathname } = useLocation()
+  // Normaliza a barra final: /contato e /contato/ sao a mesma rota, e a decisao de esconder
+  // o flutuante nao pode depender de qual das duas o visitante usou (medido em 28/09/2026).
+  if (ROTAS_SEM_FLUTUANTE.includes(pathname.replace(/\/$/, ""))) return null
+  return <WhatsAppFloat />
+}
+
 export default function App() {
   useRolagemSuave()
 
@@ -50,7 +69,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
-      <WhatsAppFloat />
+      <FlutuanteWhatsApp />
     </MotionConfig>
   )
 }
