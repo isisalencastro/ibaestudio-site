@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
+import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES } from '../lib/site'
 
@@ -28,9 +29,7 @@ export default function Sobre() {
           <Reveal>
             <p className="eyebrow">Sobre a IBA</p>
           </Reveal>
-          <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Desenvolvimento e IA para a operação da sua empresa</h1>
-          </Reveal>
+          <TituloRevelado as="h1" className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Desenvolvimento e IA para a operação da sua empresa</TituloRevelado>
           <Reveal delay={0.16}>
             <p className="lede text-[1.15rem] max-w-[62ch]">
               A IBA é um estúdio de desenvolvimento fundado em Porto Alegre que integra inteligência artificial em toda a operação de empresas. Nossa tese é simples: a distância entre empresas que usam IA de forma isolada e as que a incorporam aos processos está crescendo. Trabalhamos para que nossos clientes fiquem no lado certo dessa distância, com entregas práticas: sistemas, automações e agentes de IA que resolvem problemas reais. Nossa própria operação é o primeiro case: usamos IA no atendimento, na prospecção, na produção de conteúdo e na gestão.

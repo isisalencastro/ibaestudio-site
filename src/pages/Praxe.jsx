@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
+import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
 import { ArrowRightIcon } from '../components/Icons'
 import { PRAXE_PACKS, WA_MESSAGES, waLink } from '../lib/site'
@@ -22,11 +23,9 @@ export default function Praxe() {
           <Reveal>
             <p className="eyebrow">Produto da IBA</p>
           </Reveal>
-          <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[24ch] mb-4">
-              O que a gente usa para operar a IBA, empacotado em skills
-            </h1>
-          </Reveal>
+          <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[24ch] mb-4">
+            O que a gente usa para operar a IBA, empacotado em skills
+          </TituloRevelado>
           <Reveal delay={0.16}>
             <p className="lede max-w-[62ch]">
               Skill é uma pasta com o procedimento escrito. O agente de código lê a pasta e passa a executar a

@@ -1,32 +1,42 @@
-import { motion, useReducedMotion } from 'framer-motion'
-
-const EASE = [0.22, 1, 0.36, 1]
+/**
+ * Revelação por rolagem. Mesma API de antes (delay, y, x, scale, blur, className), só que
+ * agora o estado escondido mora no CSS, atrás da classe `movimento` no <html>.
+ *
+ * Por que CSS e não estilo inline: com JavaScript desligado (ou erro no meio do caminho) a
+ * classe não existe, nenhuma regra esconde nada e o conteúdo aparece inteiro. Esconder por
+ * `style` do React quebraria isso.
+ *
+ * Regra da casa: revelação é sempre por `transform` e `opacity`. Nunca `display: none`.
+ */
+import { useRef } from 'react'
+import { REVELACAO } from '../lib/motion'
+import { useRevelacao } from '../lib/revelacao'
 
 export default function Reveal({
   children,
   delay = 0,
-  y = 26,
+  y = REVELACAO.y,
   x = 0,
   scale = 1,
   blur = false,
-  once = true,
+  once = true, // a referência revela uma vez só; a prop fica por compatibilidade
   className = ''
 }) {
-  const reduce = useReducedMotion()
+  const ref = useRef(null)
+  useRevelacao(ref)
 
-  if (reduce) {
-    return <div className={className}>{children}</div>
+  const variaveis = {
+    '--ry': `${y}px`,
+    '--rx': `${x}px`,
+    '--rs': scale,
+    '--rdl': `${delay}s`,
+    '--rd': `${REVELACAO.duracao}s`
   }
+  if (blur) variaveis['--rf'] = 'blur(8px)'
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y, x, scale, filter: blur ? 'blur(8px)' : 'none' }}
-      whileInView={{ opacity: 1, y: 0, x: 0, scale: 1, filter: 'blur(0px)' }}
-      viewport={{ once, margin: '0px 0px -60px 0px' }}
-      transition={{ duration: 0.7, delay, ease: EASE }}
-    >
+    <div ref={ref} data-reveal="" className={className} style={variaveis}>
       {children}
-    </motion.div>
+    </div>
   )
 }

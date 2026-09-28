@@ -1,5 +1,6 @@
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
+import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES } from '../lib/site'
 
@@ -13,10 +14,8 @@ export default function Blog() {
           <Reveal>
             <p className="eyebrow">Novidades</p>
           </Reveal>
-          <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Blog da IBA</h1>
-          </Reveal>
-          <Reveal delay={0.16}>
+          <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Blog da IBA</TituloRevelado>
+          <Reveal delay={0.08}>
             <p className="lede max-w-[62ch]">Matérias, lançamentos e atualizações importantes do estúdio.</p>
           </Reveal>
         </div>

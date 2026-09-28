@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
+import TransicaoPagina from './components/TransicaoPagina'
+import { useRolagemSuave, rolarParaTopo } from './lib/rolagemSuave'
 import Home from './pages/Home'
 import Servicos from './pages/Servicos'
 import Praxe from './pages/Praxe'
@@ -18,44 +19,33 @@ function ScrollToTop() {
 
   useEffect(() => {
     if (hash) return
-    window.scrollTo({ top: 0, behavior: 'auto' })
+    // Pelo Lenis: um `window.scrollTo` cru briga com a interpolação dele.
+    rolarParaTopo()
   }, [pathname, hash])
 
   return null
 }
 
-function AnimatedRoutes() {
-  const location = useLocation()
-
-  return (
-    <AnimatePresence mode="wait" initial={false}>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/servicos" element={<Servicos />} />
-        <Route path="/praxe" element={<Praxe />} />
-        <Route path="/sobre" element={<Sobre />} />
-        <Route path="/contato" element={<Contato />} />
-        <Route path="/politicas" element={<Politicas />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="*" element={<NaoEncontrada />} />
-      </Routes>
-    </AnimatePresence>
-  )
-}
-
 export default function App() {
+  useRolagemSuave()
+
   return (
     <>
       <ScrollToTop />
+      <TransicaoPagina />
       <Header />
-      <motion.main
-        id="conteudo"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-      >
-        <AnimatedRoutes />
-      </motion.main>
+      <main id="conteudo">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/servicos" element={<Servicos />} />
+          <Route path="/praxe" element={<Praxe />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/contato" element={<Contato />} />
+          <Route path="/politicas" element={<Politicas />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="*" element={<NaoEncontrada />} />
+        </Routes>
+      </main>
       <Footer />
       <WhatsAppFloat />
     </>

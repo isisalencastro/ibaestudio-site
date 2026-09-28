@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Movimento: liga a classe que autoriza o CSS a esconder conteúdo antes de revelar.
+      // Só entra com JavaScript, requestAnimationFrame e SEM preferência por menos movimento.
+      // Sem a classe, nenhuma regra esconde nada e o site aparece completo e estático (é o caso
+      // de JavaScript desligado, navegador antigo e de quem pediu redução de movimento).
+      (function () {
+        try {
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+          if (!window.requestAnimationFrame) return
+          document.documentElement.classList.add('movimento')
+        } catch (e) {}
+      })()
+    </script>
     <meta name="google-site-verification" content="efYrbR7Xsw4XC0OSGNTuUp2xpcBz6z4LtANdma0_mTQ" />
     <title>IBA Estúdio | Desenvolvimento e IA para a sua operação</title>
     <meta name="description" content="Sites, sistemas e integrações de IA que fazem a operação rodar: atendimento, vendas, dados e processos internos. Atendimento direto e prazos por escrito." />

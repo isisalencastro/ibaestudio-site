@@ -1,27 +1,29 @@
+/**
+ * Casca de cada página.
+ *
+ * Antes daqui saía o fade com blur e escala na montagem. Agora quem cobre a troca de rota é
+ * o painel da TransicaoPagina, então a página não precisa mais se animar inteira: cada
+ * bloco entra pela sua própria revelação, e o resultado sai mais leve (o blur de página
+ * inteira forçava repintura de tudo a cada navegação).
+ *
+ * Sobrou daqui o que é função: rolar até a âncora quando a rota chega com hash, com o
+ * offset da navbar, pelo Lenis.
+ */
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import { rolarParaElemento } from '../lib/rolagemSuave'
 
 export default function Page({ children }) {
-  const reduce = useReducedMotion()
-  const { hash } = useLocation()
+  const { hash, pathname } = useLocation()
 
   useEffect(() => {
     if (!hash) return
-    const el = document.getElementById(hash.slice(1))
-    if (el) el.scrollIntoView({ behavior: 'smooth' })
-  }, [hash])
+    const alvo = document.getElementById(hash.slice(1))
+    if (!alvo) return
+    // Espera a rota montar e as fontes assentarem antes de medir a posição do alvo.
+    const t = setTimeout(() => rolarParaElemento(alvo), 80)
+    return () => clearTimeout(t)
+  }, [hash, pathname])
 
-  if (reduce) return <>{children}</>
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24, scale: 0.995, filter: 'blur(6px)' }}
-      animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-      exit={{ opacity: 0, y: -20, scale: 0.995, filter: 'blur(6px)' }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  )
+  return <>{children}</>
 }

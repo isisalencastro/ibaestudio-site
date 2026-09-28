@@ -1,5 +1,6 @@
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
+import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
 import { ArrowRightIcon } from '../components/Icons'
 import { mailLink } from '../lib/site'
@@ -40,9 +41,7 @@ export default function Politicas() {
           <Reveal>
             <p className="eyebrow">Políticas</p>
           </Reveal>
-          <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Postura e compromissos da IBA</h1>
-          </Reveal>
+          <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Postura e compromissos da IBA</TituloRevelado>
           <Reveal delay={0.16}>
             <p className="lede max-w-[62ch]">Como trabalhamos, o que você pode esperar de nós e as respostas para as dúvidas mais comuns.</p>
           </Reveal>

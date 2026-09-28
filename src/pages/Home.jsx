@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
+import TituloRevelado from '../components/TituloRevelado'
+import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
+import { useMagnetico } from '../lib/magnetismo'
 import { waLink, WA_MESSAGES, PRAXE_PAGINA } from '../lib/site'
 import { CheckIcon, ArrowRightIcon, WhatsAppIcon } from '../components/Icons'
 
@@ -104,6 +107,11 @@ function Mockup() {
 
 export default function Home() {
   const reduce = useReducedMotion()
+  // CTAs com efeito magnético. Um ref por botão: o hook é por elemento, não global.
+  const ctaSessaoGratuita = useMagnetico()
+  const ctaFalarComIba = useMagnetico()
+  const ctaAgendar = useMagnetico()
+  const ctaWhatsApp = useMagnetico()
 
   return (
     <Page>
@@ -117,17 +125,17 @@ export default function Home() {
               Disponível para novos projetos
             </motion.span>
 
-            <motion.h1 variants={heroItem} className="text-[clamp(2.1rem,4.6vw,3.4rem)] mt-6 mb-5">
+            <TituloRevelado as="h1" className="text-[clamp(2.1rem,4.6vw,3.4rem)] mt-6 mb-5">
               A IA trabalhando em toda a operação da sua empresa
-            </motion.h1>
+            </TituloRevelado>
 
             <motion.p variants={heroItem} className="text-gray-600 text-[1.12rem] max-w-[52ch] mb-8">
               A IBA desenvolve sites, sistemas e integrações de IA que fazem sua operação rodar: atendimento, vendas, marketing, dados e processos internos.
             </motion.p>
 
             <motion.div variants={heroItem} className="flex flex-wrap gap-3 mb-9">
-              <a className="btn btn-primary" href="#diagnostico">Sessão estratégica gratuita</a>
-              <a className="btn btn-secondary" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
+              <a ref={ctaSessaoGratuita} className="btn btn-primary" href="#diagnostico">Sessão estratégica gratuita</a>
+              <a ref={ctaFalarComIba} className="btn btn-secondary" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
             </motion.div>
 
             <motion.ul variants={heroItem} className="flex flex-wrap gap-x-7 gap-y-3 list-none">
@@ -164,21 +172,24 @@ export default function Home() {
 
       <section className="py-[72px]" id="servicos" aria-labelledby="servicos-titulo">
         <div className="container-site">
-          <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
               <p className="eyebrow">Serviços</p>
-              <h2 id="servicos-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">O que a IBA faz pela sua operação</h2>
+              <TituloRevelado as="h2" id="servicos-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">O que a IBA faz pela sua operação</TituloRevelado>
             </div>
-            <p className="lede">Cada frente é desenhada para a sua operação, do mapeamento à entrega, com você acompanhando tudo.</p>
-          </Reveal>
+            <Reveal>
+              <p className="lede">Cada frente é desenhada para a sua operação, do mapeamento à entrega, com você acompanhando tudo.</p>
+            </Reveal>
+          </div>
 
           <div className="grid lg:grid-cols-[1.25fr_0.9fr] gap-6 items-stretch">
             <Reveal className="h-full">
               <motion.article
-                className="h-full bg-blue-soft border border-blue-soft2 rounded-3xl p-7 sm:p-10 lg:p-11 flex flex-col"
+                className="relative isolate h-full overflow-hidden bg-blue-soft border border-blue-soft2 rounded-3xl p-7 sm:p-10 lg:p-11 flex flex-col"
                 whileHover={reduce ? undefined : { y: -6 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               >
+                <LuzCartao />
                 <p className="eyebrow mb-3">Principal frente</p>
                 <h3 className="text-[clamp(1.6rem,2.4vw,2rem)] mb-3">{servicoDestaque.title}</h3>
                 <p className="text-gray-600 text-[1.02rem] mb-6 max-w-[46ch]">{servicoDestaque.text}</p>
@@ -203,10 +214,11 @@ export default function Home() {
               {servicosApoio.map((s, i) => (
                 <Reveal key={s.title} delay={0.12 + i * 0.1} className="h-full">
                   <motion.article
-                    className="h-full bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col"
+                    className="relative isolate h-full overflow-hidden bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col"
                     whileHover={reduce ? undefined : { y: -6 }}
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   >
+                    <LuzCartao />
                     <h3 className="text-[1.25rem] mb-2.5">{s.title}</h3>
                     <p className="text-gray-600 text-[0.96rem] mb-6 flex-grow">{s.text}</p>
                     <Link to={s.anchor} className="font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
@@ -229,7 +241,7 @@ export default function Home() {
                 <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Sessão estratégica gratuita</h2>
                 <p className="text-white/90 max-w-[52ch]">Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar: atendimento, conteúdo, anúncios ou processos. Sem compromisso.</p>
               </div>
-              <a className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
+              <a ref={ctaAgendar} className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
             </div>
           </Reveal>
         </div>
@@ -237,13 +249,15 @@ export default function Home() {
 
       <section className="py-[72px] bg-blue-soft" id="processo" aria-labelledby="processo-titulo">
         <div className="container-site">
-          <Reveal className="flex flex-wrap items-end justify-between gap-4 mb-10">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
               <p className="eyebrow">Processo</p>
-              <h2 id="processo-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">Como funciona</h2>
+              <TituloRevelado as="h2" id="processo-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)]">Como funciona</TituloRevelado>
             </div>
-            <p className="lede">Quatro passos simples. Você sabe exatamente onde estamos, sempre.</p>
-          </Reveal>
+            <Reveal>
+              <p className="lede">Quatro passos simples. Você sabe exatamente onde estamos, sempre.</p>
+            </Reveal>
+          </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((s, i) => (
@@ -297,7 +311,7 @@ export default function Home() {
             <p className="eyebrow">Próximo passo</p>
             <h2 id="cta-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Pronto para começar?</h2>
             <p className="text-gray-600 mb-8">Agende uma sessão estratégica gratuita. Em 30 minutos, você sai com um mapa de onde a IA entra na sua operação.</p>
-            <a className="btn btn-whatsapp" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">
+            <a ref={ctaWhatsApp} className="btn btn-whatsapp" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon size={20} />
               Falar no WhatsApp
             </a>
