@@ -19,6 +19,11 @@ export const PRAXE_URL = 'https://praxeskills.com.br'
 // O dominio proprio da Praxe ainda nao resolve (19/09/2026), entao a vitrine vive no site da IBA.
 export const PRAXE_PAGINA = '/praxe'
 
+// Jogos IBA: produto da IBA (jogos curtos para jogar no navegador). Desde 28/09/2026 vive em
+// endereco proprio do estudio, com a identidade visual da casa. O site tem publico e navegacao
+// proprios, entao o link abre em aba nova para nao tirar o visitante da pagina de servico.
+export const JOGOS_URL = 'https://jogos.ibaestudio.com'
+
 // Numeros conferidos nos arquivos do produto em 19/09/2026: 32 skills, 4 packs, 32 scripts.
 // Os tres avulsos somam R$ 291, que e a ancora do completo (rotulo honesto, sem preco riscado falso).
 export const PRAXE_PACKS = [

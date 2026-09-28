@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { waLink, mailLink, REDES } from '../lib/site'
+import { waLink, mailLink, REDES, JOGOS_URL } from '../lib/site'
 import Reveal from './Reveal'
 import { InstagramIcon, LinkedInIcon } from './Icons'
 
@@ -29,6 +29,16 @@ export default function Footer() {
           <ul className="flex flex-col gap-2.5">
             <li><Link to="/servicos" className="text-gray-600 text-[0.95rem] hover:text-blue">Serviços</Link></li>
             <li><Link to="/praxe" className="text-gray-600 text-[0.95rem] hover:text-blue">Praxe</Link></li>
+            <li>
+              <a
+                href={JOGOS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 text-[0.95rem] hover:text-blue"
+              >
+                Jogos IBA
+              </a>
+            </li>
             <li><Link to="/sobre" className="text-gray-600 text-[0.95rem] hover:text-blue">Sobre</Link></li>
             <li><Link to="/blog" className="text-gray-600 text-[0.95rem] hover:text-blue">Blog</Link></li>
             <li><Link to="/contato" className="text-gray-600 text-[0.95rem] hover:text-blue">Contato</Link></li>
