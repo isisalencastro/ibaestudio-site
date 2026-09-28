@@ -34,6 +34,37 @@ Em cada uma das cinco larguras (**360, 390, 768, 1024 e 1440**):
 6. **Imagens** — imagem quebrada (`naturalWidth` 0).
 7. **Título** — página sem `h1`.
 
+## Gate de acessibilidade: contraste e nome acessível
+
+Arquivo: `verificador/gate-acessibilidade.cjs`. Roda **local, antes de publicar**, no mesmo formato de três
+estados. Não é rotina contra o site no ar: decisão da Isis, 28/09/2026.
+
+```bash
+npm run gate                                      # só os tokens do design system (estático, sem navegador)
+npm run gate -- --local 4173 / /servicos /praxe   # tokens + as páginas do preview local
+node verificador/gate-acessibilidade.cjs --json --local 4173 / > gate.json
+```
+
+Duas camadas:
+
+1. **Tokens (estático).** Lê as cores do `docs/DESIGN.md` e do `tailwind.config.js` e confere se os dois
+   concordam; divergência entre eles é FALHA (foi uma divergência assim que deixou o `gray_500` antigo
+   passar). Depois mede a razão de contraste WCAG de cada par de token que o site usa, texto sobre fundo, com
+   o mínimo de cada caso: 4.5 para texto pequeno, 3 para texto grande (24px, ou 18.66px em negrito) e 3 para
+   ícone. Cada par carrega o trecho de código que o comprova: se o trecho sumir do arquivo, o par vira DÚVIDA
+   em vez de aprovar sozinho.
+2. **Página real (Chrome headless).** Em 1440px e 390px: nome acessível de todo elemento interativo
+   (`aria-labelledby`, `aria-label`, `label`, `alt`, texto visível) e o contraste medido de cada texto,
+   compondo as camadas de fundo na ordem certa: texto com transparência, caixa `bg-white/10` sobre azul e
+   gradiente pelo pior ponto da faixa. Placeholder, `title` e nome genérico ("leia mais") contam como DÚVIDA,
+   porque podem não ser o nome de verdade.
+
+Fica em DÚVIDA, de propósito, o que o gate não consegue saber: imagem atrás do texto, opacidade de grupo
+(animação no meio) e ausência de fundo declarado. Dúvida nunca vira aprovação por omissão.
+
+Sai com código 1 quando algo reprova (dá para barrar o publicar) e 0 quando passa ou só há dúvida. Reprovação
+é defeito objetivo, com a medida e o mínimo ao lado; quem decide mudar cor é a Isis, não o gate.
+
 ## Regra de uso
 
 O verificador **não substitui olho humano**, ele encurta o caminho: o que ele marca como FALHA é defeito
