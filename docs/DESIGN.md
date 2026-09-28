@@ -1,6 +1,10 @@
-# DESIGN.md: IBA Estúdio (Design System v3)
+# DESIGN.md: IBA Estúdio (Design System v4)
 
 > Token spec (padrão Google DESIGN.md / Open Design). Contrato de marca. Toda renderização segue exatamente estes tokens.
+> Versão 4, revisada em 28/09/2026: acrescenta a linguagem de movimento (rolagem suave, revelação por
+> rolagem, título com máscara, troca de página, botão magnético e luz no cartão). A v3 (19/09/2026) não
+> descrevia o movimento. Acabamento no mesmo dia: tempos medidos no Chromium e ajustados (irmãos,
+> título, troca de página, rolagem e primeira tela), sem efeito novo.
 > Versão 3, revisada em 19/09/2026. A v2 (17/08/2026) ficou para trás do site: nome, público e CTA estavam errados.
 > Antes de escrever qualquer página, leia este arquivo e o ANTI-SLOP.md. Antes de publicar, rode o deep review do fim.
 
@@ -116,15 +120,40 @@ motion:
   entrada: opacidade + deslocamento curto (até 28px), sutil
   duracao: 0.4s a 0.8s
   easing: [0.22, 1, 0.36, 1]
-  stagger: 0.1 a 0.12 entre irmãos
+  stagger: 0.06 entre irmãos (com 0.1, quatro cards levavam 1,07s e a cascata parecia travar)
   hover_card: elevação de até 6px
+  rolagem_suave: Lenis, lerp 0.1, wheelMultiplier 1, touchMultiplier 1.4
+  ancora: offset -90 (navbar fixa de 72px), duração 1s
+  revelacao: top 85%, uma vez só, deslocamento 28px, 0.7s
+  titulo_mascara: máscara por palavra, 0.8s, stagger 0.05, atraso somado de no máximo 0.3s
+  troca_de_pagina: 3 painéis azuis, cubic-bezier(0.76, 0, 0.24, 1), 0.4s, stagger 0.04
+  botao_magnetico: até 6px (3px na borda do botão, na prática), 0.3s ao entrar, 0.5s ao sair, só em mouse, nunca no Contato
+  luz_no_cartao: opacidade em 0.5s, azul da marca em alfa 0.07
+  primeira_tela: opacidade e 28px, 0.6s, stagger 0.06, sem blur, sem escala, sem giro; botão flutuante sem mola
   proibido:
     - mola exagerada (springy, quicando)
     - parallax
     - elemento que entra girando ou escalando muito
     - animação que segura a leitura do conteúdo
-  acessibilidade: respeitar prefers-reduced-motion SEMPRE (componente Reveal já faz)
+    - fundo em WebGL (o peso não fecha: ver nota abaixo)
+  acessibilidade: respeitar prefers-reduced-motion SEMPRE, em CSS e em JS
 ```
+
+Regras de movimento:
+
+- **A linguagem veio da referência 3i Distribuidora (28/09/2026)**, medida no código dela, e foi reduzida
+  ao envelope acima. O que a referência pedia e ficou de fora, de propósito:
+  - **parallax**: está na lista de proibidos deste documento. Não entra.
+  - **fundo animado em WebGL**: o teto de peso é 120KB a mais do que a pessoa baixa. Só um fundo em WebGL,
+    com o mínimo de código, passa disso.
+  - **48px de deslocamento e 1.1s por revelação**: aqui o teto é 28px e 0.8s.
+- **O conteúdo nunca depende do movimento para aparecer.** A classe `movimento` no `<html>` é o que autoriza
+  o CSS a esconder algo antes de revelar. Ela só é colocada pelo script do `index.html`, quando há
+  JavaScript e a pessoa NÃO pediu redução de movimento. Sem ela, o site aparece estático e completo.
+- **Revelação é sempre por `transform` e `opacity`.** Nunca `display: none`, nunca `visibility: hidden`.
+- **A troca de página por painéis nunca fica sobre o conteúdo**: o painel só existe no DOM durante a
+  transição, e a navegação por teclado não passa por ele.
+- Um arquivo, uma fonte de números: `src/lib/motion.js`. Se um valor mudar aqui, muda lá também.
 
 ## Component rules
 
@@ -183,7 +212,8 @@ Passo obrigatório. Com este arquivo aberto do lado, conferir item por item:
 4. **Anti-slop:** rodar os 12 itens acima e os 14 do ANTI-SLOP.md.
 5. **Copy:** sem travessão, sem clichê de IA, sem número inventado, sem depoimento que não existe.
 6. **Responsividade:** as 5 larguras da seção acima.
-7. **Acessibilidade:** `npm run gate` sem reprovação (contraste e nome acessível), foco visível, alvo de 44px, `prefers-reduced-motion` respeitado.
+7. **Acessibilidade:** `npm run gate` sem reprovação (contraste e nome acessível), foco visível, alvo de 44px, `prefers-reduced-motion` respeitado. O gate rola cada página até o fim antes de medir, porque o conteúdo de baixo só aparece na rolagem.
+   - Estado em 28/09/2026: o gate reprova 7 itens, todos o mesmo par: branco sobre o verde de WhatsApp `#25D366` (1.98:1) e o rótulo branco 70% sobre azul em Praxe (4.04:1). É anterior ao movimento e igual antes e depois dele: ou a Isis decide trocar o verde do botão, ou o par sai da lista com justificativa escrita. Não é regressão de código.
 8. **Build:** `npm run build` passa sem erro.
 
 O que foi construído tem que bater com este arquivo. Divergência é bug: ou corrige o código, ou atualiza o contrato de propósito e anota a data.

@@ -57,7 +57,9 @@ Duas camadas:
    (`aria-labelledby`, `aria-label`, `label`, `alt`, texto visível) e o contraste medido de cada texto,
    compondo as camadas de fundo na ordem certa: texto com transparência, caixa `bg-white/10` sobre azul e
    gradiente pelo pior ponto da faixa. Placeholder, `title` e nome genérico ("leia mais") contam como DÚVIDA,
-   porque podem não ser o nome de verdade.
+   porque podem não ser o nome de verdade. Cada endereço é rolado até o fim antes da medição e volta ao topo,
+   porque o site revela conteúdo na rolagem: medir sem rolar deixaria fora tudo o que está abaixo da primeira
+   dobra (medido em 28/09/2026: 76 elementos contra 202 na home).
 
 Fica em DÚVIDA, de propósito, o que o gate não consegue saber: imagem atrás do texto, opacidade de grupo
 (animação no meio) e ausência de fundo declarado. Dúvida nunca vira aprovação por omissão.

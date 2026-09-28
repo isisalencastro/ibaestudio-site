@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
+import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES, mailLink, WA_NUMBER, EMAIL, INSTAGRAM_URL, LINKEDIN_URL } from '../lib/site'
 import { WhatsAppIcon, ClockIcon } from '../components/Icons'
@@ -87,9 +88,7 @@ export default function Contato() {
           <Reveal>
             <p className="eyebrow">Contato</p>
           </Reveal>
-          <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Vamos conversar sobre o seu projeto</h1>
-          </Reveal>
+          <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Vamos conversar sobre o seu projeto</TituloRevelado>
           <Reveal delay={0.16}>
             <p className="lede max-w-[62ch]">Conte o principal gargalo da sua operação. A gente devolve um caminho prático com IA.</p>
           </Reveal>

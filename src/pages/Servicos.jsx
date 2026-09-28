@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
+import TituloRevelado from '../components/TituloRevelado'
+import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
+import { useMagnetico } from '../lib/magnetismo'
 import { waLink, WA_MESSAGES } from '../lib/site'
 
 const services = [
@@ -58,17 +59,17 @@ const services = [
   }
 ]
 
-export default function Servicos() {
-  const { hash } = useLocation()
+// Um componente por botão: o hook magnético é por elemento. Com um ref só dividido pelos
+// três cartões, o efeito ficava apenas no último.
+function OrcamentoCta({ message }) {
+  const ref = useMagnetico()
+  return <a ref={ref} className="btn btn-primary mt-2" href={waLink(message)} target="_blank" rel="noopener noreferrer">Quero um orçamento</a>
+}
 
-  useEffect(() => {
-    if (hash) {
-      const el = document.querySelector(hash)
-      if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60)
-      }
-    }
-  }, [hash])
+export default function Servicos() {
+  // Âncora de hash: quem rola é o Page, com o offset da navbar e pelo Lenis. Havia um
+  // scrollIntoView duplicado aqui, que brigava com o do Page na mesma rota.
+  const ctaAgendar = useMagnetico()
 
   return (
     <Page>
@@ -79,10 +80,8 @@ export default function Servicos() {
           <Reveal>
             <p className="eyebrow">Serviços</p>
           </Reveal>
-          <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Desenvolvimento, IA e automação para a sua operação</h1>
-          </Reveal>
-          <Reveal delay={0.16}>
+          <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Desenvolvimento, IA e automação para a sua operação</TituloRevelado>
+          <Reveal delay={0.08}>
             <p className="lede max-w-[62ch]">Três frentes de trabalho, um mesmo objetivo: sua operação rodando com IA. Escolha por onde começar.</p>
           </Reveal>
         </div>
@@ -97,11 +96,12 @@ export default function Servicos() {
               {s.paras.map((p) => (
                 <p key={p} className="text-gray-600 mb-4 max-w-[60ch]">{p}</p>
               ))}
-              <a className="btn btn-primary mt-2" href={waLink(s.message)} target="_blank" rel="noopener noreferrer">Quero um orçamento</a>
+              <OrcamentoCta message={s.message} />
             </Reveal>
 
             <Reveal delay={0.12} x={24} y={0}>
-              <aside className="bg-gray-100 border border-gray-200 rounded-3xl p-7 sm:p-8 lg:p-9">
+              <aside className="relative isolate overflow-hidden bg-gray-100 border border-gray-200 rounded-3xl p-7 sm:p-8 lg:p-9">
+                <LuzCartao />
                 <dl className="flex flex-col gap-5">
                   {s.aside.map(([dt, dd]) => (
                     <div key={dt}>
@@ -124,7 +124,7 @@ export default function Servicos() {
                 <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Não sabe por onde começar?</h2>
                 <p className="text-white/90 max-w-[52ch]">Agende uma sessão estratégica gratuita. Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar. Sem compromisso.</p>
               </div>
-              <a className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
+              <a ref={ctaAgendar} className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
             </div>
           </Reveal>
         </div>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
+import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES } from '../lib/site'
 
@@ -14,9 +15,7 @@ export default function NaoEncontrada() {
           <Reveal>
             <p className="eyebrow">Erro 404</p>
           </Reveal>
-          <Reveal delay={0.08} blur>
-            <h1 className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Esta página não existe</h1>
-          </Reveal>
+          <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Esta página não existe</TituloRevelado>
           <Reveal delay={0.16}>
             <p className="lede mb-8">O endereço pode ter mudado ou o link veio errado. Comece pelo início ou fale com a gente que a gente te aponta o caminho.</p>
             <div className="flex flex-wrap gap-3">

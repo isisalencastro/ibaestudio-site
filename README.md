@@ -1,6 +1,7 @@
 # IBA Estúdio
 
-Site institucional da IBA Estúdio. SPA em React + Tailwind CSS + Framer Motion.
+Site institucional da IBA Estúdio. SPA em React + Tailwind CSS, com Framer Motion nos componentes que já
+usavam e Lenis na rolagem suave.
 
 ## Desenvolvimento
 
@@ -16,6 +17,28 @@ npm run build
 ```
 
 Gera a versão de produção em `dist/`. O build tem duas etapas: `vite build` e `scripts/prerender.mjs`.
+
+Para saber o peso do que a pessoa baixa (JS, CSS e HTML da primeira carga, cru e em gzip):
+
+```bash
+npm run peso
+```
+
+## Movimento (leia antes de mexer em animação)
+
+Os números vivem em `src/lib/motion.js`, espelho da seção Motion tokens do `docs/DESIGN.md`. Não invente
+valor novo no meio de um componente.
+
+A linguagem veio do site entregue à 3i Distribuidora, reduzida ao envelope da IBA. Três regras que não se
+negociam:
+
+1. **`prefers-reduced-motion` manda.** O script no `<head>` do `index.html` só coloca a classe `movimento`
+   no `<html>` quando há JavaScript e a pessoa não pediu redução. Toda regra de CSS que esconde algo para
+   revelar depois está presa a essa classe. Sem ela, o site aparece estático e completo.
+2. **Nada é escondido com `display: none` ou `visibility: hidden`.** Revelação é `transform` e `opacity`.
+3. **Nada depende da rolagem para existir.** O que está na tela no primeiro instante aparece sem a pessoa
+   rolar; o que está abaixo entra quando chega perto (top 85%). Se o documento não puder mais rolar, tudo o
+   que faltar é revelado na hora.
 
 ## Cabeçalho de cada página (leia antes de criar página nova)
 
@@ -35,13 +58,19 @@ caso de exceção.
 ## Estrutura
 
 - `src/pages/`: páginas (Home, Serviços, Praxe, Sobre, Contato, Blog, Políticas, 404)
-- `src/components/`: Header, Footer, Seo, WhatsApp flutuante, Reveal, ícones
+- `src/components/`: Header, Footer, Seo, WhatsApp flutuante, Reveal, TituloRevelado, TransicaoPagina,
+  LuzCartao, ícones
+- `src/lib/motion.js`: os números do movimento (fonte única)
+- `src/lib/revelacao.js`: quem decide a hora de revelar cada bloco, com um listener só para a página
+- `src/lib/rolagemSuave.js`: Lenis, âncoras com offset da navbar, rolagem para o topo na troca de rota
+- `src/lib/magnetismo.js`: botão magnético, só em mouse
 - `src/lib/seo.js`: título e descrição de cada rota (fonte única)
 - `src/lib/site.js`: constantes (WhatsApp, e-mail) e helpers de link
 - `public/img/`: favicon e logo oficial
 - `public/404.html`: página de erro servida pelo Vercel em endereço inexistente
 - `public/robots.txt` e `public/sitemap.xml`: SEO
 - `scripts/prerender.mjs`: grava o HTML por rota depois do build
+- `scripts/peso.mjs`: mede o peso do build, cru e em gzip
 - `verificador/verifica.cjs`: confere a página publicada em cinco larguras
 - `verificador/gate-acessibilidade.cjs`: gate **local** de contraste e nome acessível, antes de publicar
 

@@ -16,6 +16,10 @@
  *   node verificador/gate-acessibilidade.cjs https://www.ibaestudio.com/      # tokens + uma URL qualquer
  *   node verificador/gate-acessibilidade.cjs --json --local 4173 /            # saída para máquina
  *
+ * A camada de página rola cada endereço até o fim antes de medir e volta ao topo: o site
+ * revela conteúdo na rolagem, e medir sem rolar deixaria fora tudo o que está abaixo da
+ * primeira dobra.
+ *
  * Sai com código 1 quando algo reprova (para poder barrar o publicar) e 0 quando passa ou só há dúvida.
  *
  * Sem dependência nova: Node 22+ (WebSocket nativo), Chrome headless (o mesmo do verifica.cjs) e o
@@ -543,6 +547,35 @@ function classificaContrastes(itens) {
   return { lista, falhas, duvidas, ok }
 }
 
+/**
+ * Rola a página inteira antes de medir e volta ao topo.
+ *
+ * Por que existe: o site passou a revelar conteúdo por rolagem (classe `movimento` no
+ * <html>, a partir de 28/09/2026). Medindo só o que está na tela no primeiro instante, o
+ * gate deixava de conferir tudo o que está abaixo da primeira dobra.
+ *
+ * Medido em 28/09/2026, contraste na home, contando os elementos com texto das duas
+ * larguras (1440 e 390), na mesma máquina:
+ *
+ *   sem rolar: 142 elementos na versão anterior, 76 na versão com revelação
+ *   rolando:   168 elementos na versão anterior, 202 na versão com revelação
+ *
+ * As reprovações são as mesmas nas quatro medições (botão de WhatsApp, verde #25D366 com
+ * texto branco). O que muda é a cobertura: sem rolar, o gate ficava cego para 126
+ * elementos da home depois da revelação entrar.
+ */
+async function rolaAPaginaInteira(cdp, sessionId) {
+  const altura = await avaliaNaPagina(cdp, sessionId, 'document.documentElement.scrollHeight')
+  const passos = 14
+  for (let i = 0; i <= passos; i++) {
+    await cdp.send('Runtime.evaluate',
+      { expression: `window.scrollTo(0, ${Math.round((altura / passos) * i)})`, returnByValue: true }, sessionId)
+    await espera(170)
+  }
+  await cdp.send('Runtime.evaluate', { expression: 'window.scrollTo(0, 0)', returnByValue: true }, sessionId)
+  await espera(1000)
+}
+
 async function conferePagina(cdp, url) {
   const { targetId } = await cdp.send('Target.createTarget', { url: 'about:blank' })
   const { sessionId } = await cdp.send('Target.attachToTarget', { targetId, flatten: true })
@@ -557,6 +590,7 @@ async function conferePagina(cdp, url) {
     await cdp.send('Page.navigate', { url }, sessionId)
     await cdp.esperaEvento('Page.loadEventFired', 25000)
     await espera(2600) // deixa a animação de entrada terminar (opacidade e blur voltam a 1)
+    await rolaAPaginaInteira(cdp, sessionId) // e confere também o que só aparece na rolagem
     const nomes = classificaNomes(await avaliaNaPagina(cdp, sessionId, SCRIPT_NOMES))
     porLargura[aparelho] = { largura, nomes }
     // O contraste é agrupado depois, junto das duas larguras: o mesmo par não pode virar duas linhas.

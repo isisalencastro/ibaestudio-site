@@ -3,6 +3,19 @@
 @tailwind utilities;
 
 @layer base {
+  /* Faixa do botão flutuante do WhatsApp, em um lugar só.
+     O botão é `position: fixed`: não ocupa espaço no fluxo, então passa por cima do que
+     estiver embaixo. No fim da página quem fica embaixo é a última linha do rodapé, e
+     era isso que aparecia coberto na captura de Contato em 390px (28/09/2026: o
+     copyright terminava a 72px do fim do documento e o topo do botão fica a 76px).
+     O rodapé usa estes mesmos números para reservar a faixa: dois lugares com o mesmo
+     número é como este defeito nasce. */
+  :root {
+    --flutuante-lado: 20px;    /* distância da borda direita e de baixo */
+    --flutuante-tamanho: 56px; /* diâmetro do botão */
+    --flutuante-respiro: 24px; /* folga entre a última linha de texto e o botão */
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
@@ -81,6 +94,22 @@
   .skip-link:focus {
     top: 12px;
   }
+
+  /* Posição e tamanho do botão flutuante do WhatsApp, a partir das variáveis de :root. */
+  .flutuante-whatsapp {
+    position: fixed;
+    right: var(--flutuante-lado);
+    bottom: var(--flutuante-lado);
+    width: var(--flutuante-tamanho);
+    height: var(--flutuante-tamanho);
+  }
+
+  /* Respiro no fim do documento: a última linha de texto do rodapé para antes da faixa do
+     botão flutuante, em qualquer largura e com qualquer comprimento de texto. Não é enfeite
+     de espaçamento: é o que garante que o botão não cubra texto no fim da página. */
+  .reserva-do-flutuante {
+    padding-bottom: calc(var(--flutuante-lado) + var(--flutuante-tamanho) + var(--flutuante-respiro));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -92,4 +121,145 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  /* Cinto e suspensório: se a classe `movimento` entrar por engano (ou a pessoa trocar a
+     preferência com a página aberta), nada pode ficar escondido. Conteúdo estático e
+     completo, sempre. */
+  .movimento [data-reveal],
+  .movimento [data-titulo] .mascara-linha {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .luz-cartao,
+  .transicao-pagina {
+    display: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Movimento.
+
+   Tudo aqui só age com a classe `movimento` no <html>, que o script inline do index.html
+   coloca apenas quando há JavaScript e o visitante NÃO pediu redução de movimento. Sem
+   essa classe, nenhuma regra abaixo esconde nada: quem está com JavaScript desligado ou
+   pediu redução vê o site inteiro, estático.
+
+   Regra da casa: revelação é sempre por `transform` e `opacity`. Nunca `display: none`,
+   nunca `visibility: hidden`.
+--------------------------------------------------------------------------- */
+
+html.movimento {
+  /* Quem interpola a rolagem é o Lenis. Os dois juntos brigariam. */
+  scroll-behavior: auto;
+}
+
+/* Revelação por blocos: até 28px de subida e 0.7s, dentro do DESIGN.md. */
+.movimento [data-reveal] {
+  opacity: 0;
+  transform: translate3d(var(--rx, 0px), var(--ry, 28px), 0) scale(var(--rs, 1));
+  filter: var(--rf, blur(0px));
+  transition-property: opacity, transform, filter;
+  transition-duration: var(--rd, 0.7s);
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rdl, 0s);
+}
+
+.movimento [data-reveal][data-visivel] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0px);
+}
+
+/* Título com máscara: cada palavra sobe de dentro da própria faixa. */
+.movimento [data-titulo] .mascara {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* Faixa de respiro em volta da palavra: embaixo para o rabinho do g, p, j e q, em cima
+     para acento de maiúscula, dos lados para a tinta que passa da caixa da letra (medido
+     em 28/09/2026: sem a folga lateral, 41 de 50 títulos perdiam pixels na borda das
+     palavras). O margin negativo devolve o espaço ao layout, então nada muda de lugar. */
+  padding: 0.12em 0.08em 0.22em;
+  margin: -0.12em -0.08em -0.22em;
+}
+
+.movimento [data-titulo] .mascara-linha {
+  display: inline-block;
+  /* Desce além da folga de baixo: a caixa inteira da palavra escondida fica fora do recorte. */
+  transform: translate3d(0, calc(100% + 0.3em), 0);
+  transition-property: transform;
+  transition-duration: var(--td, 0.8s);
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--ri, 0) * var(--ts, 0.05s));
+}
+
+.movimento [data-titulo][data-visivel] .mascara-linha {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Botão magnético: o JS escreve só o `transform`. As demais transições do `.btn`
+   continuam com o tempo delas (0.2s), para o hover não mudar de comportamento. */
+.movimento [data-magnetico] {
+  transition-property: transform, background-color, color, border-color, box-shadow;
+  transition-duration: var(--mag-dur, 0.3s), 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1), ease, ease, ease, ease;
+  will-change: transform;
+}
+
+.movimento [data-magnetico][data-mag-saiu] {
+  --mag-dur: 0.5s;
+}
+
+/* Luz que segue o cursor, dentro do cartão. z-index -1 com o cartão isolado: ela fica
+   acima do fundo do cartão e abaixo do texto, nunca por cima da leitura. */
+.luz-cartao {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle var(--raio, 260px) at var(--lx, 50%) var(--ly, -10%),
+    var(--cor-luz, rgba(24, 92, 182, 0.07)) 0%,
+    rgba(24, 92, 182, 0) 70%
+  );
+  transition: opacity var(--luz-dur, 0.5s) ease;
+}
+
+.movimento .luz-cartao[data-acesa] {
+  opacity: 1;
+}
+
+/* Painéis da troca de página. Só existem no DOM durante a transição. */
+.transicao-pagina {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  pointer-events: none;
+}
+
+.transicao-pagina[data-estado='cobrindo'] {
+  pointer-events: auto;
+}
+
+.transicao-painel {
+  flex: 1 1 0;
+  height: 100%;
+  background: #185CB6;
+  transform: translate3d(0, 100%, 0);
+  transition-property: transform;
+  transition-duration: var(--pd, 0.4s);
+  transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  transition-delay: calc(var(--pi, 0) * var(--ps, 0.04s));
+}
+
+.transicao-pagina[data-estado='cobrindo'] .transicao-painel {
+  transform: translate3d(0, 0, 0);
+}
+
+.transicao-pagina[data-estado='revelando'] .transicao-painel {
+  transform: translate3d(0, -100%, 0);
 }
