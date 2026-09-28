@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { EASE, PRIMEIRA_TELA, movimentoLigado } from '../lib/motion'
 
 const links = [
   { to: '/servicos', label: 'Serviços' },
@@ -48,9 +49,10 @@ export default function Header() {
       <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        // Desce 16px, não 80: a navbar só assenta, sem atravessar o topo do hero.
+        initial={movimentoLigado() ? { y: -16, opacity: 0 } : false}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: PRIMEIRA_TELA.duracao, ease: EASE }}
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
           scrolled ? 'bg-white/90 backdrop-blur-md shadow-[0_1px_0_#EEF2F8]' : 'bg-transparent'
         }`}

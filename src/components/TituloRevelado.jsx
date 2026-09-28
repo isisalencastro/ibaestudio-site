@@ -33,6 +33,8 @@ export default function TituloRevelado({
   }
 
   const palavras = children.trim().split(/\s+/)
+  // Título longo encurta o passo para caber no teto: a linha inteira monta no mesmo tempo.
+  const passo = Math.min(stagger, TITULO.atrasoMaximo / Math.max(1, palavras.length - 1))
 
   return (
     <Tag ref={ref} data-titulo="" className={className} {...resto}>
@@ -41,7 +43,7 @@ export default function TituloRevelado({
           <span className="mascara">
             <span
               className="mascara-linha"
-              style={{ '--ri': i, '--ts': `${stagger}s`, '--td': `${duracao}s` }}
+              style={{ '--ri': i, '--ts': `${passo}s`, '--td': `${duracao}s` }}
             >
               {palavra}
             </span>

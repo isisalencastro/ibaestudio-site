@@ -147,15 +147,18 @@ html.movimento {
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
-  /* Faixa de respiro para o rabinho do g, p e q não ser cortado pelo recorte.
-     O margin negativo devolve a altura ao layout, então nada muda de lugar. */
-  padding-bottom: 0.2em;
-  margin-bottom: -0.2em;
+  /* Faixa de respiro em volta da palavra: embaixo para o rabinho do g, p, j e q, em cima
+     para acento de maiúscula, dos lados para a tinta que passa da caixa da letra (medido
+     em 28/09/2026: sem a folga lateral, 41 de 50 títulos perdiam pixels na borda das
+     palavras). O margin negativo devolve o espaço ao layout, então nada muda de lugar. */
+  padding: 0.12em 0.08em 0.22em;
+  margin: -0.12em -0.08em -0.22em;
 }
 
 .movimento [data-titulo] .mascara-linha {
   display: inline-block;
-  transform: translate3d(0, calc(100% + 0.08em), 0);
+  /* Desce além da folga de baixo: a caixa inteira da palavra escondida fica fora do recorte. */
+  transform: translate3d(0, calc(100% + 0.3em), 0);
   transition-property: transform;
   transition-duration: var(--td, 0.8s);
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
@@ -219,9 +222,9 @@ html.movimento {
   background: #185CB6;
   transform: translate3d(0, 100%, 0);
   transition-property: transform;
-  transition-duration: var(--pd, 0.5s);
+  transition-duration: var(--pd, 0.4s);
   transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
-  transition-delay: calc(var(--pi, 0) * var(--ps, 0.05s));
+  transition-delay: calc(var(--pi, 0) * var(--ps, 0.04s));
 }
 
 .transicao-pagina[data-estado='cobrindo'] .transicao-painel {

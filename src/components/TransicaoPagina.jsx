@@ -1,8 +1,9 @@
 /**
  * Troca de página com painéis.
  *
- * Da referência: 3 painéis, cubic-bezier(0.76, 0, 0.24, 1), 0.5s por painel e atraso
- * escalonado de 0.05s. Os painéis são do azul da marca, opaco, e cobrem a troca de rota:
+ * Da referência: 3 painéis e cubic-bezier(0.76, 0, 0.24, 1). Duração e atraso vivem em
+ * TRANSICAO, em lib/motion.js (0.4s e 0.04s, mais curtos que a referência para o clique
+ * não virar espera). Os painéis são do azul da marca, opaco, e cobrem a troca de rota:
  * por isso a rota não precisa mais de fade nem de blur, e o App perdeu o AnimatePresence.
  *
  * Três cuidados que não estavam na referência e são obrigatórios aqui:
@@ -10,7 +11,7 @@
  * 1. O painel não existe no HTML inicial. Ele só entra depois de um clique, e sai do DOM
  *    quando a transição termina. Não há estado em que ele fique sobre o conteúdo.
  * 2. Navegação de teclado não passa por aqui: `event.detail === 0` é clique de teclado (ou
- *    programático), e quem navega por Tab não deve esperar 1,2s por causa de enfeite.
+ *    programático), e quem navega por Tab não deve esperar por causa de enfeite.
  * 3. Toda etapa é amarrada a uma geração. Um clique novo cancela a transição anterior em
  *    vez de duas brigarem pelo mesmo estado.
  *

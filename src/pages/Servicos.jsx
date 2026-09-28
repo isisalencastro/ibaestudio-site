@@ -59,10 +59,16 @@ const services = [
   }
 ]
 
+// Um componente por botão: o hook magnético é por elemento. Com um ref só dividido pelos
+// três cartões, o efeito ficava apenas no último.
+function OrcamentoCta({ message }) {
+  const ref = useMagnetico()
+  return <a ref={ref} className="btn btn-primary mt-2" href={waLink(message)} target="_blank" rel="noopener noreferrer">Quero um orçamento</a>
+}
+
 export default function Servicos() {
   // Âncora de hash: quem rola é o Page, com o offset da navbar e pelo Lenis. Havia um
   // scrollIntoView duplicado aqui, que brigava com o do Page na mesma rota.
-  const ctaOrcamento = useMagnetico()
   const ctaAgendar = useMagnetico()
 
   return (
@@ -90,7 +96,7 @@ export default function Servicos() {
               {s.paras.map((p) => (
                 <p key={p} className="text-gray-600 mb-4 max-w-[60ch]">{p}</p>
               ))}
-              <a ref={ctaOrcamento} className="btn btn-primary mt-2" href={waLink(s.message)} target="_blank" rel="noopener noreferrer">Quero um orçamento</a>
+              <OrcamentoCta message={s.message} />
             </Reveal>
 
             <Reveal delay={0.12} x={24} y={0}>

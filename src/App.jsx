@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import { MotionConfig } from 'framer-motion'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
@@ -29,8 +30,10 @@ function ScrollToTop() {
 export default function App() {
   useRolagemSuave()
 
+  // reducedMotion "user": com redução pedida, o framer não anima deslocamento (hover dos
+  // cards, abertura do menu). As entradas já nascem paradas pela classe `movimento`.
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <ScrollToTop />
       <TransicaoPagina />
       <Header />
@@ -48,6 +51,6 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppFloat />
-    </>
+    </MotionConfig>
   )
 }

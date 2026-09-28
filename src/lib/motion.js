@@ -31,6 +31,9 @@ export const REVELACAO = {
   duracao: 0.7,
   disparo: 0.85,
   stagger: 0.05,
+  // Atraso entre irmãos que entram juntos (cards de uma grade). Era 0.1: com quatro cards
+  // a cascata levava 1,07s medidos e parecia travar. Com 0.06 fecha em 0,88s.
+  irmaos: 0.06,
   // Margem de segurança: se o documento não puder mais rolar, revela o que estiver
   // pendente. Sem isso, o último bloco de uma página curta ficaria invisível para
   // quem nunca rola.
@@ -42,14 +45,21 @@ export const TITULO = {
   duracao: 0.8, // teto do DESIGN.md; a referência usa 1.0 a 1.2s
   staggerPalavra: 0.05,
   staggerLetra: 0.018,
-  disparo: 0.88
+  disparo: 0.88,
+  // Teto do atraso somado: a última palavra começa a subir até 0.3s depois da primeira.
+  // Sem isso, o título de dez palavras da home terminava de montar com a pessoa já lendo.
+  atrasoMaximo: 0.3
 }
 
-/** Troca de página. Referência: cubic-bezier(0.76, 0, 0.24, 1), 0.5 a 0.6s, atraso 0.05s. */
+/**
+ * Troca de página. Referência: cubic-bezier(0.76, 0, 0.24, 1), 0.5 a 0.6s, atraso 0.05s.
+ * Aqui 0.4s e 0.04s: com os números da referência o clique levava 659ms medidos até a
+ * rota trocar, e isso se percebe como espera. Os painéis ficaram, o excesso saiu.
+ */
 export const TRANSICAO = {
   paineis: 3,
-  duracao: 0.5,
-  stagger: 0.05
+  duracao: 0.4,
+  stagger: 0.04
 }
 
 /** Botão magnético. Referência: translate3d, 0.3s ao entrar, 0.5s ao sair. */
@@ -66,13 +76,26 @@ export const LUZ = {
   cor: 'rgba(24, 92, 182, 0.07)' // azul da marca em alfa baixo: superfície, não gradiente decorativo
 }
 
-/** Rolagem suave. Números medidos na referência. */
+/**
+ * Rolagem suave. Referência: lerp 0.09 e âncora em 1.4s. Aqui lerp 0.1 (o padrão do Lenis),
+ * que deixa a página parar mais perto de onde o dedo parou, e âncora em 1s: em 1.4s o fim
+ * da rolagem se arrastava depois de a pessoa já ter chegado.
+ */
 export const ROLAGEM_SUAVE = {
-  lerp: 0.09,
+  lerp: 0.1,
   wheelMultiplier: 1,
   touchMultiplier: 1.4,
   offsetAncora: -90, // desconta a navbar fixa de 72px com folga
-  duracaoAncora: 1.4
+  duracaoAncora: 1
+}
+
+/** Entrada da primeira tela (hero, navbar e botão flutuante). Tudo assenta antes da leitura. */
+export const PRIMEIRA_TELA = {
+  atrasoInicial: 0.05,
+  stagger: 0.06,
+  duracao: 0.6,
+  // O botão flutuante entra por último, mas cedo: antes era mola com atraso de 0.8s.
+  atrasoFlutuante: 0.4
 }
 
 /**

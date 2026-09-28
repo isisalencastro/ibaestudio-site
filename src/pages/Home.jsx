@@ -6,17 +6,20 @@ import TituloRevelado from '../components/TituloRevelado'
 import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
+import { EASE, PRIMEIRA_TELA, REVELACAO, movimentoLigado } from '../lib/motion'
 import { waLink, WA_MESSAGES, PRAXE_PAGINA } from '../lib/site'
 import { CheckIcon, ArrowRightIcon, WhatsAppIcon } from '../components/Icons'
 
+// Primeira tela: só opacidade e deslocamento. O blur de 8px e a escala saíram: custavam
+// repintura na carga e deixavam o texto borrado justo quando a pessoa começa a ler.
 const heroContainer = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } }
+  show: { transition: { staggerChildren: PRIMEIRA_TELA.stagger, delayChildren: PRIMEIRA_TELA.atrasoInicial } }
 }
 
 const heroItem = {
-  hidden: { opacity: 0, y: 28, scale: 0.98, filter: 'blur(8px)' },
-  show: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } }
+  hidden: { opacity: 0, y: REVELACAO.y },
+  show: { opacity: 1, y: 0, transition: { duration: PRIMEIRA_TELA.duracao, ease: EASE } }
 }
 
 const proofs = [
@@ -66,9 +69,10 @@ function Mockup() {
     <motion.div
       className="bg-white border border-gray-200 rounded-3xl shadow-lg overflow-hidden"
       aria-hidden="true"
-      initial={{ opacity: 0, y: 40, rotate: -1 }}
-      animate={{ opacity: 1, y: 0, rotate: 0 }}
-      transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      // Entra junto com o texto, dentro do envelope de 28px. O giro de 1 grau saiu.
+      initial={movimentoLigado() ? { opacity: 0, y: REVELACAO.y } : false}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: PRIMEIRA_TELA.duracao, delay: PRIMEIRA_TELA.atrasoInicial + PRIMEIRA_TELA.stagger, ease: EASE }}
       whileHover={{ y: -6 }}
     >
       <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200 bg-gray-100">
@@ -119,7 +123,7 @@ export default function Home() {
 
       <section className="relative bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-[72px] overflow-hidden">
         <div className="container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
-          <motion.div variants={heroContainer} initial="hidden" animate="show">
+          <motion.div variants={heroContainer} initial={movimentoLigado() ? 'hidden' : false} animate="show">
             <motion.span variants={heroItem} className="inline-flex items-center gap-2 bg-white border border-gray-200 text-blue-dark font-semibold text-[0.9rem] px-3.5 py-2 rounded-full shadow-sm">
               <span className="w-2 h-2 rounded-full bg-green shrink-0" />
               Disponível para novos projetos
@@ -161,7 +165,7 @@ export default function Home() {
 
           <dl className="grid sm:grid-cols-3 gap-x-10 gap-y-7">
             {trust.map(({ title, text }, i) => (
-              <Reveal key={title} delay={i * 0.1}>
+              <Reveal key={title} delay={i * REVELACAO.irmaos}>
                 <dt className="text-blue-dark font-display font-bold text-[1.02rem] mb-1.5">{title}</dt>
                 <dd className="text-gray-600 text-[0.94rem]">{text}</dd>
               </Reveal>
@@ -212,7 +216,7 @@ export default function Home() {
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-6">
               {servicosApoio.map((s, i) => (
-                <Reveal key={s.title} delay={0.12 + i * 0.1} className="h-full">
+                <Reveal key={s.title} delay={(i + 1) * REVELACAO.irmaos} className="h-full">
                   <motion.article
                     className="relative isolate h-full overflow-hidden bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col"
                     whileHover={reduce ? undefined : { y: -6 }}
@@ -261,7 +265,7 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {steps.map((s, i) => (
-              <Reveal key={s.num} delay={i * 0.1} className="h-full">
+              <Reveal key={s.num} delay={i * REVELACAO.irmaos} className="h-full">
                 <div className="h-full bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm">
                   <span className="font-mono text-[0.8rem] font-bold text-blue tracking-wider mb-3 block">{s.num}</span>
                   <h3 className="text-[1.2rem] mb-2.5">{s.title}</h3>

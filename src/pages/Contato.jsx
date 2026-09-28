@@ -4,7 +4,6 @@ import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
-import { useMagnetico } from '../lib/magnetismo'
 import { waLink, WA_MESSAGES, mailLink, WA_NUMBER, EMAIL, INSTAGRAM_URL, LINKEDIN_URL } from '../lib/site'
 import { WhatsAppIcon, ClockIcon } from '../components/Icons'
 
@@ -23,9 +22,6 @@ const projectTypes = [
 export default function Contato() {
   const [form, setForm] = useState({ nome: '', email: '', tipo: '', mensagem: '' })
   const [error, setError] = useState(false)
-  const ctaWhatsApp = useMagnetico()
-  const ctaEnviarWhats = useMagnetico()
-  const ctaEnviarEmail = useMagnetico()
 
   function update(field) {
     return (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }))
@@ -106,7 +102,7 @@ export default function Contato() {
             <p className="lede">Você fala com quem desenvolve e entende do seu projeto do início ao fim, sem atravessador.</p>
 
             <div className="my-6">
-              <a ref={ctaWhatsApp} className="btn btn-whatsapp" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">
+              <a className="btn btn-whatsapp" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">
                 <WhatsAppIcon size={20} />
                 Chamar no WhatsApp
               </a>
@@ -170,8 +166,8 @@ export default function Contato() {
               </AnimatePresence>
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <button ref={ctaEnviarWhats} type="submit" className="btn btn-primary flex-1">Enviar pelo WhatsApp</button>
-                <button ref={ctaEnviarEmail} type="button" onClick={enviarPorEmail} className="btn btn-secondary flex-1">Enviar por e-mail</button>
+                <button type="submit" className="btn btn-primary flex-1">Enviar pelo WhatsApp</button>
+                <button type="button" onClick={enviarPorEmail} className="btn btn-secondary flex-1">Enviar por e-mail</button>
               </div>
               <span className="block text-gray-500 text-[0.82rem] mt-3">Seu resumo abre no WhatsApp ou no seu programa de e-mail para você conferir antes de mandar.</span>
             </form>

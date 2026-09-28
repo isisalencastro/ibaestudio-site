@@ -3,7 +3,8 @@
 > Token spec (padrão Google DESIGN.md / Open Design). Contrato de marca. Toda renderização segue exatamente estes tokens.
 > Versão 4, revisada em 28/09/2026: acrescenta a linguagem de movimento (rolagem suave, revelação por
 > rolagem, título com máscara, troca de página, botão magnético e luz no cartão). A v3 (19/09/2026) não
-> descrevia o movimento.
+> descrevia o movimento. Acabamento no mesmo dia: tempos medidos no Chromium e ajustados (irmãos,
+> título, troca de página, rolagem e primeira tela), sem efeito novo.
 > Versão 3, revisada em 19/09/2026. A v2 (17/08/2026) ficou para trás do site: nome, público e CTA estavam errados.
 > Antes de escrever qualquer página, leia este arquivo e o ANTI-SLOP.md. Antes de publicar, rode o deep review do fim.
 
@@ -119,15 +120,16 @@ motion:
   entrada: opacidade + deslocamento curto (até 28px), sutil
   duracao: 0.4s a 0.8s
   easing: [0.22, 1, 0.36, 1]
-  stagger: 0.1 a 0.12 entre irmãos
+  stagger: 0.06 entre irmãos (com 0.1, quatro cards levavam 1,07s e a cascata parecia travar)
   hover_card: elevação de até 6px
-  rolagem_suave: Lenis, lerp 0.09, wheelMultiplier 1, touchMultiplier 1.4
-  ancora: offset -90 (navbar fixa de 72px), duração 1.4s
+  rolagem_suave: Lenis, lerp 0.1, wheelMultiplier 1, touchMultiplier 1.4
+  ancora: offset -90 (navbar fixa de 72px), duração 1s
   revelacao: top 85%, uma vez só, deslocamento 28px, 0.7s
-  titulo_mascara: máscara por palavra, 0.8s, stagger 0.05
-  troca_de_pagina: 3 painéis azuis, cubic-bezier(0.76, 0, 0.24, 1), 0.5s, stagger 0.05
-  botao_magnetico: até 6px, 0.3s ao entrar, 0.5s ao sair, só em mouse
+  titulo_mascara: máscara por palavra, 0.8s, stagger 0.05, atraso somado de no máximo 0.3s
+  troca_de_pagina: 3 painéis azuis, cubic-bezier(0.76, 0, 0.24, 1), 0.4s, stagger 0.04
+  botao_magnetico: até 6px (3px na borda do botão, na prática), 0.3s ao entrar, 0.5s ao sair, só em mouse, nunca no Contato
   luz_no_cartao: opacidade em 0.5s, azul da marca em alfa 0.07
+  primeira_tela: opacidade e 28px, 0.6s, stagger 0.06, sem blur, sem escala, sem giro; botão flutuante sem mola
   proibido:
     - mola exagerada (springy, quicando)
     - parallax
