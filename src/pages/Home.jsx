@@ -7,7 +7,7 @@ import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
 import { EASE, PRIMEIRA_TELA, REVELACAO, movimentoLigado } from '../lib/motion'
-import { waLink, WA_MESSAGES, PRAXE_PAGINA } from '../lib/site'
+import { waLink, WA_MESSAGES, PRAXE_PAGINA, JOGOS_URL } from '../lib/site'
 import { CheckIcon, ArrowRightIcon, WhatsAppIcon } from '../components/Icons'
 
 // Primeira tela: só opacidade e deslocamento. O blur de 8px e a escala saíram: custavam
@@ -304,6 +304,33 @@ export default function Home() {
                   </div>
                 ))}
               </dl>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Frente de jogos da casa. Bloco de produto, no mesmo formato do bloco da Praxe (antetítulo, título,
+          uma frase e um link), e de propósito fora da lista de serviços: jogos não são serviço vendido.
+          O texto é medido, não inventado: o site tem um jogo no ar, o Nó do dia, tabuleiro 8x8 com oito
+          peças que muda à meia-noite e é o mesmo para todo mundo. Sem número, sem métrica, sem depoimento. */}
+      <section className="py-[72px]" id="jogos" aria-labelledby="jogos-titulo">
+        <div className="container-site">
+          <Reveal>
+            <div className="bg-gray-100 border border-gray-200 rounded-3xl p-7 sm:p-10 lg:px-14 lg:py-12 flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-12">
+              <div className="flex-1">
+                <p className="eyebrow">Nossos jogos</p>
+                <h2 id="jogos-titulo" className="text-[clamp(1.6rem,2.8vw,2.1rem)] mb-4">A gente constrói e publica os próprios jogos</h2>
+                <p className="text-gray-600 text-[1.02rem] max-w-[54ch]">
+                  O jogo da casa hoje é o Nó do dia: tabuleiro 8x8, oito peças, uma por linha, uma por coluna e uma por região. Muda à meia-noite, o mesmo desafio para todo mundo, e abre no navegador sem instalar nada.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
+                <a className="btn btn-secondary" href={JOGOS_URL} target="_blank" rel="noopener noreferrer">
+                  Jogar agora
+                  <ArrowRightIcon size={16} />
+                </a>
+              </div>
             </div>
           </Reveal>
         </div>
