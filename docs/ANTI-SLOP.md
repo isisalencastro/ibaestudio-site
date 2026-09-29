@@ -51,7 +51,9 @@ Sites gerados por IA têm uma "cara" reconhecível: gradientes azul/roxo, cards 
   - "conclusão genérica positiva" ("o futuro é brilhante")
 - **Tom consultivo:** fale como um especialista que explica com calma. "Você não precisa entender de tecnologia, a gente cuida de tudo." Não: "solução omnichannel com orquestração inteligente de fluxos".
 - **Nada de depoimento falso, métrica inventada, case que não existe.** Sem autorização do cliente, não usa nome real.
-- **Nada de "Jogos" como serviço.** Serviços: Sites, Automação com IA, Sistemas + auditoria gratuita.
+- **"Jogos" nunca como serviço.** Serviços: Sites, Automação com IA, Sistemas + auditoria gratuita. A frente
+  de jogos da casa aparece como bloco de produto (Home, âncora `#jogos`) e como link no rodapé, nunca na lista
+  de serviços nem na página de serviços.
 
 ## 5. Regras de componentes
 
@@ -78,7 +80,7 @@ Rode este checklist mental e corrija o que falhar:
 10. O hero conta uma ideia única? Se sim, mantém. Se está poluído, simplifica.
 11. Tem fonte pixel/retro? Remove.
 12. O tema abre escuro? Muda para claro.
-13. Menciona "Jogos"? Remove.
+13. Menciona "Jogos" como serviço, na lista de serviços ou na página de serviços? Remove.
 14. O site passa credibilidade na primeira dobra? Se não, refaz.
 
 ## Regra de ouro
