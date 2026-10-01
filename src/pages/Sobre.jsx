@@ -33,10 +33,10 @@ export default function Sobre() {
             <p className="eyebrow">Sobre a IBA</p>
           </Reveal>
           <div className="max-w-[760px]">
-            <TituloRevelado as="h1" className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Desenvolvimento e IA para a operação da sua empresa</TituloRevelado>
+            <TituloRevelado as="h1" className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Um estúdio pequeno, de propósito</TituloRevelado>
             <Reveal delay={0.16}>
               <p className="lede text-[1.15rem] max-w-[62ch]">
-                A IBA é um estúdio de desenvolvimento fundado em Porto Alegre que integra inteligência artificial em toda a operação de empresas. Nossa tese é simples: a distância entre empresas que usam IA de forma isolada e as que a incorporam aos processos está crescendo. Trabalhamos para que nossos clientes fiquem no lado certo dessa distância, com entregas práticas: sistemas, automações e agentes de IA que resolvem problemas reais. Nossa própria operação é o primeiro case: usamos IA no atendimento, na prospecção, na produção de conteúdo e na gestão.
+                A IBA é um estúdio de desenvolvimento de Porto Alegre. A gente faz site, sistema e automação com IA para empresas, e usa as mesmas ferramentas aqui dentro: atendimento, prospecção, conteúdo e gestão da IBA rodam com IA antes de qualquer coisa ser oferecida a um cliente.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
@@ -50,15 +50,14 @@ export default function Sobre() {
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-10">
           <SectionLabel>
             A história
-            <span className="block text-gray-500 font-body font-normal text-[0.9rem] mt-3 normal-case tracking-normal">Como a IBA nasceu e por que ela existe.</span>
           </SectionLabel>
 
           <div className="max-w-[65ch]">
             <Reveal>
               <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-7">Nascida de um problema que toda operação conhece</h2>
               <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Quem gere uma empresa costuma ter a mesma história: já tentou resolver sozinho, já contratou errado uma vez e agora quer alguém que explique direito e entregue o que promete. A IBA existe para essa pessoa.</p>
-              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Nascida em 2026, a IBA é um estúdio enxuto de propósito. Você fala direto com quem desenvolve, do primeiro contato até a entrega. Sem gerente de conta que repassa recado, sem atendimento em série.</p>
-              <p className="text-gray-600 text-[1.08rem] leading-relaxed">A gente acredita que tecnologia boa é a que some do caminho. O cliente chama, o fluxo responde, o pedido se organiza, e você volta a cuidar do que importa: o seu cliente.</p>
+              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">A IBA começou em 2026 e continua enxuta de propósito. Você fala direto com quem desenvolve, do primeiro contato até a entrega. Sem gerente de conta que repassa recado, sem atendimento em série.</p>
+              <p className="text-gray-600 text-[1.08rem] leading-relaxed">Tecnologia boa, para a gente, é a que ninguém precisa lembrar que existe. O pedido chega organizado, a resposta sai na hora, e o time gasta o dia com o que precisa de gente.</p>
             </Reveal>
           </div>
         </div>
@@ -69,7 +68,7 @@ export default function Sobre() {
           <Reveal className="max-w-[640px] mb-12">
             <p className="eyebrow">O mascote</p>
             <h2 id="no-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Por que Nó</h2>
-            <p className="lede">O mascote da IBA é um Nó, um polvo. E a escolha não é por acaso: são dois sentidos que dizem muito sobre como a gente trabalha.</p>
+            <p className="lede">O mascote da IBA é o Nó, um polvo. O nome tem dois sentidos, e os dois têm a ver com o trabalho.</p>
           </Reveal>
 
           <div className="grid lg:grid-cols-[0.45fr_0.55fr] gap-10 items-center">
@@ -100,7 +99,7 @@ export default function Sobre() {
         <Reveal className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-x-10">
           <p className="eyebrow text-white/80 lg:pt-3">Missão</p>
           <h2 className="text-white text-[clamp(1.8rem,3.4vw,2.6rem)] leading-tight max-w-[26ch]">
-            Integrar inteligência artificial em toda a operação de empresas, com entregas práticas e tecnologia que resolve problemas reais.
+            Colocar a IA para trabalhar na rotina das empresas, em entregas que o time usa de verdade no dia seguinte.
           </h2>
         </Reveal>
       </section>
@@ -153,8 +152,8 @@ export default function Sobre() {
       <section className="secao text-center">
         <div className="container-site max-w-[560px]">
           <Reveal>
-            <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Quer conhecer o que a gente faz?</h2>
-            <p className="text-gray-600 mb-8">Veja como a IBA integra IA à operação de empresas, com entregas práticas para o seu caso.</p>
+            <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Os serviços, com preço e prazo</h2>
+            <p className="text-gray-600 mb-8">A página de serviços mostra as três frentes, com o investimento e o prazo de cada uma.</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <a className="btn btn-primary" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
               <Link to="/servicos" className="btn btn-secondary">Ver serviços</Link>

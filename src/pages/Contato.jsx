@@ -90,7 +90,7 @@ export default function Contato() {
           </Reveal>
           <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Vamos conversar sobre o seu projeto</TituloRevelado>
           <Reveal delay={0.16}>
-            <p className="lede max-w-[62ch]">Conte o principal gargalo da sua operação. A gente devolve um caminho prático com IA.</p>
+            <p className="lede max-w-[62ch]">Conte onde a sua operação trava. A gente responde com uma sugestão concreta de por onde começar.</p>
           </Reveal>
         </div>
       </section>
