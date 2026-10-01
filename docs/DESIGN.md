@@ -1,6 +1,11 @@
-# DESIGN.md: IBA Estúdio (Design System v4)
+# DESIGN.md: IBA Estúdio (Design System v5)
 
 > Token spec (padrão Google DESIGN.md / Open Design). Contrato de marca. Toda renderização segue exatamente estes tokens.
+> Versão 5, revisada em 01/10/2026: movimento mais robusto, a pedido da Isis ("quero que fique algo
+> impressionante"). Entram momentos de assinatura, cada um amarrado ao conteúdo: encenação do exemplo
+> do hero, fio que dá um nó no fundo do hero, processo conduzido pela rolagem, faixa do convite que se
+> abre até a largura da tela, frase da missão que acende palavra por palavra, símbolo da IBA na troca
+> de página e navbar que se recolhe ao descer. Parallax e WebGL continuam proibidos.
 > Versão 4.1, revisada em 01/10/2026: estrutura e movimento. Ritmo vertical das seções preso à escala
 > (64/96), cartão que sobe no hover passou a ser clicável inteiro, linha que liga os passos do processo,
 > seta que anda no hover, menu do celular sem animar altura, Sobre alinhado à grade de rótulo e texto,
@@ -142,9 +147,23 @@ motion:
   botao_magnetico: até 6px (3px na borda do botão, na prática), 0.3s ao entrar, 0.5s ao sair, só em mouse, nunca no Contato
   luz_no_cartao: opacidade em 0.5s, azul da marca em alfa 0.07
   primeira_tela: opacidade e 28px, 0.6s, stagger 0.06, sem blur, sem escala, sem giro; botão flutuante sem mola
+  # v5: momentos de assinatura. Números em src/lib/motion.js (ENCENACAO, FIO, SCRUB, NAVBAR, TRANSICAO).
+  encenacao_hero: o exemplo de atendimento aparece etapa por etapa (0.75s entre etapas, "digitando"
+    de 0.5s antes da resposta da IA), uma vez só, começando quando o cartão está na tela. O texto do
+    hero, à esquerda, nunca espera por ela.
+  fio_no: linha azul em opacidade 0.14 que se desenha em 2.2s no fundo do hero e dá um nó. Sempre
+    atrás do conteúdo.
+  scrub: a rolagem conduz só três coisas (linha do processo, frase da missão, abertura da faixa do
+    convite). O progresso só avança: reler nunca apaga. Passo ainda não alcançado fica em 40%,
+    palavra ainda não lida em 18%, e as duas chegam a 100%.
+  faixa_convite: entra com recuo de 5% e raio de 24px e abre até a largura da tela, por clip-path.
+  troca_de_pagina_v5: símbolo da IBA no centro dos painéis e 0.2s de pausa no azul. A rota troca
+    em 0.48s, como antes; a pausa atrasa só a abertura.
+  navbar: recolhe ao descer depois de 480px, volta ao subir, ao focar por teclado e ao trocar de rota
   proibido:
     - mola exagerada (springy, quicando)
-    - parallax
+    - parallax (nada se move em velocidade diferente do conteúdo; scrub não é parallax)
+    - animação infinita (o pulso do ponto do hero roda duas vezes e para; o "digitando" só existe por 0.5s)
     - elemento que entra girando ou escalando muito
     - animação que segura a leitura do conteúdo
     - fundo em WebGL (o peso não fecha: ver nota abaixo)

@@ -21,9 +21,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TRANSICAO, movimentoLigado } from '../lib/motion'
 
+const SIMBOLO = '/img/simbolo-iba-branco.png'
+
 // Tempo até o último painel cobrir a tela: duração + o atraso do último.
 const TEMPO_COBRIR = (TRANSICAO.duracao + (TRANSICAO.paineis - 1) * TRANSICAO.stagger) * 1000
-const TEMPO_ATE_TROCAR = 50
+const TEMPO_ATE_TROCAR = TRANSICAO.pausa * 1000
 const TEMPO_TOTAL = TEMPO_COBRIR + TEMPO_ATE_TROCAR + TEMPO_COBRIR
 // Rede de segurança: nada nesta tela pode durar mais que isso.
 const TEMPO_MAXIMO = TEMPO_TOTAL + 800
@@ -44,6 +46,9 @@ export default function TransicaoPagina() {
 
   useEffect(() => {
     if (!movimentoLigado()) return
+    // Baixa o símbolo antes do primeiro clique, para ele não chegar atrasado na transição.
+    const simbolo = new Image()
+    simbolo.src = SIMBOLO
 
     const aoClicar = (evento) => {
       if (estadoRef.current !== 'parado') return
@@ -114,6 +119,7 @@ export default function TransicaoPagina() {
           style={{ '--pi': i, '--pd': `${TRANSICAO.duracao}s`, '--ps': `${TRANSICAO.stagger}s` }}
         />
       ))}
+      <img src={SIMBOLO} alt="" className="transicao-simbolo" style={{ '--sd': `${TRANSICAO.simbolo}s` }} />
     </div>
   )
 }

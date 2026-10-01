@@ -2,6 +2,7 @@ import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import LuzCartao from '../components/LuzCartao'
+import FaixaConvite from '../components/FaixaConvite'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
 import { waLink, WA_MESSAGES } from '../lib/site'
@@ -67,7 +68,6 @@ function OrcamentoCta({ message }) {
 export default function Servicos() {
   // Âncora de hash: quem rola é o Page, com o offset da navbar e pelo Lenis. Havia um
   // scrollIntoView duplicado aqui, que brigava com o do Page na mesma rota.
-  const ctaAgendar = useMagnetico()
 
   return (
     <Page>
@@ -116,19 +116,13 @@ export default function Servicos() {
         </section>
       ))}
 
-      <section className="secao" id="diagnostico" aria-labelledby="diagnostico-titulo">
-        <div className="container-site">
-          <Reveal>
-            <div className="bg-blue text-white rounded-3xl p-8 sm:p-12 lg:p-14 flex flex-wrap items-center justify-between gap-6 shadow-lg">
-              <div>
-                <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Ainda sem saber por onde começar</h2>
-                <p className="text-white/90 max-w-[52ch]">Agende uma sessão estratégica gratuita. Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar. Sem compromisso.</p>
-              </div>
-              <a ref={ctaAgendar} className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <FaixaConvite
+        className="pt-16 lg:pt-24"
+        titulo="Ainda sem saber por onde começar"
+        texto="Agende uma sessão estratégica gratuita. Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar. Sem compromisso."
+        cta="Agendar sessão estratégica"
+        href={waLink(WA_MESSAGES.diagnostico)}
+      />
     </Page>
   )
 }
