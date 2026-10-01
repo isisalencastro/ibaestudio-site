@@ -48,7 +48,7 @@ export default function Politicas() {
         </div>
       </section>
 
-      <section className="py-[88px]">
+      <section className="secao">
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-10">
           <SectionLabel>Como trabalhamos</SectionLabel>
           <Reveal delay={0.1}>
@@ -64,7 +64,7 @@ export default function Politicas() {
         </div>
       </section>
 
-      <section className="py-[88px] bg-gray-100 border-y border-gray-200">
+      <section className="secao bg-gray-100 border-y border-gray-200">
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-10">
           <SectionLabel>Perguntas frequentes</SectionLabel>
           <Reveal delay={0.1}>
@@ -83,7 +83,7 @@ export default function Politicas() {
         </div>
       </section>
 
-      <section className="py-[88px]" id="politica-de-privacidade">
+      <section className="secao" id="politica-de-privacidade">
         <div className="container-site max-w-[72ch]">
           <Reveal>
             <h2 className="text-[1.5rem] mb-2">Política de privacidade</h2>
@@ -131,7 +131,7 @@ export default function Politicas() {
         </div>
       </section>
 
-      <section className="py-[88px] bg-gray-100 border-y border-gray-200" id="termos-de-uso">
+      <section className="secao bg-gray-100 border-y border-gray-200" id="termos-de-uso">
         <div className="container-site max-w-[72ch]">
           <Reveal>
             <h2 className="text-[1.5rem] mb-2">Termos de uso</h2>

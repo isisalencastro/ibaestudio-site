@@ -1,6 +1,10 @@
 # DESIGN.md: IBA Estúdio (Design System v4)
 
 > Token spec (padrão Google DESIGN.md / Open Design). Contrato de marca. Toda renderização segue exatamente estes tokens.
+> Versão 4.1, revisada em 01/10/2026: estrutura e movimento. Ritmo vertical das seções preso à escala
+> (64/96), cartão que sobe no hover passou a ser clicável inteiro, linha que liga os passos do processo,
+> seta que anda no hover, menu do celular sem animar altura, Sobre alinhado à grade de rótulo e texto,
+> Praxe e jogos agrupados na Home, coluna do orçamento fixa em Serviços. Nenhum token de cor ou fonte mudou.
 > Versão 4, revisada em 28/09/2026: acrescenta a linguagem de movimento (rolagem suave, revelação por
 > rolagem, título com máscara, troca de página, botão magnético e luz no cartão). A v3 (19/09/2026) não
 > descrevia o movimento. Acabamento no mesmo dia: tempos medidos no Chromium e ajustados (irmãos,
@@ -105,6 +109,10 @@ layout:
     card: 16px      # caixa interna, dentro de outra caixa
     box: 24px       # caixa de conteúdo (card de serviço, formulário, faixa de CTA)
   spacing_scale: [4, 8, 12, 16, 24, 32, 48, 64, 96]
+  ritmo_secao: 64px no celular, 96px no desktop (classe `.secao`). Duas seções de mesmo fundo em
+    sequência: a segunda leva `pt-0`. Nada de 72px ou 88px, que ficavam fora da escala.
+  grade_rotulo_texto: no Sobre, toda seção (hero e missão inclusive) usa rótulo à esquerda (0.35fr)
+    e texto à direita (1fr), para a borda esquerda do texto não mudar de lugar entre seções.
   max_width_content: 1120px
   grid: 12 colunas
   breakpoints:
@@ -121,7 +129,11 @@ motion:
   duracao: 0.4s a 0.8s
   easing: [0.22, 1, 0.36, 1]
   stagger: 0.06 entre irmãos (com 0.1, quatro cards levavam 1,07s e a cascata parecia travar)
-  hover_card: elevação de até 6px
+  hover_card: elevação de até 6px, 0.4s, só em cartão que é link inteiro (`.cartao-elevavel` com
+    `.link-esticado`). Ilustração e cartão sem link não sobem no hover.
+  seta_no_hover: a seta dos links anda 3px em 0.3s
+  linha_processo: liga os passos da Home no desktop, desenha em 0.8s (scaleX), junto com os cartões
+  menu_celular: opacidade e 8px em 0.25s, nunca altura
   rolagem_suave: Lenis, lerp 0.1, wheelMultiplier 1, touchMultiplier 1.4
   ancora: offset -90 (navbar fixa de 72px), duração 1s
   revelacao: top 85%, uma vez só, deslocamento 28px, 0.7s

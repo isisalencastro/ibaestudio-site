@@ -1,12 +1,14 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
-import { EASE, PRIMEIRA_TELA, REVELACAO, movimentoLigado } from '../lib/motion'
+import { EASE, LINHA, PRIMEIRA_TELA, REVELACAO, movimentoLigado } from '../lib/motion'
+import { useRevelacao } from '../lib/revelacao'
 import { waLink, WA_MESSAGES, PRAXE_PAGINA, JOGOS_URL } from '../lib/site'
 import { CheckIcon, ArrowRightIcon, WhatsAppIcon } from '../components/Icons'
 
@@ -72,8 +74,8 @@ function Mockup() {
       // Entra junto com o texto, dentro do envelope de 28px. O giro de 1 grau saiu.
       initial={movimentoLigado() ? { opacity: 0, y: REVELACAO.y } : false}
       animate={{ opacity: 1, y: 0 }}
+      // Sem hover: é ilustração, não é clicável. Subir no hover prometia uma ação que não existe.
       transition={{ duration: PRIMEIRA_TELA.duracao, delay: PRIMEIRA_TELA.atrasoInicial + PRIMEIRA_TELA.stagger, ease: EASE }}
-      whileHover={{ y: -6 }}
     >
       <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200 bg-gray-100">
         <div className="flex gap-1.5">
@@ -109,8 +111,23 @@ function Mockup() {
   )
 }
 
+// Linha que liga os passos do processo, só no desktop (quatro colunas lado a lado). Passa
+// pelo centro dos marcadores de cada passo e se desenha quando a grade entra.
+function LinhaProcesso() {
+  const ref = useRef(null)
+  useRevelacao(ref)
+  return (
+    <span
+      ref={ref}
+      data-linha=""
+      aria-hidden="true"
+      className="linha-processo hidden lg:block absolute left-[38px] right-0 top-[5px] h-[2px] rounded-full bg-blue opacity-25"
+      style={{ '--ld': `${LINHA.duracao}s`, '--ldl': `${LINHA.atraso}s` }}
+    />
+  )
+}
+
 export default function Home() {
-  const reduce = useReducedMotion()
   // CTAs com efeito magnético. Um ref por botão: o hook é por elemento, não global.
   const ctaSessaoGratuita = useMagnetico()
   const ctaFalarComIba = useMagnetico()
@@ -174,7 +191,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-[72px]" id="servicos" aria-labelledby="servicos-titulo">
+      <section className="secao" id="servicos" aria-labelledby="servicos-titulo">
         <div className="container-site">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
@@ -188,11 +205,7 @@ export default function Home() {
 
           <div className="grid lg:grid-cols-[1.25fr_0.9fr] gap-6 items-stretch">
             <Reveal className="h-full">
-              <motion.article
-                className="relative isolate h-full overflow-hidden bg-blue-soft border border-blue-soft2 rounded-3xl p-7 sm:p-10 lg:p-11 flex flex-col"
-                whileHover={reduce ? undefined : { y: -6 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              >
+              <article className="cartao-elevavel relative isolate h-full overflow-hidden bg-blue-soft border border-blue-soft2 rounded-3xl p-7 sm:p-10 lg:p-11 flex flex-col">
                 <LuzCartao />
                 <p className="eyebrow mb-3">Principal frente</p>
                 <h3 className="text-[clamp(1.6rem,2.4vw,2rem)] mb-3">{servicoDestaque.title}</h3>
@@ -207,29 +220,25 @@ export default function Home() {
                   ))}
                 </ul>
 
-                <Link to={servicoDestaque.anchor} className="mt-auto font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
-                  Ver detalhes
+                <Link to={servicoDestaque.anchor} className="link-esticado mt-auto font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
+                  Ver detalhes<span className="sr-only">: {servicoDestaque.title}</span>
                   <ArrowRightIcon size={16} />
                 </Link>
-              </motion.article>
+              </article>
             </Reveal>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-6">
               {servicosApoio.map((s, i) => (
                 <Reveal key={s.title} delay={(i + 1) * REVELACAO.irmaos} className="h-full">
-                  <motion.article
-                    className="relative isolate h-full overflow-hidden bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col"
-                    whileHover={reduce ? undefined : { y: -6 }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  >
+                  <article className="cartao-elevavel relative isolate h-full overflow-hidden bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col">
                     <LuzCartao />
                     <h3 className="text-[1.25rem] mb-2.5">{s.title}</h3>
                     <p className="text-gray-600 text-[0.96rem] mb-6 flex-grow">{s.text}</p>
-                    <Link to={s.anchor} className="font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
-                      Ver detalhes
+                    <Link to={s.anchor} className="link-esticado font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
+                      Ver detalhes<span className="sr-only">: {s.title}</span>
                       <ArrowRightIcon size={16} />
                     </Link>
-                  </motion.article>
+                  </article>
                 </Reveal>
               ))}
             </div>
@@ -237,7 +246,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-[72px]" id="diagnostico" aria-labelledby="diagnostico-titulo">
+      <section className="secao pt-0 lg:pt-0" id="diagnostico" aria-labelledby="diagnostico-titulo">
         <div className="container-site">
           <Reveal>
             <div className="bg-blue text-white rounded-3xl p-8 sm:p-12 lg:p-14 flex flex-wrap items-center justify-between gap-6 shadow-lg">
@@ -251,7 +260,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-[72px] bg-blue-soft" id="processo" aria-labelledby="processo-titulo">
+      <section className="secao bg-blue-soft" id="processo" aria-labelledby="processo-titulo">
         <div className="container-site">
           <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
             <div>
@@ -263,21 +272,28 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {steps.map((s, i) => (
-              <Reveal key={s.num} delay={i * REVELACAO.irmaos} className="h-full">
-                <div className="h-full bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm">
-                  <span className="font-mono text-[0.8rem] font-bold text-blue tracking-wider mb-3 block">{s.num}</span>
-                  <h3 className="text-[1.2rem] mb-2.5">{s.title}</h3>
-                  <p className="text-gray-600 text-[0.95rem]">{s.text}</p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="relative">
+            <LinhaProcesso />
+            <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 list-none">
+              {steps.map((s, i) => (
+                <Reveal as="li" key={s.num} delay={i * REVELACAO.irmaos} className="h-full flex flex-col">
+                  <span aria-hidden="true" className="hidden lg:block relative w-3 h-3 ml-8 mb-5 rounded-full bg-blue ring-4 ring-blue-soft" />
+                  <div className="flex-1 bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm">
+                    <span className="font-mono text-[0.8rem] font-bold text-blue tracking-wider mb-3 block">{s.num}</span>
+                    <h3 className="text-[1.2rem] mb-2.5">{s.title}</h3>
+                    <p className="text-gray-600 text-[0.95rem]">{s.text}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </ol>
           </div>
         </div>
       </section>
 
-      <section className="py-[72px]" aria-labelledby="praxe-titulo">
+      {/* Praxe e jogos são os dois produtos da casa e ficam juntos, a 24px um do outro, em vez de
+          duas caixas cinzas iguais separadas por 144px. A Praxe é o principal (cinza, maior); os
+          jogos vêm logo abaixo em faixa branca e mais baixa, para a hierarquia ficar visível. */}
+      <section className="secao pb-6 lg:pb-6" aria-labelledby="praxe-titulo">
         <div className="container-site">
           <Reveal>
             <div className="bg-gray-100 border border-gray-200 rounded-3xl p-7 sm:p-10 lg:p-14 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
@@ -313,13 +329,13 @@ export default function Home() {
           uma frase e um link), e de propósito fora da lista de serviços: jogos não são serviço vendido.
           O texto é medido, não inventado: o site tem um jogo no ar, o Nó do dia, tabuleiro 8x8 com oito
           peças que muda à meia-noite e é o mesmo para todo mundo. Sem número, sem métrica, sem depoimento. */}
-      <section className="py-[72px]" id="jogos" aria-labelledby="jogos-titulo">
+      <section className="secao pt-0 lg:pt-0" id="jogos" aria-labelledby="jogos-titulo">
         <div className="container-site">
           <Reveal>
-            <div className="bg-gray-100 border border-gray-200 rounded-3xl p-7 sm:p-10 lg:px-14 lg:py-12 flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-12">
+            <div className="bg-white border border-gray-200 rounded-3xl p-7 sm:p-10 lg:px-14 lg:py-10 flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-12">
               <div className="flex-1">
                 <p className="eyebrow">Nossos jogos</p>
-                <h2 id="jogos-titulo" className="text-[clamp(1.6rem,2.8vw,2.1rem)] mb-4">A gente constrói e publica os próprios jogos</h2>
+                <h2 id="jogos-titulo" className="text-[clamp(1.35rem,2.2vw,1.6rem)] mb-3">A gente constrói e publica os próprios jogos</h2>
                 <p className="text-gray-600 text-[1.02rem] max-w-[54ch]">
                   O jogo da casa hoje é o Nó do dia: tabuleiro 8x8, oito peças, uma por linha, uma por coluna e uma por região. Muda à meia-noite, o mesmo desafio para todo mundo, e abre no navegador sem instalar nada.
                 </p>
@@ -336,7 +352,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-[72px]" aria-labelledby="cta-titulo">
+      <section className="secao pt-0 lg:pt-0" aria-labelledby="cta-titulo">
         <div className="container-site">
           <Reveal className="text-center max-w-[640px] mx-auto">
             <p className="eyebrow">Próximo passo</p>

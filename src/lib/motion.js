@@ -62,6 +62,21 @@ export const TRANSICAO = {
   stagger: 0.04
 }
 
+/**
+ * Linha que liga os passos do processo (Home). Desenha em 0.8s, o teto do DESIGN.md, e
+ * começa junto com o primeiro cartão: chega ao último passo quando ele já assentou.
+ */
+export const LINHA = {
+  duracao: 0.8,
+  atraso: 0
+}
+
+/** Cartão clicável: elevação no hover. O CSS (`.cartao-elevavel`) usa os mesmos números. */
+export const HOVER_CARTAO = {
+  y: -6,
+  duracao: 0.4
+}
+
 /** Botão magnético. Referência: translate3d, 0.3s ao entrar, 0.5s ao sair. */
 export const MAGNETICO = {
   forca: 6, // deslocamento máximo no cursor, em px. Discreto de propósito.

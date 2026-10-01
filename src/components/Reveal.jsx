@@ -20,7 +20,8 @@ export default function Reveal({
   scale = 1,
   blur = false,
   once = true, // a referência revela uma vez só; a prop fica por compatibilidade
-  className = ''
+  className = '',
+  as: Tag = 'div' // `li` quando o bloco é item de lista: a lista continua lista para o leitor de tela
 }) {
   const ref = useRef(null)
   useRevelacao(ref)
@@ -35,8 +36,8 @@ export default function Reveal({
   if (blur) variaveis['--rf'] = 'blur(8px)'
 
   return (
-    <div ref={ref} data-reveal="" className={className} style={variaveis}>
+    <Tag ref={ref} data-reveal="" className={className} style={variaveis}>
       {children}
-    </div>
+    </Tag>
   )
 }

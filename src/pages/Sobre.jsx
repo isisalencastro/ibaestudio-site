@@ -24,24 +24,29 @@ export default function Sobre() {
     <Page>
       <Seo />
 
-      <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-20">
-        <div className="container-site max-w-[820px]">
-          <Reveal>
+      {/* Hero e missão seguem a mesma grade das seções de baixo (rótulo à esquerda, texto à
+          direita). Antes ficavam numa coluna de 820px centralizada, com a borda esquerda solta
+          da borda do resto da página. */}
+      <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-16 lg:pb-24">
+        <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-x-10">
+          <Reveal className="lg:pt-3">
             <p className="eyebrow">Sobre a IBA</p>
           </Reveal>
-          <TituloRevelado as="h1" className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Desenvolvimento e IA para a operação da sua empresa</TituloRevelado>
-          <Reveal delay={0.16}>
-            <p className="lede text-[1.15rem] max-w-[62ch]">
-              A IBA é um estúdio de desenvolvimento fundado em Porto Alegre que integra inteligência artificial em toda a operação de empresas. Nossa tese é simples: a distância entre empresas que usam IA de forma isolada e as que a incorporam aos processos está crescendo. Trabalhamos para que nossos clientes fiquem no lado certo dessa distância, com entregas práticas: sistemas, automações e agentes de IA que resolvem problemas reais. Nossa própria operação é o primeiro case: usamos IA no atendimento, na prospecção, na produção de conteúdo e na gestão.
-            </p>
-          </Reveal>
-          <Reveal delay={0.24}>
-            <p className="text-gray-500 text-[0.95rem] mt-7">Fundada em 2026 · por Isis Alencastro</p>
-          </Reveal>
+          <div className="max-w-[760px]">
+            <TituloRevelado as="h1" className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Desenvolvimento e IA para a operação da sua empresa</TituloRevelado>
+            <Reveal delay={0.16}>
+              <p className="lede text-[1.15rem] max-w-[62ch]">
+                A IBA é um estúdio de desenvolvimento fundado em Porto Alegre que integra inteligência artificial em toda a operação de empresas. Nossa tese é simples: a distância entre empresas que usam IA de forma isolada e as que a incorporam aos processos está crescendo. Trabalhamos para que nossos clientes fiquem no lado certo dessa distância, com entregas práticas: sistemas, automações e agentes de IA que resolvem problemas reais. Nossa própria operação é o primeiro case: usamos IA no atendimento, na prospecção, na produção de conteúdo e na gestão.
+              </p>
+            </Reveal>
+            <Reveal delay={0.24}>
+              <p className="text-gray-500 text-[0.95rem] mt-7">Fundada em 2026 · por Isis Alencastro</p>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      <section className="py-[88px]">
+      <section className="secao">
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-10">
           <SectionLabel>
             A história
@@ -59,7 +64,7 @@ export default function Sobre() {
         </div>
       </section>
 
-      <section className="py-[88px] border-t border-gray-200" aria-labelledby="no-titulo">
+      <section className="secao border-t border-gray-200" aria-labelledby="no-titulo">
         <div className="container-site">
           <Reveal className="max-w-[640px] mb-12">
             <p className="eyebrow">O mascote</p>
@@ -91,18 +96,16 @@ export default function Sobre() {
         </div>
       </section>
 
-      <section className="py-[88px] bg-blue text-white">
-        <div className="container-site max-w-[820px]">
-          <Reveal>
-            <p className="eyebrow text-white/80">Missão</p>
-            <h2 className="text-white text-[clamp(1.8rem,3.4vw,2.6rem)] leading-tight">
-              Integrar inteligência artificial em toda a operação de empresas, com entregas práticas e tecnologia que resolve problemas reais.
-            </h2>
-          </Reveal>
-        </div>
+      <section className="secao bg-blue text-white">
+        <Reveal className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-x-10">
+          <p className="eyebrow text-white/80 lg:pt-3">Missão</p>
+          <h2 className="text-white text-[clamp(1.8rem,3.4vw,2.6rem)] leading-tight max-w-[26ch]">
+            Integrar inteligência artificial em toda a operação de empresas, com entregas práticas e tecnologia que resolve problemas reais.
+          </h2>
+        </Reveal>
       </section>
 
-      <section className="py-[88px]" aria-labelledby="valores-titulo">
+      <section className="secao" aria-labelledby="valores-titulo">
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-10">
           <SectionLabel>Valores</SectionLabel>
 
@@ -122,7 +125,7 @@ export default function Sobre() {
         </div>
       </section>
 
-      <section className="py-[88px] bg-gray-100 border-t border-gray-200" aria-labelledby="fundadora-titulo">
+      <section className="secao bg-gray-100 border-t border-gray-200" aria-labelledby="fundadora-titulo">
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-10 items-center">
           <SectionLabel>Quem fundou</SectionLabel>
 
@@ -147,7 +150,7 @@ export default function Sobre() {
         </div>
       </section>
 
-      <section className="py-[88px] text-center">
+      <section className="secao text-center">
         <div className="container-site max-w-[560px]">
           <Reveal>
             <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Quer conhecer o que a gente faz?</h2>

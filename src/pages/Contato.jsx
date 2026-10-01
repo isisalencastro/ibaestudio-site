@@ -95,7 +95,7 @@ export default function Contato() {
         </div>
       </section>
 
-      <section className="py-[72px]">
+      <section className="secao">
         <div className="container-site grid md:grid-cols-2 gap-14 items-start">
           <Reveal>
             <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] mb-4">Fale direto com a gente</h2>

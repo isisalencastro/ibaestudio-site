@@ -53,7 +53,7 @@ export default function Header() {
         initial={movimentoLigado() ? { y: -16, opacity: 0 } : false}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: PRIMEIRA_TELA.duracao, ease: EASE }}
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-[100] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
           scrolled ? 'bg-white/90 backdrop-blur-md shadow-[0_1px_0_#EEF2F8]' : 'bg-transparent'
         }`}
       >
@@ -76,7 +76,7 @@ export default function Header() {
                 {l.label}
               </NavLink>
             ))}
-            <Link to="/contato" className="btn btn-secondary min-h-[44px] px-5 py-2.5 text-[0.95rem] ml-2.5">Entre em Contato</Link>
+            <Link to="/contato" className="btn btn-secondary min-h-[44px] px-5 py-2.5 text-[0.95rem] ml-2.5">Entre em contato</Link>
           </nav>
 
           <button
@@ -96,11 +96,13 @@ export default function Header() {
       <AnimatePresence>
         {open && (
           <motion.nav
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="md:hidden fixed top-[72px] left-0 right-0 z-[99] bg-white border-b border-gray-200 shadow overflow-hidden"
+            // Opacidade e 8px, não altura: animar `height` recalcula o layout a cada quadro e
+            // os links apareciam espremidos no meio da abertura.
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: EASE }}
+            className="md:hidden fixed top-[72px] left-0 right-0 z-[99] bg-white border-b border-gray-200 shadow"
             aria-label="Navegação principal"
           >
             <div className="container-site flex flex-col gap-1 py-4 pb-6">
@@ -119,7 +121,7 @@ export default function Header() {
                   {l.label}
                 </NavLink>
               ))}
-              <Link to="/contato" className="btn btn-secondary mt-3">Entre em Contato</Link>
+              <Link to="/contato" className="btn btn-secondary mt-3">Entre em contato</Link>
             </div>
           </motion.nav>
         )}
