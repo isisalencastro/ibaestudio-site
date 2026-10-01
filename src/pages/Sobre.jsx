@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
+import FraseAcesa from '../components/FraseAcesa'
 import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES } from '../lib/site'
 
@@ -96,12 +97,16 @@ export default function Sobre() {
       </section>
 
       <section className="secao bg-blue text-white">
-        <Reveal className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-x-10">
-          <p className="eyebrow text-white/80 lg:pt-3">Missão</p>
-          <h2 className="text-white text-[clamp(1.8rem,3.4vw,2.6rem)] leading-tight max-w-[26ch]">
+        <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-x-10">
+          <Reveal>
+            <p className="eyebrow text-white/80 lg:pt-3">Missão</p>
+          </Reveal>
+          {/* A frase acende palavra por palavra com a rolagem: é a única frase do Sobre lida
+              devagar de propósito. */}
+          <FraseAcesa className="text-white text-[clamp(1.9rem,3.8vw,3rem)] leading-tight max-w-[24ch]">
             Colocar a IA para trabalhar na rotina das empresas, em entregas que o time usa de verdade no dia seguinte.
-          </h2>
-        </Reveal>
+          </FraseAcesa>
+        </div>
       </section>
 
       <section className="secao" aria-labelledby="valores-titulo">

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { EASE, PRIMEIRA_TELA, movimentoLigado } from '../lib/motion'
+import { EASE, NAVBAR, PRIMEIRA_TELA, movimentoLigado } from '../lib/motion'
 
 const links = [
   { to: '/servicos', label: 'Serviços' },
@@ -26,14 +26,37 @@ function Brand() {
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  // Recolhe ao descer e volta ao subir, depois da primeira dobra: mais tela para o conteúdo
+  // enquanto a pessoa lê, e o menu à mão no instante em que ela volta. Só com movimento
+  // ligado; com redução pedida a navbar fica parada no lugar.
+  const [recolhida, setRecolhida] = useState(false)
+  const [entrou, setEntrou] = useState(!movimentoLigado())
+  const ultimoY = useRef(0)
   const location = useLocation()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const recolhe = movimentoLigado()
+    const onScroll = () => {
+      const y = window.scrollY
+      setScrolled(y > 8)
+      if (!recolhe) return
+      const delta = y - ultimoY.current
+      if (Math.abs(delta) < NAVBAR.folga) return
+      setRecolhida(delta > 0 && y > NAVBAR.limiar)
+      ultimoY.current = y
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Troca de rota sempre mostra a navbar de novo.
+  useEffect(() => {
+    setRecolhida(false)
+    ultimoY.current = 0
+  }, [location.pathname])
+
+  const escondida = recolhida && !open
 
   useEffect(() => {
     setOpen(false)
@@ -51,8 +74,11 @@ export default function Header() {
       <motion.header
         // Desce 16px, não 80: a navbar só assenta, sem atravessar o topo do hero.
         initial={movimentoLigado() ? { y: -16, opacity: 0 } : false}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: PRIMEIRA_TELA.duracao, ease: EASE }}
+        animate={{ y: escondida ? '-100%' : 0, opacity: 1 }}
+        transition={{ duration: entrou ? NAVBAR.duracao : PRIMEIRA_TELA.duracao, ease: EASE }}
+        onAnimationComplete={() => setEntrou(true)}
+        // Quem navega por teclado e chega na navbar com ela recolhida, traz ela de volta.
+        onFocus={() => setRecolhida(false)}
         className={`fixed top-0 left-0 right-0 z-[100] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
           scrolled ? 'bg-white/90 backdrop-blur-md shadow-[0_1px_0_#EEF2F8]' : 'bg-transparent'
         }`}

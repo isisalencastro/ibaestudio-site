@@ -59,22 +59,61 @@ export const TITULO = {
 export const TRANSICAO = {
   paineis: 3,
   duracao: 0.4,
-  stagger: 0.04
-}
-
-/**
- * Linha que liga os passos do processo (Home). Desenha em 0.8s, o teto do DESIGN.md, e
- * começa junto com o primeiro cartão: chega ao último passo quando ele já assentou.
- */
-export const LINHA = {
-  duracao: 0.8,
-  atraso: 0
+  stagger: 0.04,
+  // O símbolo da IBA aparece no centro enquanto os painéis cobrem a tela, e a tela fica
+  // azul por `pausa` segundos antes de abrir, tempo de o símbolo ser visto. A rota troca
+  // assim que o azul cobre (0,48s); a pausa atrasa só a abertura, não a navegação.
+  simbolo: 0.2,
+  pausa: 0.2
 }
 
 /** Cartão clicável: elevação no hover. O CSS (`.cartao-elevavel`) usa os mesmos números. */
 export const HOVER_CARTAO = {
   y: -6,
   duracao: 0.4
+}
+
+/*
+ * Momentos de assinatura (v5, 01/10/2026). Pedido da Isis: motion mais robusto, que
+ * impressione. A regra que segura isso: cada efeito grande conta algo do conteúdo. Nenhum
+ * existe só para enfeitar, e nenhum esconde texto de quem pediu redução de movimento.
+ */
+
+/** Hero: o exemplo de atendimento se encena, etapa por etapa. */
+export const ENCENACAO = {
+  atrasoInicial: 0.55, // depois do título e do texto já terem assentado
+  passo: 0.75, // intervalo entre uma etapa e a próxima
+  digitando: 0.5, // tempo do "digitando..." antes da resposta da IA
+  duracaoItem: 0.5
+}
+
+/** Hero: o fio que se desenha e dá um nó atrás do conteúdo. */
+export const FIO = {
+  duracao: 2.2,
+  atraso: 0.15,
+  opacidade: 0.14
+}
+
+/**
+ * Rolagem que conduz (scrub). Só em três lugares, cada um com motivo:
+ *   processo  -> a linha anda com a leitura e acende cada passo quando chega nele
+ *   palavras  -> a frase da missão acende palavra por palavra
+ *   faixa     -> o convite final se abre até a largura inteira da tela
+ * Parallax continua proibido: aqui nada se move em velocidade diferente do conteúdo.
+ */
+export const SCRUB = {
+  // Suavização do progresso da rolagem: tira o tremido sem atrasar a leitura.
+  mola: { stiffness: 140, damping: 30, mass: 0.4 },
+  palavraApagada: 0.18, // opacidade de uma palavra ainda não lida
+  faixaInsetInicial: 5, // % de recuo lateral da faixa antes de abrir
+  faixaRaioInicial: 24 // px, igual ao raio de caixa do DESIGN.md
+}
+
+/** Navbar: some ao descer e volta ao subir, depois da primeira dobra. */
+export const NAVBAR = {
+  limiar: 480, // px rolados antes de começar a esconder
+  folga: 6, // px de movimento mínimo para mudar de estado (evita tremer)
+  duracao: 0.35
 }
 
 /** Botão magnético. Referência: translate3d, 0.3s ao entrar, 0.5s ao sair. */

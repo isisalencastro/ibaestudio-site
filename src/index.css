@@ -175,13 +175,14 @@
      completo, sempre. */
   .movimento [data-reveal],
   .movimento [data-titulo] .mascara-linha,
-  .movimento [data-linha] {
+  .movimento .etapa-fluxo {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
   }
   .luz-cartao,
-  .transicao-pagina {
+  .transicao-pagina,
+  .ponto-pulso::after {
     display: none !important;
   }
   .cartao-elevavel:hover,
@@ -253,18 +254,61 @@ html.movimento {
   transform: translate3d(0, 0, 0);
 }
 
-/* Linha que liga os passos do processo: se desenha da esquerda para a direita quando a
-   grade entra. Conta a ordem dos passos, que é o assunto da seção. Sem movimento ela
-   já está inteira. */
-.linha-processo {
-  transform-origin: left center;
+/* Encenação do exemplo do hero. A etapa ainda não alcançada fica fora de vista só com
+   movimento ligado; sem ele, o atributo nem importa e tudo aparece. */
+.movimento .etapa-fluxo {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.movimento [data-linha] {
-  transform: scaleX(0);
-  transition: transform var(--ld, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--ldl, 0s);
+.movimento .etapa-fluxo[data-aparece] {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
-.movimento [data-linha][data-visivel] {
-  transform: scaleX(1);
+.ponto-fluxo {
+  transition: background-color 0.3s ease;
+}
+
+/* "Digitando...": três pontos que sobem em sequência. */
+.digitando {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  height: 1.4rem;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: #EEF2F8;
+}
+.digitando i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #667085;
+  animation: digitando 1s ease-in-out infinite;
+}
+.digitando i:nth-child(2) { animation-delay: 0.15s; }
+.digitando i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes digitando {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30% { transform: translateY(-4px); opacity: 1; }
+}
+
+/* O ponto que acabou de acender emite duas ondas e para: marca onde a história está,
+   sem ficar piscando para sempre. */
+.ponto-pulso {
+  position: relative;
+}
+.ponto-pulso::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #185CB6;
+  animation: pulso 1.2s cubic-bezier(0.22, 1, 0.36, 1) 2;
+}
+@keyframes pulso {
+  from { transform: scale(1); opacity: 0.45; }
+  to { transform: scale(3.2); opacity: 0; }
 }
 
 /* Botão magnético: o JS escreve só o `transform`. As demais transições do `.btn`
@@ -331,4 +375,27 @@ html.movimento {
 
 .transicao-pagina[data-estado='revelando'] .transicao-painel {
   transform: translate3d(0, -100%, 0);
+}
+
+/* O símbolo da IBA no centro, enquanto os painéis cobrem. Entra quando o azul já tomou a
+   tela e sai antes dos painéis subirem: nunca aparece solto sobre o conteúdo. */
+.transicao-simbolo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 72px;
+  height: auto;
+  opacity: 0;
+  transform: translate3d(-50%, -50%, 0) scale(0.9);
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.transicao-pagina[data-estado='cobrindo'] .transicao-simbolo {
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) scale(1);
+  transition-delay: var(--sd, 0.28s);
+}
+.transicao-pagina[data-estado='revelando'] .transicao-simbolo {
+  opacity: 0;
+  transform: translate3d(-50%, -60%, 0) scale(1);
+  transition-duration: 0.15s;
 }

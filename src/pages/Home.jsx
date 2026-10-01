@@ -1,14 +1,15 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useTransform } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
-import { EASE, LINHA, PRIMEIRA_TELA, REVELACAO, movimentoLigado } from '../lib/motion'
-import { useRevelacao } from '../lib/revelacao'
+import { EASE, EASE_CSS, ENCENACAO, FIO, PRIMEIRA_TELA, REVELACAO, movimentoLigado } from '../lib/motion'
+import { useScrub } from '../lib/scrub'
+import FaixaConvite from '../components/FaixaConvite'
 import { waLink, WA_MESSAGES, PRAXE_PAGINA, JOGOS_URL } from '../lib/site'
 import { CheckIcon, ArrowRightIcon } from '../components/Icons'
 
@@ -35,10 +36,10 @@ const trust = [
 // Exemplo do hero. É um fluxo típico do serviço de IA no atendimento, apresentado como
 // exemplo: sem nome de cliente, sem número de resultado.
 const fluxoExemplo = [
-  { hora: '22h07', texto: 'Chega uma mensagem no WhatsApp pedindo orçamento.' },
-  { hora: '22h07', texto: 'A IA responde na hora, com as informações que você definiu.' },
-  { hora: '22h09', texto: 'Ela pergunta o que falta para orçar e registra o pedido na sua planilha.' },
-  { hora: '8h00', texto: 'Seu time abre o dia com o pedido completo, pronto para fechar.' }
+  { hora: '22h07', quem: 'Cliente', texto: 'Chega uma mensagem no WhatsApp pedindo orçamento.' },
+  { hora: '22h07', quem: 'IA', ia: true, texto: 'A IA responde na hora, com as informações que você definiu.' },
+  { hora: '22h09', quem: 'IA', ia: true, texto: 'Ela pergunta o que falta para orçar e registra o pedido na sua planilha.' },
+  { hora: '8h00', quem: 'Seu time', texto: 'Seu time abre o dia com o pedido completo, pronto para fechar.' }
 ]
 
 const servicoDestaque = {
@@ -71,47 +72,188 @@ const steps = [
   { num: '04', title: 'Entrega', text: 'Vai ao ar com você junto. Depois, a gente continua no mesmo WhatsApp para ajustes.' }
 ]
 
-// No lugar da janela de navegador com barras cinzas (a ilustração de hero mais genérica que
-// existe), um exemplo concreto do que o serviço principal faz. Os pontos ligados por uma
-// linha são o "nó" da marca, sem desenhar o mascote.
+/**
+ * O exemplo do hero se encena: a mensagem chega, a IA "digita" e responde, e cada etapa
+ * acende o seu ponto na linha. Dura cerca de 3s, roda uma vez, e só depois do título e do
+ * texto já estarem na tela: quem lê a coluna da esquerda não espera por nada.
+ *
+ * Todas as etapas estão no DOM desde o início (leitor de tela lê tudo de uma vez). Sem
+ * movimento ligado, nascem todas visíveis e a linha já está inteira.
+ */
 function ExemploFluxo() {
+  const anima = movimentoLigado()
+  const total = fluxoExemplo.length
+  const [visiveis, setVisiveis] = useState(anima ? 0 : total)
+  const [digitando, setDigitando] = useState(-1)
+  const [comecou, setComecou] = useState(false)
+  const ref = useRef(null)
+
+  // Começa quando o cartão está na tela: no desktop é na carga; no celular, onde ele fica
+  // abaixo da dobra, é quando a pessoa rola até ele. Senão a cena acabaria sem ninguém ver.
+  useEffect(() => {
+    if (!anima || !ref.current) return
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setComecou(true); obs.disconnect() }
+    }, { threshold: 0.35 })
+    obs.observe(ref.current)
+    return () => obs.disconnect()
+  }, [anima])
+
+  useEffect(() => {
+    if (!anima || !comecou) return
+    const timers = []
+    let t = ENCENACAO.atrasoInicial
+    fluxoExemplo.forEach((etapa, i) => {
+      if (i > 0) t += ENCENACAO.passo
+      if (etapa.ia) {
+        const inicio = t
+        timers.push(setTimeout(() => setDigitando(i), inicio * 1000))
+        t += ENCENACAO.digitando
+      }
+      timers.push(setTimeout(() => { setDigitando(-1); setVisiveis(i + 1) }, t * 1000))
+    })
+    return () => timers.forEach(clearTimeout)
+  }, [anima, comecou])
+
+  // Até qual etapa a linha já chegou: a última acesa, ou a que está "digitando".
+  const alcance = Math.max(visiveis - 1, digitando)
+
   return (
     <motion.figure
-      className="bg-white border border-gray-200 rounded-3xl p-7 sm:p-9 shadow"
-      initial={movimentoLigado() ? { opacity: 0, y: REVELACAO.y } : false}
+      ref={ref}
+      className="relative bg-white border border-gray-200 rounded-3xl p-7 sm:p-9 shadow-lg"
+      initial={anima ? { opacity: 0, y: REVELACAO.y } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: PRIMEIRA_TELA.duracao, delay: PRIMEIRA_TELA.atrasoInicial + PRIMEIRA_TELA.stagger, ease: EASE }}
     >
       <figcaption className="text-gray-500 text-[0.9rem] mb-6">Exemplo: um pedido que chega fora do horário</figcaption>
       <ol className="relative list-none flex flex-col gap-6">
-        <span aria-hidden="true" className="absolute left-[5px] top-2 bottom-2 w-[2px] bg-blue opacity-20" />
-        {fluxoExemplo.map(({ hora, texto }, i) => (
-          <li key={i} className="relative grid grid-cols-[12px_1fr] gap-x-5">
-            <span aria-hidden="true" className="mt-[7px] w-3 h-3 rounded-full bg-blue ring-4 ring-white" />
-            <div>
-              <span className="font-mono text-[0.8rem] text-gray-500 block mb-0.5">{hora}</span>
-              <span className="text-ink text-[1rem] leading-snug">{texto}</span>
-            </div>
-          </li>
-        ))}
+        {fluxoExemplo.map(({ hora, quem, texto, ia }, i) => {
+          const acesa = i < visiveis
+          const escrevendo = digitando === i
+          const aparece = acesa || escrevendo
+          return (
+            <li key={i} className="relative grid grid-cols-[12px_1fr] gap-x-5">
+              {/* Trecho da linha até o próximo ponto: termina no último ponto, não no fim do texto. */}
+              {i < total - 1 && (
+                <>
+                  <span aria-hidden="true" className="absolute left-[5px] top-[19px] -bottom-[31px] w-[2px] bg-blue opacity-15" />
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-[5px] top-[19px] -bottom-[31px] w-[2px] bg-blue origin-top"
+                    style={{ transform: `scaleY(${alcance > i ? 1 : 0})`, transition: `transform ${ENCENACAO.duracaoItem}s ${EASE_CSS}` }}
+                  />
+                </>
+              )}
+              <span
+                aria-hidden="true"
+                className={`ponto-fluxo mt-[7px] w-3 h-3 rounded-full ring-4 ring-white ${acesa ? 'bg-blue' : 'bg-blue-soft2'} ${acesa && i === visiveis - 1 && anima ? 'ponto-pulso' : ''}`}
+              />
+              <div
+                className="etapa-fluxo"
+                data-aparece={aparece || !anima ? '' : undefined}
+              >
+                <span className="flex items-center gap-2 mb-0.5">
+                  <span className="font-mono text-[0.8rem] text-gray-500">{hora}</span>
+                  <span className={`text-[0.72rem] font-bold uppercase tracking-wider rounded px-1.5 py-0.5 ${ia ? 'bg-blue text-white' : 'bg-gray-200 text-gray-600'}`}>{quem}</span>
+                </span>
+                {escrevendo ? (
+                  <span className="digitando" aria-hidden="true"><i /><i /><i /></span>
+                ) : (
+                  <span className="text-ink text-[1rem] leading-snug">{texto}</span>
+                )}
+              </div>
+            </li>
+          )
+        })}
       </ol>
     </motion.figure>
   )
 }
 
-// Linha que liga os passos do processo, só no desktop (quatro colunas lado a lado). Passa
-// pelo centro dos marcadores de cada passo e se desenha quando a grade entra.
-function LinhaProcesso() {
-  const ref = useRef(null)
-  useRevelacao(ref)
+/**
+ * O fio da marca: uma linha azul, bem clara, que atravessa o fundo do hero e dá um nó.
+ * "A IBA dá um nó nos seus processos" sem desenhar o mascote. Desenha uma vez, na carga,
+ * por trás de tudo (nunca por cima de texto), e some da árvore de leitura.
+ */
+function FioNo() {
+  const anima = movimentoLigado()
+  const desenho = anima
+    ? { initial: { pathLength: 0 }, animate: { pathLength: 1 } }
+    : { initial: false }
   return (
-    <span
-      ref={ref}
-      data-linha=""
+    <svg
       aria-hidden="true"
-      className="linha-processo hidden lg:block absolute left-[6px] right-0 top-[5px] h-[2px] rounded-full bg-blue opacity-25"
-      style={{ '--ld': `${LINHA.duracao}s`, '--ldl': `${LINHA.atraso}s` }}
-    />
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      viewBox="0 0 1440 760"
+      preserveAspectRatio="xMidYMid slice"
+      fill="none"
+    >
+      <motion.path
+        d="M -40 640 C 180 640 300 560 470 590 C 640 620 700 700 860 690 C 1010 680 1060 590 1150 600 C 1260 612 1330 700 1270 730 C 1210 760 1150 690 1190 640 C 1240 580 1350 560 1480 520"
+        stroke="#185CB6"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        style={{ opacity: FIO.opacidade }}
+        {...desenho}
+        transition={{ duration: FIO.duracao, delay: FIO.atraso, ease: EASE }}
+      />
+      <motion.path
+        d="M -40 668 C 200 668 320 600 480 622 C 650 646 720 724 870 716"
+        stroke="#185CB6"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        style={{ opacity: FIO.opacidade * 0.6 }}
+        {...desenho}
+        transition={{ duration: FIO.duracao * 0.8, delay: FIO.atraso + 0.25, ease: EASE }}
+      />
+    </svg>
+  )
+}
+
+const processoN = 4
+
+/**
+ * Processo conduzido pela rolagem: a linha anda junto com a leitura e cada passo acende
+ * quando ela chega nele. No celular a linha é vertical, à esquerda dos passos; do desktop
+ * em diante, horizontal, por cima. O passo ainda não alcançado fica em 40% (legível), nunca
+ * escondido, e o progresso só avança (lib/scrub.js).
+ */
+function PassoProcesso({ passo, i, progresso }) {
+  const limiar = i / (processoN - 1)
+  const acende = useTransform(progresso, [Math.max(0, limiar - 0.12), limiar], [0, 1])
+  const opacity = useTransform(acende, [0, 1], [0.4, 1])
+  const escala = useTransform(acende, [0, 1], [0.6, 1])
+  return (
+    <li className="relative pl-9 lg:pl-0">
+      <span aria-hidden="true" className="absolute left-0 top-[6px] lg:static lg:block w-3 h-3 mb-6 rounded-full bg-blue-soft2 ring-4 ring-blue-soft">
+        <motion.span className="block w-full h-full rounded-full bg-blue" style={{ scale: escala, opacity: acende }} />
+      </span>
+      <motion.div style={{ opacity }}>
+        <span className="font-mono text-[0.8rem] font-bold text-blue mb-2 block">{passo.num}</span>
+        <h3 className="text-[1.2rem] mb-2">{passo.title}</h3>
+        <p className="text-gray-600 text-[0.97rem] max-w-[34ch]">{passo.text}</p>
+      </motion.div>
+    </li>
+  )
+}
+
+function Processo() {
+  const ref = useRef(null)
+  const progresso = useScrub(ref, ['start 80%', 'end 60%'])
+  return (
+    <div ref={ref} className="relative">
+      {/* trilho claro e a linha que anda por cima dele */}
+      <span aria-hidden="true" className="hidden lg:block absolute left-[6px] right-0 top-[5px] h-[2px] rounded-full bg-blue opacity-15" />
+      <motion.span aria-hidden="true" className="hidden lg:block absolute left-[6px] right-0 top-[5px] h-[2px] rounded-full bg-blue origin-left" style={{ scaleX: progresso }} />
+      <span aria-hidden="true" className="lg:hidden absolute left-[5px] top-2 bottom-2 w-[2px] rounded-full bg-blue opacity-15" />
+      <motion.span aria-hidden="true" className="lg:hidden absolute left-[5px] top-2 bottom-2 w-[2px] rounded-full bg-blue origin-top" style={{ scaleY: progresso }} />
+      <ol className="grid lg:grid-cols-4 gap-x-10 gap-y-10 list-none">
+        {steps.map((s, i) => (
+          <PassoProcesso key={s.num} passo={s} i={i} progresso={progresso} />
+        ))}
+      </ol>
+    </div>
   )
 }
 
@@ -119,14 +261,14 @@ export default function Home() {
   // CTAs com efeito magnético. Um ref por botão: o hook é por elemento, não global.
   const ctaSessaoGratuita = useMagnetico()
   const ctaFalarComIba = useMagnetico()
-  const ctaAgendar = useMagnetico()
 
   return (
     <Page>
       <Seo />
 
-      <section className="relative bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-[72px] overflow-hidden">
-        <div className="container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
+      <section className="relative bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-[96px] overflow-hidden">
+        <FioNo />
+        <div className="relative container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
           <motion.div variants={heroContainer} initial={movimentoLigado() ? 'hidden' : false} animate="show">
             <TituloRevelado as="h1" className="text-[clamp(2.1rem,4.6vw,3.4rem)] mb-5">
               A gente coloca a IA para trabalhar na operação da sua empresa
@@ -214,21 +356,7 @@ export default function Home() {
         <div className="container-site">
           <TituloRevelado as="h2" id="processo-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)] mb-12">Como um projeto anda</TituloRevelado>
 
-          <div className="relative">
-            <LinhaProcesso />
-            {/* Sem cartão: quatro caixas brancas iguais lado a lado eram o padrão de template. Os
-                passos ficam soltos sobre o fundo, ligados pela linha, e o texto respira. */}
-            <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-8 list-none">
-              {steps.map((s, i) => (
-                <Reveal as="li" key={s.num} delay={i * REVELACAO.irmaos} className="border-t border-blue-soft2 pt-6 lg:border-0 lg:pt-0">
-                  <span aria-hidden="true" className="hidden lg:block relative w-3 h-3 mb-6 rounded-full bg-blue ring-4 ring-blue-soft" />
-                  <span className="font-mono text-[0.8rem] font-bold text-blue mb-2 block">{s.num}</span>
-                  <h3 className="text-[1.2rem] mb-2">{s.title}</h3>
-                  <p className="text-gray-600 text-[0.97rem] max-w-[34ch]">{s.text}</p>
-                </Reveal>
-              ))}
-            </ol>
-          </div>
+          <Processo />
         </div>
       </section>
 
@@ -295,21 +423,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Um convite só no fim da página. Antes havia esta faixa no meio e, no fim, um bloco
-          centralizado com "Pronto para começar?" e um botão verde para o mesmo WhatsApp. */}
-      <section className="secao pt-0 lg:pt-0" id="diagnostico" aria-labelledby="diagnostico-titulo">
-        <div className="container-site">
-          <Reveal>
-            <div className="bg-blue text-white rounded-3xl p-8 sm:p-12 lg:p-14 flex flex-wrap items-center justify-between gap-6 shadow-lg">
-              <div>
-                <h2 id="diagnostico-titulo" className="text-white text-[clamp(1.5rem,2.6vw,2rem)] mb-2">Sessão estratégica gratuita</h2>
-                <p className="text-white/90 max-w-[52ch]">Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar: atendimento, conteúdo, anúncios ou processos. Sem compromisso.</p>
-              </div>
-              <a ref={ctaAgendar} className="btn btn-primary shrink-0" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* Um convite só, no fim da página: a faixa que se abre até a largura da tela. */}
+      <FaixaConvite
+        titulo="Sessão estratégica gratuita"
+        texto="Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar: atendimento, conteúdo, anúncios ou processos. Sem compromisso."
+        cta="Agendar sessão estratégica"
+        href={waLink(WA_MESSAGES.diagnostico)}
+      />
 
     </Page>
   )
