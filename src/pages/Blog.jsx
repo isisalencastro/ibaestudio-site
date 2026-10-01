@@ -21,17 +21,16 @@ export default function Blog() {
         </div>
       </section>
 
-      <section className="py-[96px]">
-        <div className="container-site max-w-[720px] text-center">
-          <Reveal>
-            <span className="inline-block font-display font-extrabold text-[0.85rem] tracking-[0.18em] uppercase text-blue bg-blue-soft2 rounded-full px-4 py-1.5 mb-6">
-              Em breve
-            </span>
-            <h2 className="text-[clamp(1.5rem,3vw,2rem)] mb-4">Estamos preparando as primeiras matérias</h2>
-            <p className="text-gray-600 max-w-[52ch] mx-auto mb-8">
-              Em breve, você encontra aqui novidades sobre a IBA e conteúdo sobre IA aplicada à operação de empresas.
+      {/* Sem selo "Em breve" centralizado: é o vazio de template. Aqui o texto diz o que vem e
+          oferece o caminho que já existe. */}
+      <section className="secao">
+        <div className="container-site">
+          <Reveal className="max-w-[720px]">
+            <h2 className="text-[clamp(1.5rem,3vw,2rem)] mb-4">Ainda não tem texto publicado</h2>
+            <p className="text-gray-600 max-w-[56ch] mb-8">
+              Os primeiros vão mostrar como a IBA usa IA no próprio atendimento, na prospecção e na gestão. Enquanto isso, dá para perguntar direto.
             </p>
-            <a href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            <a href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
               Falar com a IBA
             </a>
           </Reveal>

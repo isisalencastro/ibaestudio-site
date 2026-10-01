@@ -64,6 +64,20 @@ Sites gerados por IA têm uma "cara" reconhecível: gradientes azul/roxo, cards 
 - Formulários: máximo 4 campos. Botão de WhatsApp sempre visível (flutuante).
 - Mascote: discreto. Logo + favicon + no máximo 1 detalhe sutil na seção Sobre.
 
+## 5.1 Padrões de template já removidos do site (01/10/2026)
+
+Achados na revisão de 01/10/2026 e tirados do site. Não voltam:
+
+- **Selo "Disponível para novos projetos"** com bolinha verde no topo do hero. Molde de template, e o verde é exclusivo do WhatsApp.
+- **Janela de navegador falsa** com barras cinzas no lugar de conteúdo. Se o hero tiver ilustração, ela mostra algo concreto do serviço (hoje: um exemplo de fluxo de atendimento, marcado como exemplo).
+- **Duas trincas seguidas dizendo a mesma coisa** (três checks no hero e três compromissos logo abaixo). Cada promessa aparece uma vez.
+- **Antetítulo em caixa alta em toda seção.** Só onde ele informa algo que o título não diz (ex.: "Da nossa operação" na Praxe).
+- **Cartão dentro de cartão** e **fileira de cartões iguais** (os quatro passos do processo). Lista com divisória ou texto solto resolve.
+- **Brilho colorido em botão** (sombra na cor do próprio botão). Botão é chapado.
+- **Dois convites para a mesma coisa na mesma página**, e fechamento com pergunta retórica ("Pronto para começar?"). Um convite, no fim.
+- **Texto repetido entre parágrafo e ficha** em Serviços. O parágrafo dá um exemplo; a ficha dá os fatos.
+- **Estado vazio com selo "Em breve" centralizado.** Diz o que vem e oferece o caminho que já existe.
+
 ## 6. Auditoria final (obrigatória antes de entregar)
 
 Rode este checklist mental e corrija o que falhar:

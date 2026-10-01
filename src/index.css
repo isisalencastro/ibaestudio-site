@@ -104,13 +104,13 @@
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
+  /* Botões chapados. O brilho colorido em volta do laranja e do verde (sombra na cor do
+     próprio botão) é assinatura de template; o laranja já chama atenção sozinho. */
   .btn-primary {
     @apply bg-orange text-ink;
-    box-shadow: 0 2px 8px rgba(240, 166, 42, 0.35);
   }
   .btn-primary:hover {
     @apply bg-orange-dark;
-    box-shadow: 0 4px 14px rgba(240, 166, 42, 0.45);
   }
 
   .btn-secondary {
@@ -122,11 +122,9 @@
 
   .btn-whatsapp {
     @apply bg-green text-white;
-    box-shadow: 0 2px 10px rgba(37, 211, 102, 0.35);
   }
   .btn-whatsapp:hover {
     @apply bg-green-dark;
-    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.45);
   }
 
   .eyebrow {

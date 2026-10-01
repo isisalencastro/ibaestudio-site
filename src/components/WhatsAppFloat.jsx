@@ -11,7 +11,7 @@ export default function WhatsAppFloat() {
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"
       className="flutuante-whatsapp z-[90] rounded-full bg-green text-white flex items-center justify-center hover:no-underline"
-      style={{ boxShadow: '0 6px 20px rgba(37, 211, 102, 0.45)' }}
+      style={{ boxShadow: '0 4px 14px rgba(16, 24, 40, 0.18)' }}
       // Era mola saindo da escala zero com 0.8s de atraso: quicava e chegava com a leitura
       // já começada. O DESIGN.md proíbe mola exagerada e entrada escalando muito.
       initial={movimentoLigado() ? { y: 12, opacity: 0 } : false}
