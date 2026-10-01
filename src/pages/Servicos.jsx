@@ -90,7 +90,9 @@ export default function Servicos() {
       {services.map((s) => (
         <section key={s.id} id={s.id} className="container-site">
           <div className="grid md:grid-cols-2 gap-12 items-start py-14 border-b border-gray-200">
-            <Reveal className="service-body">
+            {/* No desktop o texto e o botão ficam fixos enquanto a ficha ao lado rola: o
+                "Quero um orçamento" continua à vista até o fim da ficha, que é mais longa. */}
+            <Reveal className="service-body md:sticky md:top-28">
               <p className="eyebrow">{s.eyebrow}</p>
               <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] mb-4">{s.title}</h2>
               {s.paras.map((p) => (
@@ -116,7 +118,7 @@ export default function Servicos() {
         </section>
       ))}
 
-      <section className="py-[72px]" id="diagnostico" aria-labelledby="diagnostico-titulo">
+      <section className="secao" id="diagnostico" aria-labelledby="diagnostico-titulo">
         <div className="container-site">
           <Reveal>
             <div className="bg-blue text-white rounded-3xl p-8 sm:p-12 lg:p-14 flex flex-wrap items-center justify-between gap-6 shadow-lg">

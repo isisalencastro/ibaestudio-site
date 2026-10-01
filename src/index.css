@@ -18,6 +18,9 @@
 
   html {
     scroll-behavior: smooth;
+    /* Âncora nativa (sem Lenis: redução de movimento ou JS falhando) também desconta a navbar
+       fixa de 72px. O Lenis usa o mesmo número, em ROLAGEM_SUAVE.offsetAncora. */
+    scroll-padding-top: 90px;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -47,6 +50,53 @@
 @layer components {
   .container-site {
     @apply w-full max-w-site mx-auto px-6;
+  }
+
+  /* Ritmo vertical das seções, dentro da escala de espaçamento do DESIGN.md: 64px no
+     celular, 96px do desktop. Antes cada página tinha o seu (72px na Home, 88px no Sobre),
+     fora da escala. Duas seções brancas seguidas: a segunda leva `pt-0`, para o respiro
+     entre elas não dobrar. */
+  .secao {
+    @apply py-16 lg:py-24;
+  }
+
+  /* Cartão que é link inteiro: sobe até 6px no hover (hover_card do DESIGN.md) e o link
+     principal estica por cima dele (`.link-esticado`). Antes o cartão subia sem ser
+     clicável, e o movimento prometia uma ação que só existia no "Ver detalhes". */
+  .cartao-elevavel {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
+  }
+  .cartao-elevavel:hover,
+  .cartao-elevavel:focus-within {
+    transform: translate3d(0, -6px, 0);
+    box-shadow: 0 16px 40px rgba(16, 24, 40, 0.10);
+    border-color: #E8F0FB;
+  }
+  .link-esticado::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  /* O foco vai para o cartão inteiro, que é a área clicável. */
+  .link-esticado:focus-visible {
+    outline: none;
+  }
+  .link-esticado:focus-visible::after {
+    outline: 3px solid #185CB6;
+    outline-offset: 2px;
+  }
+
+  /* Seta dos links "Ver detalhes", "Conhecer a Praxe" e afins: anda 3px no hover. É o
+     menor sinal de que aquilo leva a outro lugar, sem chamar mais atenção que o texto. */
+  .seta {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  a:hover .seta,
+  a:focus-visible .seta,
+  .cartao-elevavel:hover .seta {
+    transform: translate3d(3px, 0, 0);
   }
 
   .btn {
@@ -126,7 +176,8 @@
      preferência com a página aberta), nada pode ficar escondido. Conteúdo estático e
      completo, sempre. */
   .movimento [data-reveal],
-  .movimento [data-titulo] .mascara-linha {
+  .movimento [data-titulo] .mascara-linha,
+  .movimento [data-linha] {
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
@@ -134,6 +185,12 @@
   .luz-cartao,
   .transicao-pagina {
     display: none !important;
+  }
+  .cartao-elevavel:hover,
+  .cartao-elevavel:focus-within,
+  a:hover .seta,
+  .cartao-elevavel:hover .seta {
+    transform: none;
   }
 }
 
@@ -196,6 +253,20 @@ html.movimento {
 
 .movimento [data-titulo][data-visivel] .mascara-linha {
   transform: translate3d(0, 0, 0);
+}
+
+/* Linha que liga os passos do processo: se desenha da esquerda para a direita quando a
+   grade entra. Conta a ordem dos passos, que é o assunto da seção. Sem movimento ela
+   já está inteira. */
+.linha-processo {
+  transform-origin: left center;
+}
+.movimento [data-linha] {
+  transform: scaleX(0);
+  transition: transform var(--ld, 0.8s) cubic-bezier(0.22, 1, 0.36, 1) var(--ldl, 0s);
+}
+.movimento [data-linha][data-visivel] {
+  transform: scaleX(1);
 }
 
 /* Botão magnético: o JS escreve só o `transform`. As demais transições do `.btn`
