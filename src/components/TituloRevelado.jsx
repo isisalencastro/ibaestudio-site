@@ -19,6 +19,7 @@ export default function TituloRevelado({
   className = '',
   stagger = TITULO.staggerPalavra,
   duracao = TITULO.duracao,
+  destaque, // palavra que ganha o fio da IBA desenhado por baixo (v7.1)
   ...resto
 }) {
   const ref = useRef(null)
@@ -40,14 +41,34 @@ export default function TituloRevelado({
     <Tag ref={ref} data-titulo="" className={className} {...resto}>
       {palavras.map((palavra, i) => (
         <Fragment key={`${palavra}-${i}`}>
-          <span className="mascara">
-            <span
-              className="mascara-linha"
-              style={{ '--ri': i, '--ts': `${passo}s`, '--td': `${duracao}s` }}
-            >
-              {palavra}
+          {palavra === destaque ? (
+            <span className="palavra-fio">
+              <span className="mascara">
+                <span
+                  className="mascara-linha"
+                  style={{ '--ri': i, '--ts': `${passo}s`, '--td': `${duracao}s` }}
+                >
+                  {palavra}
+                </span>
+              </span>
+              {/* O fio da marca: corre por baixo da palavra e dá um nó perto do fim. */}
+              <svg className="fio-destaque" viewBox="0 0 200 30" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path
+                  pathLength="1"
+                  d="M2 19 C 40 15, 82 23, 120 18 C 142 15, 154 7, 146 4 C 137 1, 129 14, 141 21 C 153 27, 176 20, 198 15"
+                />
+              </svg>
             </span>
-          </span>
+          ) : (
+            <span className="mascara">
+              <span
+                className="mascara-linha"
+                style={{ '--ri': i, '--ts': `${passo}s`, '--td': `${duracao}s` }}
+              >
+                {palavra}
+              </span>
+            </span>
+          )}
           {/* O espaço fica FORA da máscara: dentro dela o navegador corta espaço no fim da linha. */}
           {i < palavras.length - 1 ? ' ' : ''}
         </Fragment>

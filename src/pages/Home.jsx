@@ -1,39 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
-import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
-import { EASE, EASE_CSS, ENCENACAO, PRIMEIRA_TELA, REVELACAO, SAIDA_HERO, movimentoLigado } from '../lib/motion'
-import { useScrub } from '../lib/scrub'
+import { EASE_CSS, ENCENACAO, INCLINA, REVELACAO, movimentoLigado, useMovimento } from '../lib/motion'
 import FaixaConvite from '../components/FaixaConvite'
 import CampoPontos from '../components/CampoPontos'
 import FraseGiro from '../components/FraseGiro'
 import { waLink, WA_MESSAGES, PRAXE_PAGINA, JOGOS_URL } from '../lib/site'
-import { CheckIcon, ArrowRightIcon } from '../components/Icons'
+import { ArrowRightIcon } from '../components/Icons'
+import Processo from '../components/Processo'
+import { useSaidaHero } from '../lib/saida'
+import PilhaFrentes from '../components/PilhaFrentes'
+import LinhaPlanta from '../components/LinhaPlanta'
+import { COMPROMISSOS, ONDE_TRAVA, servicoPorId, rotaDoServico } from '../lib/conteudo'
 
-// Primeira tela: só opacidade e deslocamento. O blur de 8px e a escala saíram: custavam
-// repintura na carga e deixavam o texto borrado justo quando a pessoa começa a ler.
-const heroContainer = {
-  hidden: {},
-  show: { transition: { staggerChildren: PRIMEIRA_TELA.stagger, delayChildren: PRIMEIRA_TELA.atrasoInicial } }
-}
-
-const heroItem = {
-  hidden: { opacity: 0, y: REVELACAO.y },
-  show: { opacity: 1, y: 0, transition: { duration: PRIMEIRA_TELA.duracao, ease: EASE } }
-}
-
-// Os três compromissos aparecem uma vez só, aqui. Antes o hero repetia os mesmos três com
-// ícone de check logo acima desta faixa: duas trincas seguidas dizendo a mesma coisa.
-const trust = [
-  { title: 'Escopo e prazo por escrito', text: 'Antes de começar, você recebe o que vai ser feito, em quanto tempo e por quanto.' },
-  { title: 'Você fala com quem faz', text: 'Quem atende é quem desenvolve. Ninguém no meio repassando recado.' },
-  { title: 'Ajuste depois da entrega', text: 'Depois que vai ao ar, a gente continua disponível para ajuste e dúvida.' }
-]
+// Primeira tela: entrada por CSS (`[data-hero-item]`, opacidade e 28px, em cascata de 0.06s),
+// presa à classe `movimento`. Por CSS e não por framer: o HTML pré-renderizado e a hidratação
+// saem iguais, e sem JavaScript o hero aparece inteiro.
 
 // Exemplo do hero. É um fluxo típico do serviço de IA no atendimento, apresentado como
 // exemplo: sem nome de cliente, sem número de resultado.
@@ -44,22 +31,6 @@ const fluxoExemplo = [
   { hora: '8h00', quem: 'Seu time', texto: 'Seu time abre o dia com o pedido completo, pronto para fechar.' }
 ]
 
-const servicoDestaque = {
-  title: 'IA integrada aos processos',
-  text: 'Atendimento no WhatsApp, dados organizados sem trabalho manual e agentes que conhecem os documentos da empresa. É a frente que mais muda o dia a dia de quem já tem operação rodando.',
-  exemplos: [
-    'Atendimento no WhatsApp que qualifica e encaminha',
-    'Relatórios e dados atualizados sem trabalho manual',
-    'Agentes treinados nos seus documentos e processos'
-  ],
-  anchor: '/servicos#ia-integrada'
-}
-
-const servicosApoio = [
-  { title: 'Desenvolvimento web e sistemas', text: 'Site institucional no ar em até 10 dias úteis. Portal e sistema sob medida com escopo fechado por escrito.', anchor: '/servicos#web-e-sistemas' },
-  { title: 'Automação de operações', text: 'As ferramentas que você já usa passando informação uma para a outra, sem ninguém redigitar o mesmo pedido três vezes.', anchor: '/servicos#automacao' }
-]
-
 const packsPraxe = [
   { nome: 'Prospecção', texto: 'Encher a agenda com quem decide.' },
   { nome: 'Conteúdo', texto: 'Uma ideia virando muitas peças.' },
@@ -67,12 +38,6 @@ const packsPraxe = [
   { nome: 'Transversais', texto: 'As cinco que valem em qualquer trabalho.' }
 ]
 
-const steps = [
-  { num: '01', title: 'Conversa', text: 'Você conta onde a operação trava. A gente pergunta como as coisas funcionam hoje, antes de sugerir qualquer ferramenta.' },
-  { num: '02', title: 'Proposta', text: 'Escopo, prazo e valor por escrito. O que não está na proposta não aparece na fatura.' },
-  { num: '03', title: 'Desenvolvimento', text: 'Por etapas. Você vê e aprova cada uma antes da próxima começar.' },
-  { num: '04', title: 'Entrega', text: 'Vai ao ar com você junto. Depois, a gente continua no mesmo WhatsApp para ajustes.' }
-]
 
 /**
  * O exemplo do hero se encena: a mensagem chega, a IA "digita" e responde, e cada etapa
@@ -82,13 +47,48 @@ const steps = [
  * Todas as etapas estão no DOM desde o início (leitor de tela lê tudo de uma vez). Sem
  * movimento ligado, nascem todas visíveis e a linha já está inteira.
  */
+/**
+ * Inclinação do registro pelo cursor (v7.1): o cartão vira até INCLINA.graus na direção do
+ * mouse, com mola, e volta ao centro quando o mouse sai do hero. Só mouse e só com movimento
+ * ligado; no toque e com redução pedida, fica reto.
+ */
+function useInclinacao(ref) {
+  const rx = useMotionValue(0)
+  const ry = useMotionValue(0)
+  const rotateX = useSpring(rx, INCLINA.mola)
+  const rotateY = useSpring(ry, INCLINA.mola)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !movimentoLigado() || !window.matchMedia('(pointer: fine)').matches) return
+    const hero = el.closest('section') || window
+    const move = (ev) => {
+      const r = el.getBoundingClientRect()
+      const nx = (ev.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2)
+      const ny = (ev.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)
+      ry.set(Math.max(-1, Math.min(1, nx)) * INCLINA.graus)
+      rx.set(Math.max(-1, Math.min(1, -ny)) * INCLINA.graus)
+    }
+    const sai = () => { rx.set(0); ry.set(0) }
+    hero.addEventListener('pointermove', move, { passive: true })
+    hero.addEventListener('pointerleave', sai)
+    return () => {
+      hero.removeEventListener('pointermove', move)
+      hero.removeEventListener('pointerleave', sai)
+    }
+  }, [ref, rx, ry])
+  return { rotateX, rotateY }
+}
+
 function ExemploFluxo() {
-  const anima = movimentoLigado()
+  // null antes de montar: a marcação sai sem `data-aparece` e quem decide é o CSS (com a
+  // classe `movimento`, escondido até a encenação; sem ela, tudo visível).
+  const anima = useMovimento()
   const total = fluxoExemplo.length
-  const [visiveis, setVisiveis] = useState(anima ? 0 : total)
+  const [visiveis, setVisiveis] = useState(0)
   const [digitando, setDigitando] = useState(-1)
   const [comecou, setComecou] = useState(false)
   const ref = useRef(null)
+  const inclinacao = useInclinacao(ref)
 
   // Começa quando o cartão está na tela: no desktop é na carga; no celular, onde ele fica
   // abaixo da dobra, é quando a pessoa rola até ele. Senão a cena acabaria sem ninguém ver.
@@ -121,14 +121,14 @@ function ExemploFluxo() {
   const alcance = Math.max(visiveis - 1, digitando)
 
   return (
+    <div className="registro-flutua" style={{ perspective: '1100px' }}>
     <motion.figure
       ref={ref}
-      className="relative bg-surface border border-gray-200 rounded-3xl p-7 sm:p-9 shadow-lg"
-      initial={anima ? { opacity: 0, y: REVELACAO.y } : false}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: PRIMEIRA_TELA.duracao, delay: PRIMEIRA_TELA.atrasoInicial + PRIMEIRA_TELA.stagger, ease: EASE }}
+      style={{ ...inclinacao, '--hi': 2, transformStyle: 'preserve-3d' }}
+      className="registro relative rounded-3xl p-7 sm:p-9 font-mono"
+      data-hero-item=""
     >
-      <figcaption className="text-gray-500 text-[0.9rem] mb-6">Exemplo: um pedido que chega fora do horário</figcaption>
+      <figcaption className="flex flex-wrap justify-between gap-x-4 gap-y-1 pb-4 mb-6 border-b border-white/15 text-[0.75rem] uppercase tracking-wider text-[#A9C3EA]"><span>Registro · exemplo</span><span>Um pedido fora do horário</span></figcaption>
       <ol className="relative list-none flex flex-col gap-6">
         {fluxoExemplo.map(({ hora, quem, texto, ia }, i) => {
           const acesa = i < visiveis
@@ -139,106 +139,47 @@ function ExemploFluxo() {
               {/* Trecho da linha até o próximo ponto: termina no último ponto, não no fim do texto. */}
               {i < total - 1 && (
                 <>
-                  <span aria-hidden="true" className="absolute left-[5px] top-[19px] -bottom-[31px] w-[2px] bg-blue opacity-15" />
+                  <span aria-hidden="true" className="absolute left-[5px] top-[19px] -bottom-[31px] w-[2px] bg-white/15" />
                   <span
                     aria-hidden="true"
-                    className="absolute left-[5px] top-[19px] -bottom-[31px] w-[2px] bg-blue origin-top"
+                    className="absolute left-[5px] top-[19px] -bottom-[31px] w-[2px] bg-[#7AAEF2] origin-top"
                     style={{ transform: `scaleY(${alcance > i ? 1 : 0})`, transition: `transform ${ENCENACAO.duracaoItem}s ${EASE_CSS}` }}
                   />
                 </>
               )}
               <span
                 aria-hidden="true"
-                className={`ponto-fluxo mt-[7px] w-3 h-3 rounded-full ring-4 ring-surface ${acesa ? 'bg-blue' : 'bg-blue-soft2'} ${acesa && i === visiveis - 1 && anima ? 'ponto-pulso' : ''}`}
+                className={`ponto-fluxo mt-[7px] w-3 h-3 rounded-full ring-4 ring-[#0E1F3D] ${acesa ? 'bg-[#7AAEF2]' : 'bg-white/20'} ${acesa && i === visiveis - 1 && anima ? 'ponto-pulso' : ''}`}
               />
               <div
                 className="etapa-fluxo"
-                data-aparece={aparece || !anima ? '' : undefined}
+                data-aparece={aparece || anima === false ? '' : undefined}
               >
                 <span className="flex items-center gap-2 mb-0.5">
-                  <span className="font-mono text-[0.8rem] text-gray-500">{hora}</span>
-                  <span className={`text-[0.72rem] font-bold uppercase tracking-wider rounded px-1.5 py-0.5 ${ia ? 'bg-blue text-white' : 'bg-gray-200 text-gray-600'}`}>{quem}</span>
+                  <span className="text-[0.8rem] text-[#A9C3EA]">{hora}</span>
+                  <span className={`text-[0.72rem] font-bold uppercase tracking-wider rounded px-1.5 py-0.5 ${ia ? 'bg-[#185CB6] text-white' : 'bg-white/15 text-[#E7EEF9]'}`}>{quem}</span>
                 </span>
-                {escrevendo ? (
-                  <span className="digitando" aria-hidden="true"><i /><i /><i /></span>
-                ) : (
-                  <span className="text-ink text-[1rem] leading-snug">{texto}</span>
-                )}
+                {/* O texto ocupa o lugar dele o tempo todo; enquanto a IA "digita", ele fica
+                    transparente e os pontinhos aparecem por cima. Antes os pontinhos SUBSTITUÍAM
+                    o texto, e como são mais baixos o registro encolhia e crescia a cada etapa
+                    (511px e 487px), arrastando o título do hero 12px para cima e para baixo. */}
+                <span className="relative block">
+                  <span
+                    className="block font-body text-[#F2F6FC] text-[1rem] leading-snug transition-opacity duration-300"
+                    style={escrevendo ? { opacity: 0 } : undefined}
+                  >
+                    {texto}
+                  </span>
+                  {escrevendo && (
+                    <span className="digitando absolute left-0 top-0" aria-hidden="true"><i /><i /><i /></span>
+                  )}
+                </span>
               </div>
             </li>
           )
         })}
       </ol>
     </motion.figure>
-  )
-}
-
-/**
- * Saída do hero: ao rolar para fora, o conteúdo se dissolve (desfoque, opacidade e uma
- * escala mínima), preso à rolagem. Nada anda em velocidade diferente da página, então não é
- * parallax. Sem movimento ligado, fica parado e nítido.
- *
- * Só do desktop em diante, onde o hero cabe numa tela. No celular o exemplo fica abaixo do
- * título e seria desfocado justo enquanto a pessoa lê (medido em 390px em 02/10/2026).
- */
-function useSaidaHero(ref) {
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const filter = useTransform(scrollYProgress, [0.25, 0.9], ['blur(0px)', `blur(${SAIDA_HERO.desfoque}px)`])
-  const opacity = useTransform(scrollYProgress, [0.25, 0.9], [1, SAIDA_HERO.opacidade])
-  const scale = useTransform(scrollYProgress, [0.25, 0.9], [1, SAIDA_HERO.escala])
-  const [largo, setLargo] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia(`(min-width: ${SAIDA_HERO.aPartirDe}px)`)
-    const muda = () => setLargo(mq.matches)
-    muda()
-    mq.addEventListener('change', muda)
-    return () => mq.removeEventListener('change', muda)
-  }, [])
-  return movimentoLigado() && largo ? { filter, opacity, scale } : undefined
-}
-
-const processoN = 4
-
-/**
- * Processo conduzido pela rolagem: a linha anda junto com a leitura e cada passo acende
- * quando ela chega nele. No celular a linha é vertical, à esquerda dos passos; do desktop
- * em diante, horizontal, por cima. O passo ainda não alcançado fica em 40% (legível), nunca
- * escondido, e o progresso só avança (lib/scrub.js).
- */
-function PassoProcesso({ passo, i, progresso }) {
-  const limiar = i / (processoN - 1)
-  const acende = useTransform(progresso, [Math.max(0, limiar - 0.12), limiar], [0, 1])
-  const opacity = useTransform(acende, [0, 1], [0.4, 1])
-  const escala = useTransform(acende, [0, 1], [0.6, 1])
-  return (
-    <li className="relative pl-9 lg:pl-0">
-      <span aria-hidden="true" className="absolute left-0 top-[6px] lg:static lg:block w-3 h-3 mb-6 rounded-full bg-blue-soft2 ring-4 ring-blue-soft">
-        <motion.span className="block w-full h-full rounded-full bg-blue" style={{ scale: escala, opacity: acende }} />
-      </span>
-      <motion.div style={{ opacity }}>
-        <span className="font-mono text-[0.8rem] font-bold text-blue mb-2 block">{passo.num}</span>
-        <h3 className="text-[1.2rem] mb-2">{passo.title}</h3>
-        <p className="text-gray-600 text-[0.97rem] max-w-[34ch]">{passo.text}</p>
-      </motion.div>
-    </li>
-  )
-}
-
-function Processo() {
-  const ref = useRef(null)
-  const progresso = useScrub(ref, ['start 80%', 'end 60%'])
-  return (
-    <div ref={ref} className="relative">
-      {/* trilho claro e a linha que anda por cima dele */}
-      <span aria-hidden="true" className="hidden lg:block absolute left-[6px] right-0 top-[5px] h-[2px] rounded-full bg-blue opacity-15" />
-      <motion.span aria-hidden="true" className="hidden lg:block absolute left-[6px] right-0 top-[5px] h-[2px] rounded-full bg-blue origin-left" style={{ scaleX: progresso }} />
-      <span aria-hidden="true" className="lg:hidden absolute left-[5px] top-2 bottom-2 w-[2px] rounded-full bg-blue opacity-15" />
-      <motion.span aria-hidden="true" className="lg:hidden absolute left-[5px] top-2 bottom-2 w-[2px] rounded-full bg-blue origin-top" style={{ scaleY: progresso }} />
-      <ol className="grid lg:grid-cols-4 gap-x-10 gap-y-10 list-none">
-        {steps.map((s, i) => (
-          <PassoProcesso key={s.num} passo={s} i={i} progresso={progresso} />
-        ))}
-      </ol>
     </div>
   )
 }
@@ -257,20 +198,20 @@ export default function Home() {
       <section ref={hero} className="relative bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-[96px] overflow-hidden">
         <CampoPontos />
         <motion.div style={saida} className="relative container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center origin-top">
-          <motion.div variants={heroContainer} initial={movimentoLigado() ? 'hidden' : false} animate="show">
-            <TituloRevelado as="h1" className="text-[clamp(2.1rem,4.6vw,3.4rem)] mb-5">
+          <div>
+            <TituloRevelado as="h1" destaque="operação" className="text-[clamp(2.3rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] mb-6">
               A gente coloca a IA para trabalhar na operação da sua empresa
             </TituloRevelado>
 
-            <motion.p variants={heroItem} className="text-gray-600 text-[1.12rem] max-w-[50ch] mb-8">
+            <p data-hero-item="" style={{ '--hi': 1 }} className="text-gray-600 text-[1.12rem] max-w-[50ch] mb-8">
               Atendimento que responde fora do horário e relatório que se monta sem ninguém copiar planilha. A IBA faz a parte técnica e continua por perto depois que vai ao ar.
-            </motion.p>
+            </p>
 
-            <motion.div variants={heroItem} className="flex flex-wrap gap-3">
+            <div data-hero-item="" style={{ '--hi': 2 }} className="flex flex-wrap gap-3">
               <a ref={ctaSessaoGratuita} className="btn btn-primary" href="#diagnostico">Sessão estratégica gratuita</a>
               <a ref={ctaFalarComIba} className="btn btn-secondary" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           <ExemploFluxo />
         </motion.div>
@@ -283,7 +224,7 @@ export default function Home() {
           </Reveal>
 
           <dl className="grid sm:grid-cols-3 gap-x-10 gap-y-7">
-            {trust.map(({ title, text }, i) => (
+            {COMPROMISSOS.map(({ titulo: title, texto: text }, i) => (
               <Reveal key={title} delay={i * REVELACAO.irmaos}>
                 <dt className="text-blue-dark font-display font-bold text-[1.02rem] mb-1.5">{title}</dt>
                 <dd className="text-gray-600 text-[0.94rem]">{text}</dd>
@@ -295,50 +236,45 @@ export default function Home() {
 
       <FraseGiro />
 
+      {/* A "planta": onde a operação trava hoje e o que entra no lugar. Cada linha se desenha e
+          acende quando a leitura chega nela (LinhaPlanta). Texto de lib/conteudo.js. */}
+      <section className="secao" id="onde-trava" aria-labelledby="onde-trava-titulo">
+        <div className="container-site">
+          <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
+            <TituloRevelado as="h2" id="onde-trava-titulo" className="text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.02] tracking-[-0.03em] max-w-[15ch]">Onde a operação trava, e o que entra no lugar</TituloRevelado>
+            <Reveal delay={0.08}>
+              <p className="text-gray-600 max-w-[38ch]">A conversa começa pelo que trava na sua operação, não pela ferramenta.</p>
+            </Reveal>
+          </div>
+          <div>
+            <div aria-hidden="true" className="hidden md:grid grid-cols-[12rem_1fr_1fr] gap-x-10 pb-3 font-mono text-[0.75rem] font-semibold uppercase tracking-wider text-gray-500">
+              <span>Frente</span>
+              <span>Hoje</span>
+              <span>Com a IBA</span>
+            </div>
+            {ONDE_TRAVA.map((l, i) => (
+              <LinhaPlanta key={l.frente} className="grid md:grid-cols-[12rem_1fr_1fr] gap-x-10 gap-y-2 py-6 md:py-7">
+                  <h3 className="flex items-baseline gap-3 font-display font-extrabold text-[1.4rem] leading-tight">
+                    <span aria-hidden="true" className="font-mono font-medium text-[0.8rem] text-blue">{String(i + 1).padStart(2, '0')}</span>
+                    {l.frente}
+                  </h3>
+                  <p className="text-gray-600"><span className="md:sr-only font-mono text-[0.72rem] uppercase tracking-wider text-gray-500 block">Hoje</span>{l.hoje}</p>
+                  <p className="font-medium text-ink">
+                    <span className="md:sr-only font-mono text-[0.72rem] uppercase tracking-wider text-gray-500 block">Com a IBA</span>
+                    {l.depois}{' '}
+                    <Link to={rotaDoServico(l.servico)} className="text-blue font-semibold whitespace-nowrap hover:text-blue-dark">Ver a frente<span className="sr-only">: {servicoPorId(l.servico).nome}</span> <ArrowRightIcon size={14} className="seta inline" /></Link>
+                  </p>
+              </LinhaPlanta>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="secao" id="servicos" aria-labelledby="servicos-titulo">
         <div className="container-site">
-          <TituloRevelado as="h2" id="servicos-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)] mb-10">O que a IBA faz</TituloRevelado>
+          <TituloRevelado as="h2" id="servicos-titulo" className="text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.02] tracking-[-0.03em] mb-10">O que a IBA faz</TituloRevelado>
 
-          <div className="grid lg:grid-cols-[1.25fr_0.9fr] gap-6 items-stretch">
-            <Reveal className="h-full">
-              <article className="cartao-elevavel relative isolate h-full overflow-hidden bg-blue-soft border border-blue-soft2 rounded-3xl p-7 sm:p-10 lg:p-11 flex flex-col">
-                <LuzCartao />
-                <p className="text-blue-dark font-semibold text-[0.95rem] mb-3">Frente principal</p>
-                <h3 className="text-[clamp(1.6rem,2.4vw,2rem)] mb-3">{servicoDestaque.title}</h3>
-                <p className="text-gray-600 text-[1.02rem] mb-6 max-w-[46ch]">{servicoDestaque.text}</p>
-
-                <ul className="list-none flex flex-col gap-2.5 mb-8">
-                  {servicoDestaque.exemplos.map((e) => (
-                    <li key={e} className="flex items-start gap-2.5 text-[0.96rem] text-ink">
-                      <CheckIcon size={16} className="text-blue shrink-0 mt-1" />
-                      {e}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link to={servicoDestaque.anchor} className="link-esticado mt-auto font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
-                  Ver detalhes<span className="sr-only">: {servicoDestaque.title}</span>
-                  <ArrowRightIcon size={16} />
-                </Link>
-              </article>
-            </Reveal>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-6">
-              {servicosApoio.map((s, i) => (
-                <Reveal key={s.title} delay={(i + 1) * REVELACAO.irmaos} className="h-full">
-                  <article className="cartao-elevavel relative isolate h-full overflow-hidden bg-surface border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col">
-                    <LuzCartao />
-                    <h3 className="text-[1.25rem] mb-2.5">{s.title}</h3>
-                    <p className="text-gray-600 text-[0.96rem] mb-6 flex-grow">{s.text}</p>
-                    <Link to={s.anchor} className="link-esticado font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
-                      Ver detalhes<span className="sr-only">: {s.title}</span>
-                      <ArrowRightIcon size={16} />
-                    </Link>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
+          <PilhaFrentes />
         </div>
       </section>
 

@@ -6,6 +6,8 @@
 // Regra ao criar página nova: acrescentar a rota neste mapa. Sem isso, a página cai no
 // texto padrão e o HTML publicado sai sem o meta dela.
 
+import { SERVICOS, rotaDoServico } from './conteudo.js'
+
 export const ORIGIN = 'https://www.ibaestudio.com'
 export const IMAGEM_OG = `${ORIGIN}/img/og-image.png`
 export const NOME_SITE = 'IBA Estúdio'
@@ -50,6 +52,14 @@ export const ROTAS = {
     descricao:
       'Matérias, lançamentos e atualizações do estúdio sobre IA aplicada à operação de empresas.'
   },
+  '/perguntas-frequentes': {
+    titulo: 'Perguntas frequentes | IBA Estúdio',
+    descricao:
+      'Quanto custa, quanto tempo demora, como funciona o pagamento e o suporte depois da entrega: respostas diretas sobre trabalhar com a IBA Estúdio.'
+  },
+  // Uma por frente de serviço (v7). Título e descrição moram em lib/conteudo.js, com o resto
+  // do texto do serviço.
+  ...Object.fromEntries(SERVICOS.map((s) => [rotaDoServico(s.id), s.seo])),
   '/politicas': {
     titulo: 'Política de privacidade e termos de uso | IBA Estúdio',
     descricao:
@@ -65,8 +75,15 @@ export const SEO_404 = {
   noindex: true
 }
 
+// Barra final não muda a página: /servicos/ e /servicos são a mesma rota. Sem normalizar, o
+// endereço com barra caía no SEO do 404 e a página saía com `noindex` (medido no Lighthouse em
+// 03/10/2026, inclusive no site anterior à v7).
+export function normalizaRota(pathname) {
+  return pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname
+}
+
 export function seoDaRota(pathname) {
-  return ROTAS[pathname] || SEO_404
+  return ROTAS[normalizaRota(pathname)] || SEO_404
 }
 
 // Caminho do arquivo que o build grava para cada rota (raiz vira /index.html).

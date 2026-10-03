@@ -9,6 +9,8 @@ import { useRolagemSuave, rolarParaTopo } from './lib/rolagemSuave'
 import { useDecodificaRotulos } from './lib/decodifica'
 import Home from './pages/Home'
 import Servicos from './pages/Servicos'
+import ServicoDetalhe from './pages/ServicoDetalhe'
+import Perguntas from './pages/Perguntas'
 import Praxe from './pages/Praxe'
 import Sobre from './pages/Sobre'
 import Contato from './pages/Contato'
@@ -62,6 +64,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/servicos" element={<Servicos />} />
+          <Route path="/servicos/:id" element={<ServicoDetalhe />} />
+          <Route path="/perguntas-frequentes" element={<Perguntas />} />
           <Route path="/praxe" element={<Praxe />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/contato" element={<Contato />} />

@@ -1,11 +1,45 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/servicos", "destination": "/servicos/index.html" },
-    { "source": "/praxe", "destination": "/praxe/index.html" },
-    { "source": "/sobre", "destination": "/sobre/index.html" },
-    { "source": "/contato", "destination": "/contato/index.html" },
-    { "source": "/blog", "destination": "/blog/index.html" },
-    { "source": "/politicas", "destination": "/politicas/index.html" }
+    {
+      "source": "/servicos",
+      "destination": "/servicos/index.html"
+    },
+    {
+      "source": "/servicos/web-e-sistemas",
+      "destination": "/servicos/web-e-sistemas/index.html"
+    },
+    {
+      "source": "/servicos/ia-integrada",
+      "destination": "/servicos/ia-integrada/index.html"
+    },
+    {
+      "source": "/servicos/automacao",
+      "destination": "/servicos/automacao/index.html"
+    },
+    {
+      "source": "/perguntas-frequentes",
+      "destination": "/perguntas-frequentes/index.html"
+    },
+    {
+      "source": "/praxe",
+      "destination": "/praxe/index.html"
+    },
+    {
+      "source": "/sobre",
+      "destination": "/sobre/index.html"
+    },
+    {
+      "source": "/contato",
+      "destination": "/contato/index.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html"
+    },
+    {
+      "source": "/politicas",
+      "destination": "/politicas/index.html"
+    }
   ]
 }
