@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { ORIGIN, IMAGEM_OG, NOME_SITE, seoDaRota } from '../lib/seo'
+import { ORIGIN, IMAGEM_OG, NOME_SITE, seoDaRota, normalizaRota } from '../lib/seo'
 
 function upsert(tag, key, keyValue, contentAttr, content) {
   let el = document.head.querySelector(`${tag}[${key}="${keyValue}"]`)
@@ -23,7 +23,7 @@ export default function Seo({ title, description, noindex }) {
   const semIndex = noindex === undefined ? Boolean(daRota.noindex) : noindex
 
   useEffect(() => {
-    const url = ORIGIN + pathname
+    const url = ORIGIN + normalizaRota(pathname)
     document.title = titulo
     // sempre escrito (nao so no 404) para a tag nao ficar presa ao trocar de rota na SPA
     upsert('meta', 'name', 'robots', 'content', semIndex ? 'noindex, follow' : 'index, follow')

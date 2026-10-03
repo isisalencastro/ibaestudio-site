@@ -11,6 +11,7 @@ import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
+import SaiAoRolar from '../components/SaiAoRolar'
 import Trilha from '../components/Trilha'
 import DadosEstruturados, { trilha } from '../components/DadosEstruturados'
 import LinhaPlanta from '../components/LinhaPlanta'
@@ -52,7 +53,7 @@ export default function ServicoDetalhe() {
       <DadosEstruturados dados={dados} />
 
       <section className="bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-16 lg:pb-20">
-        <div className="container-site">
+        <SaiAoRolar className="container-site">
           <Trilha itens={itensTrilha} />
           <Reveal>
             <p className="eyebrow">{`${s.num} · ${s.nome}`}</p>
@@ -65,7 +66,7 @@ export default function ServicoDetalhe() {
               <a className="btn btn-secondary" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
             </div>
           </Reveal>
-        </div>
+        </SaiAoRolar>
       </section>
 
       <section className="secao pt-8 lg:pt-10" aria-labelledby="ficha-titulo">

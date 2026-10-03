@@ -1,6 +1,13 @@
-# DESIGN.md: IBA Estúdio (Design System v6)
+# DESIGN.md: IBA Estúdio (Design System v7)
 
 > Token spec (padrão Google DESIGN.md / Open Design). Contrato de marca. Toda renderização segue exatamente estes tokens.
+> Versão 7, revisada em 03/10/2026: site institucional mais robusto sem perder SEO. Pedido da Isis: "ainda quero que
+> a IBA seja um site institucional mais robusto e o que gostei no site que te enviei é a ideia e forma de fluidez do
+> conteúdo, algo que realmente chame atenção, sem perder pontos no SEO". Direção escolhida por ela: misturar a
+> proposta "planta da operação" com o movimento da v6. Entram: conteúdo de cada página no HTML do build (antes o
+> corpo publicado tinha 1 caractere), uma página por frente de serviço, perguntas frequentes com FAQPage, tabela
+> "Onde a operação trava", registro de operação no hero, frentes em pilha de cartões, corpo em IBM Plex Sans e
+> rótulos em IBM Plex Mono. Regra nova: texto nunca muda de opacidade com a rolagem (contraste).
 > Versão 6, revisada em 02/10/2026: fluidez e tema que segue o navegador. Pedido da Isis, com referência num
 > reel (site da Connecta Digital): "quero que o site da IBA se pareça mais com o que está sendo mostrado nesse
 > vídeo, no quesito fluidez e motion design, mantendo as cores da empresa. quero que tenha o modo claro e escuro
@@ -122,12 +129,17 @@ typography:
     usage: logotipo, títulos de seção, hero
     weight: 700-800
   body:
-    font: Inter (400/500/600/700, Google Fonts)
-    fallback: "system-ui"
+    font: IBM Plex Sans (400/500/600/700, Google Fonts). Era Inter até a v6.
+    fallback: "IBM Plex Sans Fallback" (Arial com size-adjust 100.25%, ascent 102.24%, descent 27.43%)
     usage: parágrafos, textos, formulários
   mono:
-    usage: apenas detalhes técnicos mínimos (labels de seção, números de passo)
-    rule: com muita moderação, nunca em texto corrido
+    font: IBM Plex Mono (400/500/600)
+    usage: rótulos de seção, números de passo, trilha, registro de operação do hero
+    rule: com moderação, nunca em texto corrido
+  fallback_display: "Archivo Fallback" (Arial Bold com size-adjust 102.32%, ascent 85.81%, descent 20.52%)
+  regra_fallback: as duas fontes reserva existem para a troca de fonte não pular o layout (Contato media
+    CLS 0,151 sem elas e 0,001 com elas). Números medidos no Chromium com as fontes reais; se a fonte
+    mudar, medir de novo, não estimar.
   removed:
     - SCR-N Five (fonte pixel/8-bit) NÃO é mais usada no site. Decisão 17/08/2026.
     - Intro: nunca chegou a ser licenciada. O display real do site é Archivo.
@@ -183,6 +195,18 @@ motion:
   luz_no_cartao: opacidade em 0.5s, azul da marca em alfa 0.07
   primeira_tela: opacidade e 28px, 0.6s, stagger 0.06, sem blur, sem escala, sem giro; botão flutuante sem mola
   # v5: momentos de assinatura. Números em src/lib/motion.js (ENCENACAO, FIO, SCRUB, NAVBAR, TRANSICAO).
+  # v7: robustez e SEO.
+  conteudo_no_html: cada rota é renderizada pelo React no build (src/entry-server.jsx, scripts/prerender.mjs)
+    e o navegador hidrata. A marcação nunca depende de movimento: `useMovimento()` devolve null no
+    servidor e na hidratação; quem esconde é o CSS da classe `movimento`. Entrada da primeira tela por
+    CSS (`[data-hero-item]`, `.entra-topo`, `.entra-flutuante`), nunca `initial` escondido do framer.
+  linha_planta: linha de tabela cujo fio se desenha (scrub) e cujo texto assenta 12px. Texto nunca apaga.
+  pilha_frentes: na Home, as três frentes em cartões presos (sticky) que se empilham e recuam 5% por
+    cartão. Só do desktop em diante: no celular o cartão é mais alto que a tela.
+  saida_hero_interno: a dissolução do hero vale também no topo de Serviços, das páginas de serviço e
+    de Perguntas (`SaiAoRolar`).
+  texto_e_rolagem: nenhum texto fica com opacidade baixa à espera da rolagem. O processo acende só o
+    ponto e a linha; a frase da missão (texto grande branco no azul) parte de 0.6, o mínimo de 3:1.
   # v6: fluidez. Números em src/lib/motion.js (PONTOS, SAIDA_HERO, GIRO, DECODIFICA, PARTICULAS, MARCA_RODAPE).
   rolagem_suave_v6: Lenis lerp 0.085 (era 0.1), um pouco mais de arrasto
   campo_pontos: grade de pontos azuis em canvas 2D atrás do hero (26px, alfa 0.16). Acende numa onda

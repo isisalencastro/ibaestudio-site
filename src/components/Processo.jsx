@@ -1,8 +1,10 @@
 /**
  * Processo conduzido pela rolagem: a linha anda junto com a leitura e cada passo acende
  * quando ela chega nele. No celular a linha é vertical, à esquerda dos passos; do desktop
- * em diante, horizontal, por cima. O passo ainda não alcançado fica em 40% (legível), nunca
- * escondido, e o progresso só avança (lib/scrub.js).
+ * em diante, horizontal, por cima. O progresso só avança (lib/scrub.js).
+ *
+ * v7: o texto do passo não apaga mais (era 40% de opacidade, e o Lighthouse reprova o
+ * contraste do estado inicial). Quem acende é o ponto e a linha; o texto fica sempre inteiro.
  *
  * v7: sai da Home para ser usado também nas páginas de serviço, e o número do passo cresce
  * (Archivo 900, como numeração de manual), que é a tipografia da direção "planta".
@@ -17,20 +19,19 @@ const N = PASSOS.length
 function PassoProcesso({ passo, i, progresso, Titulo }) {
   const limiar = i / (N - 1)
   const acende = useTransform(progresso, [Math.max(0, limiar - 0.12), limiar], [0, 1])
-  const opacity = useTransform(acende, [0, 1], [0.4, 1])
   const escala = useTransform(acende, [0, 1], [0.6, 1])
   return (
     <li className="relative pl-9 lg:pl-0">
       <span aria-hidden="true" className="absolute left-0 top-[6px] lg:static lg:block w-3 h-3 mb-6 rounded-full bg-blue-soft2 ring-4 ring-surface">
         <motion.span className="block w-full h-full rounded-full bg-blue" style={{ scale: escala, opacity: acende }} />
       </span>
-      <motion.div style={{ opacity }}>
+      <div>
         <span aria-hidden="true" className="block font-display font-black text-[clamp(3rem,5vw,4.5rem)] leading-[0.9] tracking-[-0.04em] text-blue mb-3">{passo.num}</span>
         <Titulo className="text-[1.25rem] mb-2">
           <span className="sr-only">Passo {passo.num}: </span>{passo.titulo}
         </Titulo>
         <p className="text-gray-600 text-[0.97rem] max-w-[34ch]">{passo.texto}</p>
-      </motion.div>
+      </div>
     </li>
   )
 }

@@ -101,7 +101,9 @@ export const ENCENACAO = {
 export const SCRUB = {
   // Suavização do progresso da rolagem: tira o tremido sem atrasar a leitura.
   mola: { stiffness: 140, damping: 30, mass: 0.4 },
-  palavraApagada: 0.18, // opacidade de uma palavra ainda não lida
+  // Opacidade de uma palavra ainda não lida. Era 0.18; v7: 0.6, o mínimo em que o branco do
+  // título grande sobre o azul passa no contraste (3.39:1, WCAG AA para texto grande).
+  palavraApagada: 0.6,
   faixaInsetInicial: 5, // % de recuo lateral da faixa antes de abrir
   faixaRaioInicial: 24 // px, igual ao raio de caixa do DESIGN.md
 }

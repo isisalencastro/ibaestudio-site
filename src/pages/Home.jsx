@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
-import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
-import { EASE_CSS, ENCENACAO, REVELACAO, SAIDA_HERO, useMovimento } from '../lib/motion'
-import { useScrub } from '../lib/scrub'
+import { EASE_CSS, ENCENACAO, REVELACAO, useMovimento } from '../lib/motion'
 import FaixaConvite from '../components/FaixaConvite'
 import CampoPontos from '../components/CampoPontos'
 import FraseGiro from '../components/FraseGiro'
 import { waLink, WA_MESSAGES, PRAXE_PAGINA, JOGOS_URL } from '../lib/site'
-import { CheckIcon, ArrowRightIcon } from '../components/Icons'
+import { ArrowRightIcon } from '../components/Icons'
 import Processo from '../components/Processo'
+import { useSaidaHero } from '../lib/saida'
+import PilhaFrentes from '../components/PilhaFrentes'
 import LinhaPlanta from '../components/LinhaPlanta'
 import { COMPROMISSOS, ONDE_TRAVA, servicoPorId, rotaDoServico } from '../lib/conteudo'
 
@@ -30,11 +30,6 @@ const fluxoExemplo = [
   { hora: '22h09', quem: 'IA', ia: true, texto: 'Ela pergunta o que falta para orçar e registra o pedido na sua planilha.' },
   { hora: '8h00', quem: 'Seu time', texto: 'Seu time abre o dia com o pedido completo, pronto para fechar.' }
 ]
-
-// Frente principal e frentes de apoio: o texto vem de lib/conteudo.js, o mesmo das páginas
-// de serviço, e cada cartão leva para a página própria da frente.
-const servicoDestaque = servicoPorId('ia-integrada')
-const servicosApoio = ['web-e-sistemas', 'automacao'].map(servicoPorId)
 
 const packsPraxe = [
   { nome: 'Prospecção', texto: 'Encher a agenda com quem decide.' },
@@ -144,31 +139,6 @@ function ExemploFluxo() {
   )
 }
 
-/**
- * Saída do hero: ao rolar para fora, o conteúdo se dissolve (desfoque, opacidade e uma
- * escala mínima), preso à rolagem. Nada anda em velocidade diferente da página, então não é
- * parallax. Sem movimento ligado, fica parado e nítido.
- *
- * Só do desktop em diante, onde o hero cabe numa tela. No celular o exemplo fica abaixo do
- * título e seria desfocado justo enquanto a pessoa lê (medido em 390px em 02/10/2026).
- */
-function useSaidaHero(ref) {
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const filter = useTransform(scrollYProgress, [0.25, 0.9], ['blur(0px)', `blur(${SAIDA_HERO.desfoque}px)`])
-  const opacity = useTransform(scrollYProgress, [0.25, 0.9], [1, SAIDA_HERO.opacidade])
-  const scale = useTransform(scrollYProgress, [0.25, 0.9], [1, SAIDA_HERO.escala])
-  const anima = useMovimento()
-  const [largo, setLargo] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia(`(min-width: ${SAIDA_HERO.aPartirDe}px)`)
-    const muda = () => setLargo(mq.matches)
-    muda()
-    mq.addEventListener('change', muda)
-    return () => mq.removeEventListener('change', muda)
-  }, [])
-  return anima && largo ? { filter, opacity, scale } : undefined
-}
-
 export default function Home() {
   // CTAs com efeito magnético. Um ref por botão: o hook é por elemento, não global.
   const ctaSessaoGratuita = useMagnetico()
@@ -239,7 +209,6 @@ export default function Home() {
             </div>
             {ONDE_TRAVA.map((l, i) => (
               <LinhaPlanta key={l.frente} className="grid md:grid-cols-[12rem_1fr_1fr] gap-x-10 gap-y-2 py-6 md:py-7">
-                <div className="contents">
                   <h3 className="flex items-baseline gap-3 font-display font-extrabold text-[1.4rem] leading-tight">
                     <span aria-hidden="true" className="font-mono font-medium text-[0.8rem] text-blue">{String(i + 1).padStart(2, '0')}</span>
                     {l.frente}
@@ -250,7 +219,6 @@ export default function Home() {
                     {l.depois}{' '}
                     <Link to={rotaDoServico(l.servico)} className="text-blue font-semibold whitespace-nowrap hover:text-blue-dark">Ver a frente<span className="sr-only">: {servicoPorId(l.servico).nome}</span> <ArrowRightIcon size={14} className="seta inline" /></Link>
                   </p>
-                </div>
               </LinhaPlanta>
             ))}
           </div>
@@ -259,48 +227,9 @@ export default function Home() {
 
       <section className="secao" id="servicos" aria-labelledby="servicos-titulo">
         <div className="container-site">
-          <TituloRevelado as="h2" id="servicos-titulo" className="text-[clamp(1.7rem,3vw,2.3rem)] mb-10">O que a IBA faz</TituloRevelado>
+          <TituloRevelado as="h2" id="servicos-titulo" className="text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.02] tracking-[-0.03em] mb-10">O que a IBA faz</TituloRevelado>
 
-          <div className="grid lg:grid-cols-[1.25fr_0.9fr] gap-6 items-stretch">
-            <Reveal className="h-full">
-              <article className="cartao-elevavel relative isolate h-full overflow-hidden bg-blue-soft border border-blue-soft2 rounded-3xl p-7 sm:p-10 lg:p-11 flex flex-col">
-                <LuzCartao />
-                <p className="text-blue-dark font-semibold text-[0.95rem] mb-3">Frente principal</p>
-                <h3 className="text-[clamp(1.6rem,2.4vw,2rem)] mb-3">{servicoDestaque.nome}</h3>
-                <p className="text-gray-600 text-[1.02rem] mb-6 max-w-[46ch]">{servicoDestaque.resumo} É a frente que mais muda o dia a dia de quem já tem operação rodando.</p>
-
-                <ul className="list-none flex flex-col gap-2.5 mb-8">
-                  {servicoDestaque.exemplos.map((e) => (
-                    <li key={e} className="flex items-start gap-2.5 text-[0.96rem] text-ink">
-                      <CheckIcon size={16} className="text-blue shrink-0 mt-1" />
-                      {e}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link to={rotaDoServico(servicoDestaque.id)} className="link-esticado mt-auto font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
-                  Ver detalhes<span className="sr-only">: {servicoDestaque.nome}</span>
-                  <ArrowRightIcon size={16} />
-                </Link>
-              </article>
-            </Reveal>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-6">
-              {servicosApoio.map((s, i) => (
-                <Reveal key={s.id} delay={(i + 1) * REVELACAO.irmaos} className="h-full">
-                  <article className="cartao-elevavel relative isolate h-full overflow-hidden bg-surface border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col">
-                    <LuzCartao />
-                    <h3 className="text-[1.25rem] mb-2.5">{s.nome}</h3>
-                    <p className="text-gray-600 text-[0.96rem] mb-6 flex-grow">{s.resumo}</p>
-                    <Link to={rotaDoServico(s.id)} className="link-esticado font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
-                      Ver detalhes<span className="sr-only">: {s.nome}</span>
-                      <ArrowRightIcon size={16} />
-                    </Link>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
+          <PilhaFrentes />
         </div>
       </section>
 

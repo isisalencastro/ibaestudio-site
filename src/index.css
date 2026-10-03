@@ -3,6 +3,33 @@
 @tailwind utilities;
 
 @layer base {
+  /* Fontes reserva com as medidas das fontes da marca (v7, 03/10/2026). Enquanto a IBM Plex
+     Sans e a Archivo não chegam, o texto sai numa Arial ajustada para ocupar o mesmo espaço;
+     quando elas chegam, nada pula. Sem isso, Contato media CLS 0,151 no Lighthouse (o
+     parágrafo subia 28px na troca de fonte). Números medidos no Chromium com as fontes reais:
+     Plex 400 tem 1025/275 de ascendente/descendente e 1,0025 da largura da Arial; Archivo 800
+     tem 878/210 e 1,0232 da largura da Arial Bold. */
+  @font-face {
+    font-family: 'IBM Plex Sans Fallback';
+    src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('Helvetica');
+    size-adjust: 100.25%;
+    ascent-override: 102.24%;
+    descent-override: 27.43%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: 'Archivo Fallback';
+    src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'), local('Helvetica Bold');
+    font-weight: 600 900;
+    size-adjust: 102.32%;
+    ascent-override: 85.81%;
+    descent-override: 20.52%;
+    line-gap-override: 0%;
+  }
+}
+
+
+@layer base {
   /* Faixa do botão flutuante do WhatsApp, em um lugar só.
      O botão é `position: fixed`: não ocupa espaço no fluxo, então passa por cima do que
      estiver embaixo. No fim da página quem fica embaixo é a última linha do rodapé, e
@@ -413,7 +440,7 @@ html.movimento {
 /* Marca gigante do rodapé. A largura cabe em qualquer tela: o tamanho da letra sai da
    largura útil (tela menos o respiro de 24px de cada lado), com teto no desktop. */
 .marca-rodape {
-  font-family: Archivo, 'IBM Plex Sans', system-ui, sans-serif;
+  font-family: Archivo, 'Archivo Fallback', 'IBM Plex Sans', system-ui, sans-serif;
   font-weight: 800;
   /* 5.5: largura da palavra "IBA Estúdio" em em, medida no Chromium em 02/10/2026 */
   font-size: min(calc((100vw - 48px) / 5.5), 195px);
@@ -503,4 +530,29 @@ html.movimento {
     background: #13264A;
     box-shadow: 0 0 0 1px rgba(122, 174, 242, 0.18);
   }
+}
+
+/* Fio da linha da planta (LinhaPlanta.jsx): trilho claro e o fio que se desenha por cima,
+   pela variável --p (0 a 1) que a rolagem escreve. */
+.linha-planta {
+  position: relative;
+}
+.linha-planta::before,
+.linha-planta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  pointer-events: none;
+}
+.linha-planta::before {
+  height: 1px;
+  background: rgb(var(--c-gray-200));
+}
+.linha-planta::after {
+  height: 2px;
+  background: rgb(var(--c-ink));
+  transform: scaleX(var(--p, 1));
+  transform-origin: left;
 }

@@ -4,6 +4,7 @@ import TituloRevelado from '../components/TituloRevelado'
 import LuzCartao from '../components/LuzCartao'
 import FaixaConvite from '../components/FaixaConvite'
 import Seo from '../components/Seo'
+import SaiAoRolar from '../components/SaiAoRolar'
 import { useMagnetico } from '../lib/magnetismo'
 import { Link } from 'react-router-dom'
 import { waLink, WA_MESSAGES } from '../lib/site'
@@ -36,7 +37,7 @@ export default function Servicos() {
       <Seo />
 
       <section className="bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-14">
-        <div className="container-site">
+        <SaiAoRolar className="container-site">
           <Reveal>
             <p className="eyebrow">Serviços</p>
           </Reveal>
@@ -44,7 +45,7 @@ export default function Servicos() {
           <Reveal delay={0.08}>
             <p className="lede max-w-[62ch]">São três frentes. Dá para contratar uma só e chamar as outras depois, quando fizer sentido.</p>
           </Reveal>
-        </div>
+        </SaiAoRolar>
       </section>
 
       {services.map((s) => (

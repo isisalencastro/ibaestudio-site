@@ -85,8 +85,8 @@ export default {
       fontFamily: {
         // v7: corpo em IBM Plex Sans e rótulos em IBM Plex Mono (direção "planta da operação").
         // Archivo continua nos títulos.
-        display: ['Archivo', 'IBM Plex Sans', 'system-ui', 'sans-serif'],
-        body: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+        display: ['Archivo', 'Archivo Fallback', 'IBM Plex Sans', 'IBM Plex Sans Fallback', 'system-ui', 'sans-serif'],
+        body: ['IBM Plex Sans', 'IBM Plex Sans Fallback', 'system-ui', 'sans-serif'],
         mono: ['IBM Plex Mono', 'ui-monospace', 'SF Mono', 'Menlo', 'Consolas', 'monospace']
       },
       borderRadius: {

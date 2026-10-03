@@ -75,8 +75,15 @@ export const SEO_404 = {
   noindex: true
 }
 
+// Barra final não muda a página: /servicos/ e /servicos são a mesma rota. Sem normalizar, o
+// endereço com barra caía no SEO do 404 e a página saía com `noindex` (medido no Lighthouse em
+// 03/10/2026, inclusive no site anterior à v7).
+export function normalizaRota(pathname) {
+  return pathname.length > 1 ? pathname.replace(/\/+$/, '') : pathname
+}
+
 export function seoDaRota(pathname) {
-  return ROTAS[pathname] || SEO_404
+  return ROTAS[normalizaRota(pathname)] || SEO_404
 }
 
 // Caminho do arquivo que o build grava para cada rota (raiz vira /index.html).

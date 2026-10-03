@@ -78,7 +78,7 @@ function FraseGiroAnimada() {
   const fundo = useTransform(virada, (t) => rgb(mistura(AZUL_MARCA, cores.fundo, t)))
   const tinta = useTransform(virada, (t) => rgb(mistura(BRANCO, cores.tinta, t)))
   const destaque = useTransform(virada, (t) => rgb(mistura(BRANCO, cores.azul, t)))
-  const apoio = useTransform(virada, [0, 1], [0.7, 0])
+  const apoio = useTransform(virada, [0, 1], [0.85, 0])
 
   return (
     <section

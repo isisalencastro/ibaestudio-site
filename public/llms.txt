@@ -1,0 +1,19 @@
+# IBA Estúdio
+
+> Estúdio de desenvolvimento e IA de Porto Alegre (RS). Coloca a IA para trabalhar na operação de empresas: atendimento, vendas, dados e processos internos. Quem atende é quem desenvolve; escopo, prazo e valor sempre por escrito.
+
+## Serviços
+
+- [IA integrada aos processos](https://www.ibaestudio.com/servicos/ia-integrada): atendimento no WhatsApp, relatórios sem trabalho manual e agentes de IA treinados nos documentos da empresa. Implantação em até 20 dias úteis.
+- [Desenvolvimento web e sistemas](https://www.ibaestudio.com/servicos/web-e-sistemas): site institucional no ar em até 10 dias úteis; portal e sistema sob medida com escopo por escrito.
+- [Automação de operações](https://www.ibaestudio.com/servicos/automacao): integração entre as ferramentas que a empresa já usa, com as tarefas repetitivas rodando sozinhas.
+
+## Sobre e contato
+
+- [Sobre a IBA Estúdio](https://www.ibaestudio.com/sobre): quem faz e como trabalha.
+- [Perguntas frequentes](https://www.ibaestudio.com/perguntas-frequentes): custo, prazo, pagamento e suporte.
+- [Contato](https://www.ibaestudio.com/contato): WhatsApp, e-mail (contato@ibaestudio.com) ou formulário. A primeira conversa é a sessão estratégica gratuita, de 30 minutos.
+
+## Produtos
+
+- [Praxe](https://www.ibaestudio.com/praxe): as skills que a IBA usa na própria operação, empacotadas para agentes de código.

@@ -10,6 +10,7 @@ import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
+import SaiAoRolar from '../components/SaiAoRolar'
 import Trilha from '../components/Trilha'
 import DadosEstruturados, { trilha } from '../components/DadosEstruturados'
 import LinhaPlanta from '../components/LinhaPlanta'
@@ -39,13 +40,13 @@ export default function Perguntas() {
       <DadosEstruturados dados={dados} />
 
       <section className="bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-12">
-        <div className="container-site">
+        <SaiAoRolar className="container-site">
           <Trilha itens={ITENS_TRILHA} />
           <TituloRevelado as="h1" className="text-[clamp(2.2rem,5.4vw,4.2rem)] leading-[1.02] tracking-[-0.03em] max-w-[16ch] mb-5">Perguntas frequentes</TituloRevelado>
           <Reveal delay={0.08}>
             <p className="lede text-[1.12rem]">Custo, prazo, pagamento e o que acontece depois da entrega, em respostas diretas. Se a sua dúvida não estiver aqui, pergunte no WhatsApp.</p>
           </Reveal>
-        </div>
+        </SaiAoRolar>
       </section>
 
       <section className="secao pt-6 lg:pt-8">
