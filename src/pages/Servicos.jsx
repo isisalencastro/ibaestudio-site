@@ -73,7 +73,7 @@ export default function Servicos() {
     <Page>
       <Seo />
 
-      <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
+      <section className="bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-14">
         <div className="container-site">
           <Reveal>
             <p className="eyebrow">Serviços</p>

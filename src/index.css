@@ -26,7 +26,8 @@
   }
 
   body {
-    @apply font-body text-ink bg-white leading-relaxed;
+    @apply font-body text-ink bg-surface leading-relaxed;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4 {
@@ -36,14 +37,14 @@
   }
 
   :focus-visible {
-    outline: 3px solid #185CB6;
+    outline: 3px solid rgb(var(--c-blue));
     outline-offset: 2px;
     border-radius: 2px;
   }
 
   ::selection {
-    background: #E8F0FB;
-    color: #124C97;
+    background: rgb(var(--c-blue-soft2));
+    color: rgb(var(--c-blue-dark));
   }
 }
 
@@ -70,7 +71,7 @@
   .cartao-elevavel:focus-within {
     transform: translate3d(0, -6px, 0);
     box-shadow: 0 16px 40px rgba(16, 24, 40, 0.10);
-    border-color: #E8F0FB;
+    border-color: rgb(var(--c-blue-soft2));
   }
   .link-esticado::after {
     content: '';
@@ -84,7 +85,7 @@
     outline: none;
   }
   .link-esticado:focus-visible::after {
-    outline: 3px solid #185CB6;
+    outline: 3px solid rgb(var(--c-blue));
     outline-offset: 2px;
   }
 
@@ -107,7 +108,7 @@
   /* Botões chapados. O brilho colorido em volta do laranja e do verde (sombra na cor do
      próprio botão) é assinatura de template; o laranja já chama atenção sozinho. */
   .btn-primary {
-    @apply bg-orange text-ink;
+    @apply bg-orange text-ink-fixo;
   }
   .btn-primary:hover {
     @apply bg-orange-dark;
@@ -277,13 +278,13 @@ html.movimento {
   height: 1.4rem;
   padding: 0 10px;
   border-radius: 999px;
-  background: #EEF2F8;
+  background: rgb(var(--c-gray-200));
 }
 .digitando i {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #667085;
+  background: rgb(var(--c-gray-500));
   animation: digitando 1s ease-in-out infinite;
 }
 .digitando i:nth-child(2) { animation-delay: 0.15s; }
@@ -303,7 +304,7 @@ html.movimento {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: #185CB6;
+  background: rgb(var(--c-blue));
   animation: pulso 1.2s cubic-bezier(0.22, 1, 0.36, 1) 2;
 }
 @keyframes pulso {
@@ -336,7 +337,7 @@ html.movimento {
   background: radial-gradient(
     circle var(--raio, 260px) at var(--lx, 50%) var(--ly, -10%),
     var(--cor-luz, rgba(24, 92, 182, 0.07)) 0%,
-    rgba(24, 92, 182, 0) 70%
+    transparent 70%
   );
   transition: opacity var(--luz-dur, 0.5s) ease;
 }
@@ -398,4 +399,53 @@ html.movimento {
   opacity: 0;
   transform: translate3d(-50%, -60%, 0) scale(1);
   transition-duration: 0.15s;
+}
+
+/* ---------------------------------------------------------------------------
+   v6 (02/10/2026): fluidez. Números em src/lib/motion.js.
+--------------------------------------------------------------------------- */
+
+/* Frase que gira: a última palavra ("na operação inteira.") chega no azul do tema. */
+.giro-ultima {
+  color: var(--giro-destaque, currentColor);
+}
+
+/* Marca gigante do rodapé. A largura cabe em qualquer tela: o tamanho da letra sai da
+   largura útil (tela menos o respiro de 24px de cada lado), com teto no desktop. */
+.marca-rodape {
+  font-family: Archivo, Inter, system-ui, sans-serif;
+  font-weight: 800;
+  /* 5.5: largura da palavra "IBA Estúdio" em em, medida no Chromium em 02/10/2026 */
+  font-size: min(calc((100vw - 48px) / 5.5), 195px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  /* Azul do tema em alfa baixo: aparece nos dois temas sem competir com o texto. */
+  color: rgb(var(--c-blue) / 0.1);
+  white-space: nowrap;
+  padding-top: 8px;
+  padding-bottom: 0.06em;
+}
+.marca-rodape-faixa {
+  display: inline-block;
+  overflow: hidden;
+  /* folga para o acento do "u" e para a perna do "d" */
+  padding: 0.1em 0.04em 0.04em;
+  margin: -0.1em -0.04em -0.04em;
+}
+.marca-rodape-letra {
+  display: inline-block;
+}
+.movimento .marca-rodape .marca-rodape-letra {
+  transform: translate3d(0, 105%, 0);
+  transition: transform var(--ld, 0.9s) cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--li, 0) * var(--ls, 0.04s));
+}
+.movimento .marca-rodape[data-visivel] .marca-rodape-letra {
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .movimento .marca-rodape .marca-rodape-letra {
+    transform: none !important;
+  }
 }
