@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import LuzCartao from '../components/LuzCartao'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
-import { EASE, EASE_CSS, ENCENACAO, FIO, PRIMEIRA_TELA, REVELACAO, movimentoLigado } from '../lib/motion'
+import { EASE, EASE_CSS, ENCENACAO, PRIMEIRA_TELA, REVELACAO, SAIDA_HERO, movimentoLigado } from '../lib/motion'
 import { useScrub } from '../lib/scrub'
 import FaixaConvite from '../components/FaixaConvite'
+import CampoPontos from '../components/CampoPontos'
+import FraseGiro from '../components/FraseGiro'
 import { waLink, WA_MESSAGES, PRAXE_PAGINA, JOGOS_URL } from '../lib/site'
 import { CheckIcon, ArrowRightIcon } from '../components/Icons'
 
@@ -121,7 +123,7 @@ function ExemploFluxo() {
   return (
     <motion.figure
       ref={ref}
-      className="relative bg-white border border-gray-200 rounded-3xl p-7 sm:p-9 shadow-lg"
+      className="relative bg-surface border border-gray-200 rounded-3xl p-7 sm:p-9 shadow-lg"
       initial={anima ? { opacity: 0, y: REVELACAO.y } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: PRIMEIRA_TELA.duracao, delay: PRIMEIRA_TELA.atrasoInicial + PRIMEIRA_TELA.stagger, ease: EASE }}
@@ -147,7 +149,7 @@ function ExemploFluxo() {
               )}
               <span
                 aria-hidden="true"
-                className={`ponto-fluxo mt-[7px] w-3 h-3 rounded-full ring-4 ring-white ${acesa ? 'bg-blue' : 'bg-blue-soft2'} ${acesa && i === visiveis - 1 && anima ? 'ponto-pulso' : ''}`}
+                className={`ponto-fluxo mt-[7px] w-3 h-3 rounded-full ring-4 ring-surface ${acesa ? 'bg-blue' : 'bg-blue-soft2'} ${acesa && i === visiveis - 1 && anima ? 'ponto-pulso' : ''}`}
               />
               <div
                 className="etapa-fluxo"
@@ -172,43 +174,27 @@ function ExemploFluxo() {
 }
 
 /**
- * O fio da marca: uma linha azul, bem clara, que atravessa o fundo do hero e dá um nó.
- * "A IBA dá um nó nos seus processos" sem desenhar o mascote. Desenha uma vez, na carga,
- * por trás de tudo (nunca por cima de texto), e some da árvore de leitura.
+ * Saída do hero: ao rolar para fora, o conteúdo se dissolve (desfoque, opacidade e uma
+ * escala mínima), preso à rolagem. Nada anda em velocidade diferente da página, então não é
+ * parallax. Sem movimento ligado, fica parado e nítido.
+ *
+ * Só do desktop em diante, onde o hero cabe numa tela. No celular o exemplo fica abaixo do
+ * título e seria desfocado justo enquanto a pessoa lê (medido em 390px em 02/10/2026).
  */
-function FioNo() {
-  const anima = movimentoLigado()
-  const desenho = anima
-    ? { initial: { pathLength: 0 }, animate: { pathLength: 1 } }
-    : { initial: false }
-  return (
-    <svg
-      aria-hidden="true"
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      viewBox="0 0 1440 760"
-      preserveAspectRatio="xMidYMid slice"
-      fill="none"
-    >
-      <motion.path
-        d="M -40 640 C 180 640 300 560 470 590 C 640 620 700 700 860 690 C 1010 680 1060 590 1150 600 C 1260 612 1330 700 1270 730 C 1210 760 1150 690 1190 640 C 1240 580 1350 560 1480 520"
-        stroke="#185CB6"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        style={{ opacity: FIO.opacidade }}
-        {...desenho}
-        transition={{ duration: FIO.duracao, delay: FIO.atraso, ease: EASE }}
-      />
-      <motion.path
-        d="M -40 668 C 200 668 320 600 480 622 C 650 646 720 724 870 716"
-        stroke="#185CB6"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        style={{ opacity: FIO.opacidade * 0.6 }}
-        {...desenho}
-        transition={{ duration: FIO.duracao * 0.8, delay: FIO.atraso + 0.25, ease: EASE }}
-      />
-    </svg>
-  )
+function useSaidaHero(ref) {
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const filter = useTransform(scrollYProgress, [0.25, 0.9], ['blur(0px)', `blur(${SAIDA_HERO.desfoque}px)`])
+  const opacity = useTransform(scrollYProgress, [0.25, 0.9], [1, SAIDA_HERO.opacidade])
+  const scale = useTransform(scrollYProgress, [0.25, 0.9], [1, SAIDA_HERO.escala])
+  const [largo, setLargo] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia(`(min-width: ${SAIDA_HERO.aPartirDe}px)`)
+    const muda = () => setLargo(mq.matches)
+    muda()
+    mq.addEventListener('change', muda)
+    return () => mq.removeEventListener('change', muda)
+  }, [])
+  return movimentoLigado() && largo ? { filter, opacity, scale } : undefined
 }
 
 const processoN = 4
@@ -261,14 +247,16 @@ export default function Home() {
   // CTAs com efeito magnético. Um ref por botão: o hook é por elemento, não global.
   const ctaSessaoGratuita = useMagnetico()
   const ctaFalarComIba = useMagnetico()
+  const hero = useRef(null)
+  const saida = useSaidaHero(hero)
 
   return (
     <Page>
       <Seo />
 
-      <section className="relative bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-[96px] overflow-hidden">
-        <FioNo />
-        <div className="relative container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center">
+      <section ref={hero} className="relative bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-[96px] overflow-hidden">
+        <CampoPontos />
+        <motion.div style={saida} className="relative container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center origin-top">
           <motion.div variants={heroContainer} initial={movimentoLigado() ? 'hidden' : false} animate="show">
             <TituloRevelado as="h1" className="text-[clamp(2.1rem,4.6vw,3.4rem)] mb-5">
               A gente coloca a IA para trabalhar na operação da sua empresa
@@ -285,10 +273,10 @@ export default function Home() {
           </motion.div>
 
           <ExemploFluxo />
-        </div>
+        </motion.div>
       </section>
 
-      <section className="border-y border-gray-200 bg-white" aria-labelledby="compromissos-titulo">
+      <section className="border-y border-gray-200 bg-surface" aria-labelledby="compromissos-titulo">
         <div className="container-site grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,2.2fr)] gap-x-14 gap-y-8 py-12">
           <Reveal>
             <h2 id="compromissos-titulo" className="text-[1.3rem] leading-snug">O que combinamos em todo projeto</h2>
@@ -304,6 +292,8 @@ export default function Home() {
           </dl>
         </div>
       </section>
+
+      <FraseGiro />
 
       <section className="secao" id="servicos" aria-labelledby="servicos-titulo">
         <div className="container-site">
@@ -336,7 +326,7 @@ export default function Home() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-6">
               {servicosApoio.map((s, i) => (
                 <Reveal key={s.title} delay={(i + 1) * REVELACAO.irmaos} className="h-full">
-                  <article className="cartao-elevavel relative isolate h-full overflow-hidden bg-white border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col">
+                  <article className="cartao-elevavel relative isolate h-full overflow-hidden bg-surface border border-gray-200 rounded-3xl p-7 sm:p-8 shadow-sm flex flex-col">
                     <LuzCartao />
                     <h3 className="text-[1.25rem] mb-2.5">{s.title}</h3>
                     <p className="text-gray-600 text-[0.96rem] mb-6 flex-grow">{s.text}</p>
@@ -403,7 +393,7 @@ export default function Home() {
       <section className="secao pt-0 lg:pt-0" id="jogos" aria-labelledby="jogos-titulo">
         <div className="container-site">
           <Reveal>
-            <div className="bg-white border border-gray-200 rounded-3xl p-7 sm:p-10 lg:px-14 lg:py-10 flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-12">
+            <div className="bg-surface border border-gray-200 rounded-3xl p-7 sm:p-10 lg:px-14 lg:py-10 flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-12">
               <div className="flex-1">
                 <p className="eyebrow">Nossos jogos</p>
                 <h2 id="jogos-titulo" className="text-[clamp(1.35rem,2.2vw,1.6rem)] mb-3">A gente constrói e publica os próprios jogos</h2>
@@ -429,6 +419,7 @@ export default function Home() {
         texto="Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar: atendimento, conteúdo, anúncios ou processos. Sem compromisso."
         cta="Agendar sessão estratégica"
         href={waLink(WA_MESSAGES.diagnostico)}
+        simbolo
       />
 
     </Page>

@@ -5,18 +5,23 @@
  *
  * O recorte é por `clip-path`, então o layout não muda de tamanho durante a abertura e o
  * texto nunca passa por baixo do recorte (o recuo máximo é menor que a margem do conteúdo).
+ *
+ * Com `simbolo` (só na Home), o símbolo da IBA se monta por partículas ao lado do texto,
+ * conduzido pela mesma rolagem.
  */
 import { useRef } from 'react'
 import { motion, useTransform } from 'framer-motion'
 import Reveal from './Reveal'
+import SimboloParticulas from './SimboloParticulas'
 import { useScrub } from '../lib/scrub'
 import { useMagnetico } from '../lib/magnetismo'
 import { SCRUB } from '../lib/motion'
 
-export default function FaixaConvite({ id = 'diagnostico', titulo, texto, cta, href, className = '' }) {
+export default function FaixaConvite({ id = 'diagnostico', titulo, texto, cta, href, simbolo = false, className = '' }) {
   const ref = useRef(null)
   const botao = useMagnetico()
   const progresso = useScrub(ref, ['start end', 'start 30%'])
+  const montagem = useScrub(ref, ['start 85%', 'center 55%'])
   const clipPath = useTransform(progresso, (v) => {
     const resto = 1 - Math.min(1, Math.max(0, v))
     // No fim da abertura a mola deixa frações de pixel: abaixo disso, recorte nenhum.
@@ -24,16 +29,34 @@ export default function FaixaConvite({ id = 'diagnostico', titulo, texto, cta, h
     return `inset(0% ${(resto * SCRUB.faixaInsetInicial).toFixed(3)}% round ${(resto * SCRUB.faixaRaioInicial).toFixed(2)}px)`
   })
 
+  const botaoCta = (
+    <a ref={botao} className="btn btn-primary shrink-0" href={href} target="_blank" rel="noopener noreferrer">{cta}</a>
+  )
+
   return (
     <section ref={ref} id={id} className={className} aria-labelledby={`${id}-titulo`}>
       <motion.div className="bg-blue text-white" style={{ clipPath }}>
-        <Reveal className="container-site py-16 lg:py-24 flex flex-wrap items-center justify-between gap-8">
-          <div>
-            <h2 id={`${id}-titulo`} className="text-white text-[clamp(1.7rem,3.2vw,2.5rem)] mb-3 max-w-[22ch]">{titulo}</h2>
-            <p className="text-white/90 max-w-[52ch]">{texto}</p>
+        {simbolo ? (
+          <div className="container-site py-16 lg:py-24 grid lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] items-center gap-10 lg:gap-16">
+            <SimboloParticulas
+              progresso={montagem}
+              className="block w-full max-w-[240px] sm:max-w-[300px] lg:max-w-none aspect-[512/448] mx-auto lg:order-2"
+            />
+            <Reveal className="lg:order-1">
+              <h2 id={`${id}-titulo`} className="text-white text-[clamp(1.9rem,4vw,3.2rem)] mb-4 max-w-[18ch]">{titulo}</h2>
+              <p className="text-white/90 max-w-[52ch] mb-8">{texto}</p>
+              {botaoCta}
+            </Reveal>
           </div>
-          <a ref={botao} className="btn btn-primary shrink-0" href={href} target="_blank" rel="noopener noreferrer">{cta}</a>
-        </Reveal>
+        ) : (
+          <Reveal className="container-site py-16 lg:py-24 flex flex-wrap items-center justify-between gap-8">
+            <div>
+              <h2 id={`${id}-titulo`} className="text-white text-[clamp(1.7rem,3.2vw,2.5rem)] mb-3 max-w-[22ch]">{titulo}</h2>
+              <p className="text-white/90 max-w-[52ch]">{texto}</p>
+            </div>
+            {botaoCta}
+          </Reveal>
+        )}
       </motion.div>
     </section>
   )

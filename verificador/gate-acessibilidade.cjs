@@ -59,7 +59,7 @@ const EMBUTIDO = { white: '#FFFFFF' }
  */
 const PARES = [
   { id: 'corpo', nome: 'Texto do corpo', texto: 'ink', fundo: 'white', limiar: 4.5,
-    onde: { arquivo: 'src/index.css', trecho: 'font-body text-ink bg-white' } },
+    onde: { arquivo: 'src/index.css', trecho: 'font-body text-ink bg-surface' } },
   { id: 'link-azul', nome: 'Link azul no corpo', texto: 'blue', fundo: 'white', limiar: 4.5,
     onde: { arquivo: 'src/pages/Contato.jsx', trecho: 'text-blue font-semibold hover:underline' } },
   { id: 'eyebrow', nome: 'Rótulo mono azul (12px)', texto: 'blue', fundo: 'white', limiar: 4.5,
@@ -95,7 +95,7 @@ const PARES = [
   { id: 'whatsapp-hover', nome: 'Botão de WhatsApp no hover', texto: 'white', fundo: 'green_dark', limiar: 4.5,
     onde: { arquivo: 'src/index.css', trecho: '.btn-whatsapp:hover {' } },
   { id: 'selecao', nome: 'Texto selecionado (::selection)', texto: 'blue_dark', fundo: 'blue_soft2', limiar: 4.5,
-    onde: { arquivo: 'src/index.css', trecho: 'color: #124C97' } }
+    onde: { arquivo: 'src/index.css', trecho: 'color: rgb(var(--c-blue-dark))' } }
 ]
 
 // ---------------------------------------------------------------- cor e contraste
@@ -143,9 +143,9 @@ const duasCasas = (n) => Number(n).toFixed(2)
 
 // ---------------------------------------------------------------- leitura dos tokens
 
-function tokensDoDoc() {
+function tokensDoDoc(nomeBloco = 'colors') {
   const texto = fs.readFileSync(DOC_DESIGN, 'utf8')
-  const bloco = /```yaml\ncolors:\n([\s\S]*?)```/.exec(texto)
+  const bloco = new RegExp('```yaml\\n' + nomeBloco + ':\\n([\\s\\S]*?)```').exec(texto)
   if (!bloco) return null
   const tokens = {}
   for (const linha of bloco[1].split('\n')) {
@@ -156,16 +156,22 @@ function tokensDoDoc() {
 }
 
 async function tokensDoTailwind() {
+  // v6 (02/10/2026): o config exporta os hex dos dois temas (CLARO, ESCURO e FIXAS) e as
+  // classes apontam para variáveis CSS. O gate lê os hex exportados, não as classes.
   const mod = await import(pathToFileURL(TAILWIND).href)
-  const cores = (mod.default && mod.default.theme && mod.default.theme.extend && mod.default.theme.extend.colors) || {}
-  const tokens = {}
-  for (const [nome, chave] of Object.entries(MAPA_TOKENS)) {
-    const partes = chave.split('.')
-    let valor = cores
-    for (const p of partes) valor = valor && valor[p]
-    if (typeof valor === 'string') tokens[nome] = valor.toUpperCase()
+  const comuns = mod.FIXAS || {}
+  const achata = (tema) => {
+    const tokens = {}
+    if (!tema) return tokens
+    for (const nome of Object.keys(MAPA_TOKENS)) {
+      const chave = nome.replace(/_/g, '-')
+      const valor = tema[chave] || comuns[chave]
+      if (typeof valor === 'string') tokens[nome] = valor.toUpperCase()
+    }
+    if (tema.surface) tokens.surface = tema.surface.toUpperCase()
+    return tokens
   }
-  return { tokens, cores }
+  return { tokens: achata(mod.CLARO), escuro: achata(mod.ESCURO) }
 }
 
 // ---------------------------------------------------------------- camada 1: tokens
@@ -195,7 +201,22 @@ function confereTokens(doc, tailwind) {
   return { itens, iguais, divergentes, semPar }
 }
 
-function conferePares(doc) {
+/**
+ * Tema escuro (v6, 02/10/2026): o mesmo par, com a cor que o escuro de fato pinta. Fundo
+ * "white" vira o `surface` escuro; texto branco continua branco; fundo chapado (azul da faixa,
+ * verde, laranja) não muda de tema; e o texto do botão laranja continua o ink escuro.
+ */
+const CHAPADOS = ['blue', 'green', 'green_dark', 'orange', 'orange_dark']
+function resolvedorEscuro(doc, escuro) {
+  return (nome, papel, par) => {
+    if (nome === 'white') return papel === 'fundo' ? escuro.surface : '#FFFFFF'
+    if (papel === 'fundo' && CHAPADOS.includes(nome)) return doc[nome]
+    if (papel === 'texto' && nome === 'ink' && /^orange/.test(par.fundo)) return doc.ink
+    return escuro[nome] || doc[nome]
+  }
+}
+
+function conferePares(doc, resolve = null) {
   const resultados = []
   for (const par of PARES) {
     const arquivo = path.join(RAIZ, par.onde.arquivo)
@@ -207,8 +228,9 @@ function conferePares(doc) {
       resultados.push({ par, estado: 'DÚVIDA', detalhe: `"${par.onde.trecho}" não está mais em ${par.onde.arquivo}: o par pode ter saído do site, revisar a lista` })
       continue
     }
-    const corTexto = doc[par.texto] || (EMBUTIDO[par.texto] || par.texto)
-    const corFundo = doc[par.fundo] || (EMBUTIDO[par.fundo] || par.fundo)
+    const cor = (nome, papel) => (resolve && resolve(nome, papel, par)) || doc[nome] || (EMBUTIDO[nome] || nome)
+    const corTexto = cor(par.texto, 'texto')
+    const corFundo = cor(par.fundo, 'fundo')
     const rgbTexto = rgbDeHex(corTexto)
     const rgbFundo = rgbDeHex(corFundo)
     if (!rgbTexto || !rgbFundo) {
@@ -666,10 +688,20 @@ const marca = (estado) => (estado === 'OK' ? '✅' : estado === 'FALHA' ? '❌' 
     console.error(`gate: não achei o bloco de cores em ${DOC_DESIGN}`)
     process.exit(2)
   }
-  const { tokens: tailwind } = await tokensDoTailwind()
+  const { tokens: tailwind, escuro: tailwindEscuro } = await tokensDoTailwind()
+  const docEscuro = tokensDoDoc('colors_escuro')
 
   const div = confereTokens(doc, tailwind)
-  const pares = conferePares(doc)
+  const divEscuro = docEscuro
+    ? confereTokens(docEscuro, tailwindEscuro)
+    : { itens: [{ item: 'Token do doc igual ao do Tailwind', estado: 'DÚVIDA', detalhe: 'bloco colors_escuro não está no docs/DESIGN.md' }] }
+  divEscuro.itens.forEach((i) => { i.item += ' (tema escuro)' })
+  const pares = [
+    ...conferePares(doc),
+    ...(docEscuro
+      ? conferePares(doc, resolvedorEscuro(doc, { ...doc, ...docEscuro })).map((r) => ({ ...r, par: { ...r.par, nome: `${r.par.nome} [escuro]` } }))
+      : [])
+  ]
 
   const reprovados = pares.filter((p) => p.estado === 'FALHA')
   const duvidosos = pares.filter((p) => p.estado === 'DÚVIDA')
@@ -677,6 +709,7 @@ const marca = (estado) => (estado === 'OK' ? '✅' : estado === 'FALHA' ? '❌' 
 
   const itens = [
     ...div.itens,
+    ...divEscuro.itens,
     {
       item: 'Pares de contraste dos tokens (WCAG AA)',
       estado: reprovados.length ? 'FALHA' : duvidosos.length ? 'DÚVIDA' : 'OK',

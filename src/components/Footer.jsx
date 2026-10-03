@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { waLink, mailLink, REDES, JOGOS_URL } from '../lib/site'
 import Reveal from './Reveal'
+import MarcaRodape from './MarcaRodape'
 import { InstagramIcon, LinkedInIcon } from './Icons'
 
 const ICONE = { Instagram: InstagramIcon, LinkedIn: LinkedInIcon }
@@ -11,6 +12,8 @@ export default function Footer() {
       <Reveal className="container-site grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
         <div className="col-span-2 lg:col-span-1">
           <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center text-ink hover:no-underline">
+            <picture>
+            <source srcSet="/img/logo-iba-horizontal-branco-acento.png" media="(prefers-color-scheme: dark)" />
             <img
               src="/img/logo-iba-horizontal.png"
               alt="IBA Estúdio"
@@ -20,6 +23,7 @@ export default function Footer() {
               decoding="async"
               className="h-10 w-auto object-contain shrink-0"
             />
+            </picture>
           </Link>
           <p className="text-gray-600 text-[0.95rem] mt-4 max-w-[34ch]">Desenvolvimento web, sistemas e IA para a operação da sua empresa.</p>
         </div>
@@ -62,6 +66,8 @@ export default function Footer() {
         </div>
       </Reveal>
 
+      <MarcaRodape />
+
       <div className="border-t border-gray-200">
         <div className="container-site flex flex-wrap gap-x-5 gap-y-2 items-center py-5">
           <p className="text-gray-500 text-[0.88rem]">&copy; {new Date().getFullYear()} IBA Estúdio. Todos os direitos reservados.</p>
@@ -81,7 +87,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     aria-label={`IBA Estúdio no ${r.nome}: ${r.usuario}`}
                     title={`${r.nome}: ${r.usuario}`}
-                    className="inline-flex items-center justify-center w-11 h-11 rounded-lg text-gray-500 hover:text-blue hover:bg-white border border-transparent hover:border-gray-200 transition-colors"
+                    className="inline-flex items-center justify-center w-11 h-11 rounded-lg text-gray-500 hover:text-blue hover:bg-surface border border-transparent hover:border-gray-200 transition-colors"
                   >
                     <Icone size={20} />
                   </a>

@@ -10,7 +10,7 @@ export default function NaoEncontrada() {
     <Page>
       <Seo />
 
-      <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-[120px]">
+      <section className="bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-[120px]">
         <div className="container-site max-w-[640px]">
           <Reveal>
             <p className="eyebrow">Erro 404</p>

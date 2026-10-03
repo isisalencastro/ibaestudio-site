@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
 import TransicaoPagina from './components/TransicaoPagina'
 import { useRolagemSuave, rolarParaTopo } from './lib/rolagemSuave'
+import { useDecodificaRotulos } from './lib/decodifica'
 import Home from './pages/Home'
 import Servicos from './pages/Servicos'
 import Praxe from './pages/Praxe'
@@ -48,6 +49,7 @@ function FlutuanteWhatsApp() {
 
 export default function App() {
   useRolagemSuave()
+  useDecodificaRotulos()
 
   // reducedMotion "user": com redução pedida, o framer não anima deslocamento (hover dos
   // cards, abertura do menu). As entradas já nascem paradas pela classe `movimento`.

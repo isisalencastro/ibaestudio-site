@@ -1,6 +1,14 @@
-# DESIGN.md: IBA Estúdio (Design System v5)
+# DESIGN.md: IBA Estúdio (Design System v6)
 
 > Token spec (padrão Google DESIGN.md / Open Design). Contrato de marca. Toda renderização segue exatamente estes tokens.
+> Versão 6, revisada em 02/10/2026: fluidez e tema que segue o navegador. Pedido da Isis, com referência num
+> reel (site da Connecta Digital): "quero que o site da IBA se pareça mais com o que está sendo mostrado nesse
+> vídeo, no quesito fluidez e motion design, mantendo as cores da empresa. quero que tenha o modo claro e escuro
+> com base no tema usado no navegador do usuário". Entram: tema escuro automático (`prefers-color-scheme`),
+> campo de pontos no hero (substitui o fio), conteúdo do hero que se dissolve ao sair, frase com a palavra que
+> gira presa à rolagem, rótulo mono que se decodifica, símbolo da IBA montado por partículas no convite da Home
+> e marca gigante no rodapé. Muda a regra "claro é o padrão": agora o padrão é o tema do navegador da pessoa.
+> Parallax e WebGL continuam proibidos (os efeitos novos são canvas 2D).
 > Versão 5, revisada em 01/10/2026: movimento mais robusto, a pedido da Isis ("quero que fique algo
 > impressionante"). Entram momentos de assinatura, cada um amarrado ao conteúdo: encenação do exemplo
 > do hero, fio que dá um nó no fundo do hero, processo conduzido pela rolagem, faixa do convite que se
@@ -66,12 +74,39 @@ colors:
     gray_600: "#4A5568"  # texto terciário
 ```
 
+```yaml
+colors_escuro:
+  # Tema escuro (v6). Mesmos nomes do bloco acima. No escuro, `blue` é o azul de TEXTO e traço;
+  # fundo azul chapado (faixa do convite, selo "IA", painéis da troca de página) continua #185CB6.
+  surfaces:
+    surface: "#0B1220"
+    blue_soft: "#0F1B32"
+    blue_soft2: "#182A4D"
+    gray_100: "#111A2B"
+    gray_200: "#1E2A3F"
+  text:
+    ink: "#EEF2F8"
+    gray_500: "#94A3B8"
+    gray_600: "#B6C2D4"
+    blue: "#7AAEF2"
+    blue_dark: "#A9CBF7"
+  fixas:
+    orange: "#FFBD59"
+    orange_dark: "#F0A62A"
+    green: "#25D366"
+    green_dark: "#1DA851"
+```
+
 Regras de cor:
-- **Fundo padrão: branco.** O site abre no tema claro.
+- **O tema segue o navegador** (v6, 02/10/2026). Claro para quem usa claro, escuro para quem usa escuro,
+  sem botão de troca, e acompanha a troca com a página aberta. A fonte única dos hex dos dois temas é o
+  `tailwind.config.js` (`CLARO`, `ESCURO`, `FIXAS`); as classes do Tailwind apontam para variáveis CSS
+  `--c-<token>` geradas dali. O gate compara os dois blocos deste arquivo com o config.
+- No escuro: logo e símbolo trocam para a versão branca com a estrela laranja (`<picture>` com
+  `prefers-color-scheme`), e o texto do botão laranja continua o ink escuro (`text-ink-fixo`).
 - Azul `#185CB6` dominante: títulos, links, destaques, fundos de seção alternados.
 - Laranja `#FFBD59`: reservado para CTAs e no máximo 2 destaques por página.
 - Verde: só no botão de WhatsApp. Nunca como cor de marca.
-- Tema escuro: existe como opção de toggle, mas NÃO é o padrão.
 - Sem gradientes azul/roxo genéricos. Sem glassmorphism.
 - Gradiente permitido: só o véu vertical `blue_soft` para branco no topo de página. Nada além disso.
 - Contraste WCAG AA mínimo em todo texto.
@@ -148,11 +183,30 @@ motion:
   luz_no_cartao: opacidade em 0.5s, azul da marca em alfa 0.07
   primeira_tela: opacidade e 28px, 0.6s, stagger 0.06, sem blur, sem escala, sem giro; botão flutuante sem mola
   # v5: momentos de assinatura. Números em src/lib/motion.js (ENCENACAO, FIO, SCRUB, NAVBAR, TRANSICAO).
+  # v6: fluidez. Números em src/lib/motion.js (PONTOS, SAIDA_HERO, GIRO, DECODIFICA, PARTICULAS, MARCA_RODAPE).
+  rolagem_suave_v6: Lenis lerp 0.085 (era 0.1), um pouco mais de arrasto
+  campo_pontos: grade de pontos azuis em canvas 2D atrás do hero (26px, alfa 0.16). Acende numa onda
+    de 1.4s na carga e, no mouse, os pontos perto do cursor crescem, acendem e se afastam 7px. O laço
+    só roda enquanto algo muda; parado não gasta nada. Substitui o fio_no da v5.
+  saida_hero: ao rolar para fora, o conteúdo do hero vai a blur 6px, opacidade 0.15 e escala 0.96,
+    preso à rolagem. Só a partir de 1024px: no celular o exemplo fica abaixo do título e seria
+    desfocado durante a leitura.
+  frase_giro: seção de 3.2 telas com o miolo preso (sticky). "A IA entra" + palavra que gira com a
+    rolagem (no atendimento, nas vendas, no marketing, nos dados, nos processos internos) e fecha em
+    "na operação inteira.", quando o fundo sai do azul da marca para o fundo da página. Cada palavra
+    fica parada 55% do trecho dela. Frase completa em sr-only.
+  rotulo_decodifica: `.eyebrow` entra embaralhado e assenta da esquerda para a direita em 0.65s.
+    Só rótulo mono curto; título e texto corrido nunca.
+  simbolo_particulas: no convite da Home, o símbolo da IBA se monta com partículas conforme a faixa
+    sobe (scrub, só avança). Depois de montado, o cursor afasta as partículas perto dele.
+  marca_rodape: "IBA Estúdio" de borda a borda no rodapé, azul do tema em alfa 0.1, letras sobem
+    em 0.9s com 0.04s entre elas quando o fim da página chega.
+  deixado_de_fora_da_referencia: tela de carregamento (atrasa a primeira leitura), cursor próprio
+    (atrapalha quem clica com precisão) e anel em loop infinito.
   encenacao_hero: o exemplo de atendimento aparece etapa por etapa (0.75s entre etapas, "digitando"
     de 0.5s antes da resposta da IA), uma vez só, começando quando o cartão está na tela. O texto do
     hero, à esquerda, nunca espera por ela.
-  fio_no: linha azul em opacidade 0.14 que se desenha em 2.2s no fundo do hero e dá um nó. Sempre
-    atrás do conteúdo.
+  fio_no: (saiu na v6, trocado pelo campo_pontos)
   scrub: a rolagem conduz só três coisas (linha do processo, frase da missão, abertura da faixa do
     convite). O progresso só avança: reler nunca apaga. Passo ainda não alcançado fica em 40%,
     palavra ainda não lida em 18%, e as duas chegam a 100%.
@@ -163,7 +217,8 @@ motion:
   proibido:
     - mola exagerada (springy, quicando)
     - parallax (nada se move em velocidade diferente do conteúdo; scrub não é parallax)
-    - animação infinita (o pulso do ponto do hero roda duas vezes e para; o "digitando" só existe por 0.5s)
+    - animação infinita (o pulso do ponto do hero roda duas vezes e para; o "digitando" só existe por 0.5s;
+      os canvas da v6 só desenham enquanto há rolagem, cursor ou onda de entrada)
     - elemento que entra girando ou escalando muito
     - animação que segura a leitura do conteúdo
     - fundo em WebGL (o peso não fecha: ver nota abaixo)
@@ -227,7 +282,7 @@ Testar em 360, 390, 768, 1024 e 1440 antes de publicar. Em cada largura:
 9. Sem fonte padrão de sistema sem escolha deliberada.
 10. Sem hero + 3 cards em superfície que não é Decide/Learn.
 11. Sem fonte pixel/retro (decidido: remover).
-12. Sem tema escuro como padrão (claro é o padrão).
+12. Tema segue o navegador (v6): conferir as telas nos dois temas antes de entregar.
 
 ## Generated-by-AI audit (texto)
 

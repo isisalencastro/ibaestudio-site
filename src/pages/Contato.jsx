@@ -77,13 +77,13 @@ export default function Contato() {
     window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(resumo(dados))}`
   }
 
-  const inputClass = 'w-full min-h-[48px] px-4 py-3 border-[1.5px] border-gray-200 rounded-xl font-body text-base text-ink bg-white transition-colors focus:outline-none focus:border-blue focus:shadow-[0_0_0_3px_#E8F0FB]'
+  const inputClass = 'w-full min-h-[48px] px-4 py-3 border-[1.5px] border-gray-200 rounded-xl font-body text-base text-ink bg-surface transition-colors focus:outline-none focus:border-blue focus:shadow-[0_0_0_3px_rgb(var(--c-blue-soft2))]'
 
   return (
     <Page>
       <Seo />
 
-      <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-14">
+      <section className="bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-14">
         <div className="container-site">
           <Reveal>
             <p className="eyebrow">Contato</p>
@@ -124,7 +124,7 @@ export default function Contato() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <form id="contact-form" noValidate onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-3xl p-6 sm:p-8 lg:p-10 shadow">
+            <form id="contact-form" noValidate onSubmit={handleSubmit} className="bg-surface border border-gray-200 rounded-3xl p-6 sm:p-8 lg:p-10 shadow">
               <div className="mb-5">
                 <label htmlFor="nome" className="block font-semibold text-[0.92rem] mb-2">Nome</label>
                 <input type="text" id="nome" name="nome" required autoComplete="name" placeholder="Seu nome" value={form.nome} onChange={update('nome')} className={inputClass} />

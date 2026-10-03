@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Tema: segue o navegador. O fundo certo já vem no primeiro quadro, antes do CSS. -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)" />
+    <style>html{background:#FFFFFF}@media (prefers-color-scheme: dark){html{background:#0B1220}}</style>
     <script>
       // Movimento: liga a classe que autoriza o CSS a esconder conteúdo antes de revelar.
       // Só entra com JavaScript, requestAnimationFrame e SEM preferência por menos movimento.

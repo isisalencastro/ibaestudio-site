@@ -12,13 +12,17 @@ const links = [
 function Brand() {
   return (
     <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center text-ink hover:no-underline">
-      <img
-        src="/img/logo-iba-horizontal.png"
-        alt="IBA Estúdio"
-        width="133"
-        height="44"
-        className="h-11 w-auto shrink-0 object-contain"
-      />
+      <picture>
+        {/* No tema escuro, a versão branca da logo: o azul da marca some no fundo escuro. */}
+        <source srcSet="/img/logo-iba-horizontal-branco-acento.png" media="(prefers-color-scheme: dark)" />
+        <img
+          src="/img/logo-iba-horizontal.png"
+          alt="IBA Estúdio"
+          width="133"
+          height="44"
+          className="h-11 w-auto shrink-0 object-contain"
+        />
+      </picture>
     </Link>
   )
 }
@@ -80,7 +84,7 @@ export default function Header() {
         // Quem navega por teclado e chega na navbar com ela recolhida, traz ela de volta.
         onFocus={() => setRecolhida(false)}
         className={`fixed top-0 left-0 right-0 z-[100] transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
-          scrolled ? 'bg-white/90 backdrop-blur-md shadow-[0_1px_0_#EEF2F8]' : 'bg-transparent'
+          scrolled ? 'bg-surface/90 backdrop-blur-md shadow-[0_1px_0_rgb(var(--c-gray-200))]' : 'bg-transparent'
         }`}
       >
         <div className="container-site flex items-center justify-between gap-4 h-[72px]">
@@ -128,7 +132,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25, ease: EASE }}
-            className="md:hidden fixed top-[72px] left-0 right-0 z-[99] bg-white border-b border-gray-200 shadow"
+            className="md:hidden fixed top-[72px] left-0 right-0 z-[99] bg-surface border-b border-gray-200 shadow"
             aria-label="Navegação principal"
           >
             <div className="container-site flex flex-col gap-1 py-4 pb-6">

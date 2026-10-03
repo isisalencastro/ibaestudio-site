@@ -87,12 +87,7 @@ export const ENCENACAO = {
   duracaoItem: 0.5
 }
 
-/** Hero: o fio que se desenha e dá um nó atrás do conteúdo. */
-export const FIO = {
-  duracao: 2.2,
-  atraso: 0.15,
-  opacidade: 0.14
-}
+// O fio da v5 (FIO) saiu na v6: o fundo do hero passou a ser o campo de pontos (PONTOS).
 
 /**
  * Rolagem que conduz (scrub). Só em três lugares, cada um com motivo:
@@ -107,6 +102,66 @@ export const SCRUB = {
   palavraApagada: 0.18, // opacidade de uma palavra ainda não lida
   faixaInsetInicial: 5, // % de recuo lateral da faixa antes de abrir
   faixaRaioInicial: 24 // px, igual ao raio de caixa do DESIGN.md
+}
+
+/*
+ * v6 (02/10/2026): fluidez. Pedido da Isis com referência num reel (site da Connecta Digital):
+ * "quero que o site da IBA se pareça mais com o que está sendo mostrado nesse vídeo, no quesito
+ * fluidez e motion design, mantendo as cores da empresa". O que foi trazido de lá, adaptado à
+ * marca: campo de pontos no hero, título que se dissolve ao sair, frase com a palavra que gira
+ * presa à rolagem, rótulo que se decodifica, símbolo da IBA montado por partículas no convite
+ * e a marca gigante no rodapé. Nenhum deles esconde texto de quem pediu redução de movimento.
+ */
+
+/** Hero: grade de pontos que acende em onda na carga e reage ao cursor. Canvas 2D, sem WebGL. */
+export const PONTOS = {
+  espaco: 26, // px entre pontos
+  raio: 1.1, // raio do ponto em repouso
+  raioPerto: 2.6, // raio do ponto colado ao cursor
+  alfa: 0.16, // opacidade em repouso
+  alfaPerto: 0.75,
+  alcance: 150, // px de alcance do cursor
+  empurra: 7, // px que o cursor afasta o ponto
+  onda: 1.4, // s da onda de entrada, do canto direito para a esquerda
+  suaviza: 0.14 // quanto o ponto anda até o alvo por quadro (lerp)
+}
+
+/** Hero: ao rolar para fora, o conteúdo se dissolve (desfoque e opacidade), sem mudar de velocidade. */
+export const SAIDA_HERO = {
+  aPartirDe: 1024, // px de largura: abaixo disso o hero não cabe numa tela e não se dissolve
+  desfoque: 6, // px no fim
+  escala: 0.96,
+  opacidade: 0.15
+}
+
+/** Frase com a palavra que gira, conduzida pela rolagem. */
+export const GIRO = {
+  alturaTela: 3.2, // altura da seção em telas (o miolo fica preso no meio)
+  segura: 0.55, // fração de cada trecho em que a palavra fica parada antes de girar
+  mola: { stiffness: 160, damping: 32, mass: 0.5 }
+}
+
+/** Rótulo mono que se decodifica ao entrar na tela. */
+export const DECODIFICA = {
+  duracao: 0.65, // s até a última letra assentar
+  quadro: 34, // ms entre trocas de caractere
+  caracteres: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+<>/'
+}
+
+/** Convite final: o símbolo da IBA montado por partículas, conduzido pela rolagem. */
+export const PARTICULAS = {
+  passo: 6, // px de amostragem do desenho (quanto menor, mais partículas)
+  tamanho: 1.6, // raio da partícula
+  espalha: 1.4, // quanto as partículas começam espalhadas, em larguras do quadro
+  atrasoMaximo: 0.35, // fração do progresso em que a última partícula começa a andar
+  alcance: 70, // px de alcance do cursor depois de montado
+  empurra: 10
+}
+
+/** Rodapé: a marca gigante sobe letra por letra quando o fim da página chega. */
+export const MARCA_RODAPE = {
+  duracao: 0.9,
+  stagger: 0.04
 }
 
 /** Navbar: some ao descer e volta ao subir, depois da primeira dobra. */
@@ -127,7 +182,9 @@ export const MAGNETICO = {
 export const LUZ = {
   duracao: 0.5,
   raio: 260,
-  cor: 'rgba(24, 92, 182, 0.07)' // azul da marca em alfa baixo: superfície, não gradiente decorativo
+  // Azul do tema em alfa baixo: superfície, não gradiente decorativo. Lê a variável do tema,
+  // então no escuro a luz é o azul claro de texto, e não o azul da marca sumindo no fundo.
+  cor: 'rgb(var(--c-blue) / 0.08)'
 }
 
 /**
@@ -136,7 +193,9 @@ export const LUZ = {
  * da rolagem se arrastava depois de a pessoa já ter chegado.
  */
 export const ROLAGEM_SUAVE = {
-  lerp: 0.1,
+  // v6: 0.085, um pouco mais de arrasto, é o que dá a sensação de fluidez da referência.
+  // Abaixo de 0.08 a página começa a parecer que escorrega depois do dedo parar.
+  lerp: 0.085,
   wheelMultiplier: 1,
   touchMultiplier: 1.4,
   offsetAncora: -90, // desconta a navbar fixa de 72px com folga

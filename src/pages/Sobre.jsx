@@ -28,7 +28,7 @@ export default function Sobre() {
       {/* Hero e missão seguem a mesma grade das seções de baixo (rótulo à esquerda, texto à
           direita). Antes ficavam numa coluna de 820px centralizada, com a borda esquerda solta
           da borda do resto da página. */}
-      <section className="bg-gradient-to-b from-blue-soft to-white pt-[140px] pb-16 lg:pb-24">
+      <section className="bg-gradient-to-b from-blue-soft to-surface pt-[140px] pb-16 lg:pb-24">
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-x-10">
           <Reveal className="lg:pt-3">
             <p className="eyebrow">Sobre a IBA</p>
@@ -74,8 +74,11 @@ export default function Sobre() {
 
           <div className="grid lg:grid-cols-[0.45fr_0.55fr] gap-10 items-center">
             <Reveal className="flex justify-center">
-              <div className="w-52 h-52 bg-white border border-gray-200 rounded-3xl shadow flex items-center justify-center">
-                <img src="/img/simbolo-iba.png" alt="Nó, o mascote polvo da IBA Estúdio" width="160" height="140" loading="lazy" decoding="async" className="w-40 h-auto object-contain" />
+              <div className="w-52 h-52 bg-surface border border-gray-200 rounded-3xl shadow flex items-center justify-center">
+                <picture>
+                  <source srcSet="/img/simbolo-iba-branco-acento.png" media="(prefers-color-scheme: dark)" />
+                  <img src="/img/simbolo-iba.png" alt="Nó, o mascote polvo da IBA Estúdio" width="160" height="140" loading="lazy" decoding="async" className="w-40 h-auto object-contain" />
+                </picture>
               </div>
             </Reveal>
 
