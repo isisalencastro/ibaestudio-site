@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
-import { EASE_CSS, ENCENACAO, REVELACAO, useMovimento } from '../lib/motion'
+import { EASE_CSS, ENCENACAO, INCLINA, REVELACAO, movimentoLigado, useMovimento } from '../lib/motion'
 import FaixaConvite from '../components/FaixaConvite'
 import CampoPontos from '../components/CampoPontos'
 import FraseGiro from '../components/FraseGiro'
@@ -47,6 +47,38 @@ const packsPraxe = [
  * Todas as etapas estão no DOM desde o início (leitor de tela lê tudo de uma vez). Sem
  * movimento ligado, nascem todas visíveis e a linha já está inteira.
  */
+/**
+ * Inclinação do registro pelo cursor (v7.1): o cartão vira até INCLINA.graus na direção do
+ * mouse, com mola, e volta ao centro quando o mouse sai do hero. Só mouse e só com movimento
+ * ligado; no toque e com redução pedida, fica reto.
+ */
+function useInclinacao(ref) {
+  const rx = useMotionValue(0)
+  const ry = useMotionValue(0)
+  const rotateX = useSpring(rx, INCLINA.mola)
+  const rotateY = useSpring(ry, INCLINA.mola)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || !movimentoLigado() || !window.matchMedia('(pointer: fine)').matches) return
+    const hero = el.closest('section') || window
+    const move = (ev) => {
+      const r = el.getBoundingClientRect()
+      const nx = (ev.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2)
+      const ny = (ev.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)
+      ry.set(Math.max(-1, Math.min(1, nx)) * INCLINA.graus)
+      rx.set(Math.max(-1, Math.min(1, -ny)) * INCLINA.graus)
+    }
+    const sai = () => { rx.set(0); ry.set(0) }
+    hero.addEventListener('pointermove', move, { passive: true })
+    hero.addEventListener('pointerleave', sai)
+    return () => {
+      hero.removeEventListener('pointermove', move)
+      hero.removeEventListener('pointerleave', sai)
+    }
+  }, [ref, rx, ry])
+  return { rotateX, rotateY }
+}
+
 function ExemploFluxo() {
   // null antes de montar: a marcação sai sem `data-aparece` e quem decide é o CSS (com a
   // classe `movimento`, escondido até a encenação; sem ela, tudo visível).
@@ -56,6 +88,7 @@ function ExemploFluxo() {
   const [digitando, setDigitando] = useState(-1)
   const [comecou, setComecou] = useState(false)
   const ref = useRef(null)
+  const inclinacao = useInclinacao(ref)
 
   // Começa quando o cartão está na tela: no desktop é na carga; no celular, onde ele fica
   // abaixo da dobra, é quando a pessoa rola até ele. Senão a cena acabaria sem ninguém ver.
@@ -88,11 +121,12 @@ function ExemploFluxo() {
   const alcance = Math.max(visiveis - 1, digitando)
 
   return (
+    <div className="registro-flutua" style={{ perspective: '1100px' }}>
     <motion.figure
       ref={ref}
+      style={{ ...inclinacao, '--hi': 2, transformStyle: 'preserve-3d' }}
       className="registro relative rounded-3xl p-7 sm:p-9 font-mono"
       data-hero-item=""
-      style={{ '--hi': 2 }}
     >
       <figcaption className="flex flex-wrap justify-between gap-x-4 gap-y-1 pb-4 mb-6 border-b border-white/15 text-[0.75rem] uppercase tracking-wider text-[#A9C3EA]"><span>Registro · exemplo</span><span>Um pedido fora do horário</span></figcaption>
       <ol className="relative list-none flex flex-col gap-6">
@@ -136,6 +170,7 @@ function ExemploFluxo() {
         })}
       </ol>
     </motion.figure>
+    </div>
   )
 }
 
@@ -154,7 +189,7 @@ export default function Home() {
         <CampoPontos />
         <motion.div style={saida} className="relative container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center origin-top">
           <div>
-            <TituloRevelado as="h1" className="text-[clamp(2.1rem,4.6vw,3.4rem)] mb-5">
+            <TituloRevelado as="h1" destaque="operação" className="text-[clamp(2.3rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] mb-6">
               A gente coloca a IA para trabalhar na operação da sua empresa
             </TituloRevelado>
 

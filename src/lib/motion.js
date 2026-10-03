@@ -117,17 +117,34 @@ export const SCRUB = {
  * e a marca gigante no rodapé. Nenhum deles esconde texto de quem pediu redução de movimento.
  */
 
-/** Hero: grade de pontos que acende em onda na carga e reage ao cursor. Canvas 2D, sem WebGL. */
+/**
+ * Hero: grade de pontos que flui o tempo todo (v7.1), acende em onda na carga e reage ao
+ * cursor. Canvas 2D, sem WebGL. É a única animação contínua do site: para fora da tela, com
+ * a aba em segundo plano e com redução de movimento.
+ */
 export const PONTOS = {
   espaco: 26, // px entre pontos
-  raio: 1.1, // raio do ponto em repouso
-  raioPerto: 2.6, // raio do ponto colado ao cursor
-  alfa: 0.16, // opacidade em repouso
-  alfaPerto: 0.75,
-  alcance: 150, // px de alcance do cursor
-  empurra: 7, // px que o cursor afasta o ponto
+  espacoCelular: 32, // menos pontos no celular
+  raio: 1.1, // meio lado do ponto em repouso
+  raioPerto: 2.8, // meio lado do ponto aceso (cursor ou faixa de luz)
+  alfa: 0.2, // opacidade em repouso
+  alfaPerto: 0.85,
+  alcance: 170, // px de alcance do cursor
+  empurra: 10, // px que o cursor afasta o ponto
   onda: 1.4, // s da onda de entrada, do canto direito para a esquerda
-  suaviza: 0.14 // quanto o ponto anda até o alvo por quadro (lerp)
+  suaviza: 0.14, // quanto o ponto anda até o alvo por quadro (lerp)
+  // Fluxo contínuo (tecido ondulando)
+  amplitude: 7, // px de deslocamento de cada ponto
+  escalaOnda: 0.012, // comprimento das ondas (menor = ondas mais largas)
+  velocidade: 0.75, // rad/s das ondas
+  velocidadeLuz: 0.55, // rad/s da faixa de luz diagonal
+  forcaLuz: 0.7 // quanto a faixa de luz acende (0 a 1)
+}
+
+/** Hero: o registro de operação inclina na direção do mouse (v7.1). */
+export const INCLINA = {
+  graus: 7,
+  mola: { stiffness: 120, damping: 18, mass: 0.6 }
 }
 
 /** Hero: ao rolar para fora, o conteúdo se dissolve (desfoque e opacidade), sem mudar de velocidade. */

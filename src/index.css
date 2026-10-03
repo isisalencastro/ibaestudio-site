@@ -556,3 +556,53 @@ html.movimento {
   transform: scaleX(var(--p, 1));
   transform-origin: left;
 }
+
+/* ---------------------------------------------------------------------------
+   v7.1 (03/10/2026): hero mais animado e mais fluido. Números em src/lib/motion.js.
+--------------------------------------------------------------------------- */
+
+/* Fio da marca sob a palavra em destaque do título: desenha depois que a palavra sobe. */
+.palavra-fio {
+  position: relative;
+  display: inline-block;
+}
+.fio-destaque {
+  position: absolute;
+  left: -0.04em;
+  right: -0.06em;
+  bottom: -0.28em;
+  width: calc(100% + 0.1em);
+  height: 0.42em;
+  overflow: visible;
+  pointer-events: none;
+}
+.fio-destaque path {
+  fill: none;
+  stroke: rgb(var(--c-blue));
+  stroke-width: 3.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.movimento .fio-destaque path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.75s;
+}
+.movimento [data-visivel] .fio-destaque path {
+  stroke-dashoffset: 0;
+}
+
+/* Registro do hero: flutua devagar (a inclinação pelo cursor é do framer, num nível acima). */
+@keyframes flutua {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
+}
+.movimento .registro-flutua {
+  animation: flutua 6s ease-in-out 1.2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .movimento .registro-flutua { animation: none; }
+  .movimento .fio-destaque path { stroke-dashoffset: 0 !important; transition: none; }
+}

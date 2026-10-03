@@ -195,6 +195,16 @@ motion:
   luz_no_cartao: opacidade em 0.5s, azul da marca em alfa 0.07
   primeira_tela: opacidade e 28px, 0.6s, stagger 0.06, sem blur, sem escala, sem giro; botão flutuante sem mola
   # v5: momentos de assinatura. Números em src/lib/motion.js (ENCENACAO, FIO, SCRUB, NAVBAR, TRANSICAO).
+  # v7.1 (03/10/2026): "quero um hero mais animado e mais fluido".
+  hero_fluxo: a grade de pontos do hero flui o tempo todo (ondas de 7px e faixa de luz diagonal). É a
+    ÚNICA animação contínua do site, e só pode existir assim: para fora da tela e com a aba em segundo
+    plano, desenha em quadrados (não arcos), 30 quadros por segundo e no máximo 1.5x de resolução no
+    celular, e fica parada com redução de movimento. Medido: Lighthouse 93 na Home, sem tarefa longa
+    depois da carga.
+  fio_destaque: na palavra "operação" do título do hero, o fio da marca se desenha por baixo (1.2s,
+    depois que a palavra sobe) e dá um nó perto do fim. Prop `destaque` do TituloRevelado; uma por página.
+  registro_inclina: o registro de operação flutua (10px em 6s) e inclina até 7 graus na direção do mouse,
+    com mola. Só mouse; no toque fica reto.
   # v7: robustez e SEO.
   conteudo_no_html: cada rota é renderizada pelo React no build (src/entry-server.jsx, scripts/prerender.mjs)
     e o navegador hidrata. A marcação nunca depende de movimento: `useMovimento()` devolve null no
@@ -241,8 +251,9 @@ motion:
   proibido:
     - mola exagerada (springy, quicando)
     - parallax (nada se move em velocidade diferente do conteúdo; scrub não é parallax)
-    - animação infinita (o pulso do ponto do hero roda duas vezes e para; o "digitando" só existe por 0.5s;
-      os canvas da v6 só desenham enquanto há rolagem, cursor ou onda de entrada)
+    - animação infinita fora do hero (o pulso do ponto roda duas vezes e para; o "digitando" só existe
+      por 0.5s; as partículas do convite só desenham com rolagem ou cursor). A exceção é o hero_fluxo da
+      v7.1, com as condições escritas acima.
     - elemento que entra girando ou escalando muito
     - animação que segura a leitura do conteúdo
     - fundo em WebGL (o peso não fecha: ver nota abaixo)
