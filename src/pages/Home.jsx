@@ -159,11 +159,21 @@ function ExemploFluxo() {
                   <span className="text-[0.8rem] text-[#A9C3EA]">{hora}</span>
                   <span className={`text-[0.72rem] font-bold uppercase tracking-wider rounded px-1.5 py-0.5 ${ia ? 'bg-[#185CB6] text-white' : 'bg-white/15 text-[#E7EEF9]'}`}>{quem}</span>
                 </span>
-                {escrevendo ? (
-                  <span className="digitando" aria-hidden="true"><i /><i /><i /></span>
-                ) : (
-                  <span className="font-body text-[#F2F6FC] text-[1rem] leading-snug">{texto}</span>
-                )}
+                {/* O texto ocupa o lugar dele o tempo todo; enquanto a IA "digita", ele fica
+                    transparente e os pontinhos aparecem por cima. Antes os pontinhos SUBSTITUÍAM
+                    o texto, e como são mais baixos o registro encolhia e crescia a cada etapa
+                    (511px e 487px), arrastando o título do hero 12px para cima e para baixo. */}
+                <span className="relative block">
+                  <span
+                    className="block font-body text-[#F2F6FC] text-[1rem] leading-snug transition-opacity duration-300"
+                    style={escrevendo ? { opacity: 0 } : undefined}
+                  >
+                    {texto}
+                  </span>
+                  {escrevendo && (
+                    <span className="digitando absolute left-0 top-0" aria-hidden="true"><i /><i /><i /></span>
+                  )}
+                </span>
               </div>
             </li>
           )
