@@ -5,58 +5,20 @@ import LuzCartao from '../components/LuzCartao'
 import FaixaConvite from '../components/FaixaConvite'
 import Seo from '../components/Seo'
 import { useMagnetico } from '../lib/magnetismo'
+import { Link } from 'react-router-dom'
 import { waLink, WA_MESSAGES } from '../lib/site'
+import { SERVICOS, rotaDoServico } from '../lib/conteudo'
+import { ArrowRightIcon } from '../components/Icons'
 
-const services = [
-  {
-    id: 'web-e-sistemas',
-    eyebrow: '01 · Desenvolvimento web e sistemas',
-    title: 'Sites, portais e sistemas que crescem com a operação',
-    // Um parágrafo só: o primeiro repetia, palavra por palavra, o "O que resolve" da ficha ao lado.
-    paras: [
-      'O site é onde o seu cliente decide se vai chamar você ou seguir para o concorrente. E quando a empresa cresce, um sistema sob medida organiza cadastros, processos e dados do jeito que o seu time já trabalha, sem obrigar ninguém a mudar a rotina.'
-    ],
-    message: WA_MESSAGES.desenvolvimento,
-    aside: [
-      ['Para quem é', 'Quem precisa de um site que passe confiança, ou de um sistema no lugar da planilha que ninguém mais entende.'],
-      ['O que entra', 'Site institucional, portal ou sistema sob medida.'],
-      ['Como funciona', 'Conteúdo, design e desenvolvimento por nossa conta. Você aprova cada etapa.'],
-      ['Investimento', 'Site institucional: R$ 1.000 de implantação + R$ 197,90/mês de manutenção'],
-      ['Prazo e pagamento', 'Até 10 dias úteis depois de receber o material. Metade na aprovação, metade na entrega, com o primeiro mês de manutenção já incluído. Portais e sistemas sob medida saem por escopo e valor por escrito.']
-    ]
-  },
-  {
-    id: 'ia-integrada',
-    eyebrow: '02 · IA integrada aos processos',
-    title: 'IA treinada no contexto da sua empresa',
-    paras: [
-      'Um caso comum: o cliente manda mensagem às 22h, a IA responde com as informações que você definiu, pergunta o que falta para o orçamento e deixa o pedido registrado para o time de manhã. Nada vai ao ar antes de você testar.'
-    ],
-    message: WA_MESSAGES.iaProcessos,
-    aside: [
-      ['Para quem é', 'Quem recebe mais mensagem do que consegue responder, ou gasta horas montando relatório à mão.'],
-      ['O que entra', 'Atendimento automatizado, análise de dados e agentes de IA treinados nos documentos da empresa.'],
-      ['Como funciona', 'Mapeamos o processo atual, treinamos a IA no contexto e testamos junto com o seu time.'],
-      ['Investimento', 'R$ 2.000 de implantação + R$ 900/mês de operação'],
-      ['Prazo e pagamento', 'Até 20 dias úteis. Metade na aprovação, metade na entrega. A mensalidade cobre os ajustes que você pedir, o acompanhamento e o relatório do mês.']
-    ]
-  },
-  {
-    id: 'automacao',
-    eyebrow: '03 · Automação de operações',
-    title: 'Tarefas repetitivas rodando sozinhas',
-    paras: [
-      'Um caso comum: o pedido que entra pelo formulário do site vai sozinho para a planilha e para o financeiro, e o responsável recebe o aviso. Ninguém redigita nada.'
-    ],
-    message: WA_MESSAGES.automacaoOperacoes,
-    aside: [
-      ['Para quem é', 'Quem copia a mesma informação de um sistema para outro todo dia.'],
-      ['O que entra', 'Integração entre as ferramentas que você já usa, com as tarefas repetidas rodando sozinhas.'],
-      ['Como funciona', 'Mapeamos o fluxo, integramos as ferramentas e automatizamos as tarefas repetitivas.'],
-      ['Investimento', 'Sob consulta, com escopo, prazo e valor formalizados por escrito.']
-    ]
-  }
-]
+// Texto das frentes: lib/conteudo.js, o mesmo das páginas de cada serviço (v7).
+const services = SERVICOS.map((s) => ({
+  id: s.id,
+  eyebrow: `${s.num} · ${s.nome}`,
+  title: s.titulo,
+  paras: s.paras,
+  message: s.mensagem,
+  aside: s.ficha
+}))
 
 // Um componente por botão: o hook magnético é por elemento. Com um ref só dividido pelos
 // três cartões, o efeito ficava apenas no último.
@@ -92,11 +54,16 @@ export default function Servicos() {
                 "Quero um orçamento" continua à vista até o fim da ficha, que é mais longa. */}
             <Reveal className="service-body md:sticky md:top-28">
               <p className="eyebrow">{s.eyebrow}</p>
-              <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] mb-4">{s.title}</h2>
+              <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] mb-4"><Link to={rotaDoServico(s.id)} className="hover:text-blue">{s.title}</Link></h2>
               {s.paras.map((p) => (
                 <p key={p} className="text-gray-600 mb-4 max-w-[60ch]">{p}</p>
               ))}
-              <OrcamentoCta message={s.message} />
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+                <OrcamentoCta message={s.message} />
+                <Link to={rotaDoServico(s.id)} className="mt-2 font-bold inline-flex items-center gap-1.5 text-blue hover:text-blue-dark">
+                  Página completa<span className="sr-only">: {s.eyebrow}</span> <ArrowRightIcon size={16} className="seta" />
+                </Link>
+              </div>
             </Reveal>
 
             <Reveal delay={0.12} x={24} y={0}>

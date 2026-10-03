@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 /**
  * Tokens de movimento da IBA: fonte única em JavaScript.
  *
@@ -219,4 +221,20 @@ export const PRIMEIRA_TELA = {
  */
 export function movimentoLigado() {
   return typeof document !== 'undefined' && document.documentElement.classList.contains('movimento')
+}
+
+/**
+ * Movimento ligado, do jeito seguro para a pré-renderização (v7, 03/10/2026).
+ *
+ * O HTML de cada página é gerado no build, no Node, onde não existe navegador. A primeira
+ * renderização no navegador precisa sair IGUAL a esse HTML (hidratação), senão o React joga
+ * fora o que veio do servidor. Por isso: `null` no servidor e na primeira passada do
+ * navegador (marcação neutra, quem esconde ou mostra é o CSS da classe `movimento`), e
+ * `true`/`false` logo depois de montar. Use este hook sempre que a MARCAÇÃO depender do
+ * movimento; dentro de useEffect, `movimentoLigado()` continua valendo.
+ */
+export function useMovimento() {
+  const [ligado, setLigado] = useState(null)
+  useEffect(() => setLigado(movimentoLigado()), [])
+  return ligado
 }

@@ -1,8 +1,8 @@
+import { Link } from 'react-router-dom'
 import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
-import { ArrowRightIcon } from '../components/Icons'
 import { mailLink } from '../lib/site'
 
 const postura = [
@@ -12,16 +12,6 @@ const postura = [
   { title: 'Depois da entrega, a gente não some', text: 'Seguimos por perto para ajustes e dúvidas após o projeto pronto.' }
 ]
 
-const faq = [
-  { q: 'Quanto custa?', a: 'Depende do escopo e das frentes que a sua operação precisa. Trabalhamos com implantação única e valor mensal por frente, sempre formalizado por escrito antes de começar.' },
-  { q: 'Quanto tempo demora?', a: 'Depende do escopo. O prazo é combinado por escrito na proposta e você acompanha cada etapa do desenvolvimento.' },
-  { q: 'O que eu preciso para começar?', a: 'Só uma conversa. Você conta como a operação funciona hoje e a gente desenha a solução em cima do seu processo.' },
-  { q: 'Vocês atendem a distância?', a: 'Sim. Todo o atendimento é remoto, pelo WhatsApp e por videochamada.' },
-  { q: 'Como funciona o pagamento?', a: 'Projetos de implantação começam com 50% de entrada e o restante ao longo da entrega. Frentes mensais (conteúdo, anúncios, atendimento ou automação) têm valor recorrente, formalizado por escrito.' },
-  { q: 'Preciso entender de tecnologia?', a: 'Não. A gente explica tudo em linguagem simples e cuida da parte técnica por você.' },
-  { q: 'O que é automação com IA?', a: 'São fluxos que respondem clientes e executam tarefas repetitivas sozinhos, como atender pelo WhatsApp a qualquer hora.' },
-  { q: 'Tem suporte depois que fica pronto?', a: 'Sim. Seguimos por perto para ajustes e dúvidas após a entrega.' }
-]
 
 function SectionLabel({ children }) {
   return (
@@ -64,22 +54,14 @@ export default function Politicas() {
         </div>
       </section>
 
+      {/* As perguntas frequentes moraram aqui até a v7; agora têm página própria (com FAQPage). */}
       <section className="secao bg-gray-100 border-y border-gray-200">
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-10">
           <SectionLabel>Perguntas frequentes</SectionLabel>
-          <Reveal delay={0.1}>
-            <div>
-              {faq.map((item) => (
-                <details key={item.q} className="group border-b border-gray-200 first:border-t py-5">
-                  <summary className="cursor-pointer list-none flex items-center justify-between gap-4 font-semibold text-[1.02rem] text-ink">
-                    {item.q}
-                    <ArrowRightIcon className="shrink-0 text-blue transition-transform group-open:rotate-90" size={18} />
-                  </summary>
-                  <p className="text-gray-600 mt-3 max-w-[62ch]">{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </Reveal>
+          <p className="text-gray-600 max-w-[62ch]">
+            Custo, prazo, pagamento e suporte depois da entrega estão em{' '}
+            <Link to="/perguntas-frequentes" className="text-blue font-semibold hover:underline">perguntas frequentes</Link>.
+          </p>
         </div>
       </section>
 

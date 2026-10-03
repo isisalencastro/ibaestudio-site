@@ -10,7 +10,7 @@
  */
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
-import { GIRO, movimentoLigado } from '../lib/motion'
+import { GIRO, useMovimento } from '../lib/motion'
 import { corDoTema, rgb, useTemaEscuro } from '../lib/tema'
 
 const INICIO = 'A IA entra'
@@ -45,7 +45,9 @@ function Palavra({ texto, i, posicao, ultima }) {
 }
 
 export default function FraseGiro() {
-  const anima = movimentoLigado()
+  // Antes de montar (e no HTML pré-renderizado), a versão parada: a frase inteira, legível
+  // sem JavaScript. Com movimento ligado, troca pela versão presa à rolagem.
+  const anima = useMovimento()
   if (!anima) {
     return (
       <section className="secao bg-blue text-white" aria-label="Onde a IA entra">

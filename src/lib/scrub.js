@@ -12,9 +12,10 @@
  */
 import { useEffect } from 'react'
 import { useMotionValue, useMotionValueEvent, useScroll, useSpring } from 'framer-motion'
-import { SCRUB, movimentoLigado } from './motion'
+import { SCRUB, useMovimento } from './motion'
 
 export function useScrub(ref, offset) {
+  const anima = useMovimento()
   const { scrollYProgress } = useScroll({ target: ref, offset })
   const maximo = useMotionValue(0)
   const suave = useSpring(maximo, SCRUB.mola)
@@ -30,5 +31,5 @@ export function useScrub(ref, offset) {
     return () => cancelAnimationFrame(id)
   }, [scrollYProgress])
 
-  return movimentoLigado() ? suave : parado
+  return anima ? suave : parado
 }

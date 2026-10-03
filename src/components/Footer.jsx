@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { waLink, mailLink, REDES, JOGOS_URL } from '../lib/site'
+import { SERVICOS, rotaDoServico } from '../lib/conteudo'
 import Reveal from './Reveal'
 import MarcaRodape from './MarcaRodape'
 import { InstagramIcon, LinkedInIcon } from './Icons'
@@ -9,7 +10,7 @@ const ICONE = { Instagram: InstagramIcon, LinkedIn: LinkedInIcon }
 export default function Footer() {
   return (
     <footer className="reserva-do-flutuante bg-gray-100 border-t border-gray-200 pt-14">
-      <Reveal className="container-site grid grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
+      <Reveal className="container-site grid grid-cols-2 lg:grid-cols-[1.6fr_1fr_1.3fr_1fr_1fr] gap-7 lg:gap-10 pb-10">
         <div className="col-span-2 lg:col-span-1">
           <Link to="/" aria-label="IBA Estúdio, página inicial" className="flex items-center text-ink hover:no-underline">
             <picture>
@@ -46,6 +47,16 @@ export default function Footer() {
             <li><Link to="/sobre" className="text-gray-600 text-[0.95rem] hover:text-blue">Sobre</Link></li>
             <li><Link to="/blog" className="text-gray-600 text-[0.95rem] hover:text-blue">Blog</Link></li>
             <li><Link to="/contato" className="text-gray-600 text-[0.95rem] hover:text-blue">Contato</Link></li>
+          </ul>
+        </nav>
+
+        <nav className="footer-col" aria-label="Serviços">
+          <h3 className="text-[0.85rem] font-body font-bold uppercase tracking-wider text-gray-500 mb-4">Serviços</h3>
+          <ul className="flex flex-col gap-2.5">
+            {SERVICOS.map((s) => (
+              <li key={s.id}><Link to={rotaDoServico(s.id)} className="text-gray-600 text-[0.95rem] hover:text-blue">{s.nome}</Link></li>
+            ))}
+            <li><Link to="/perguntas-frequentes" className="text-gray-600 text-[0.95rem] hover:text-blue">Perguntas frequentes</Link></li>
           </ul>
         </nav>
 

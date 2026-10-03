@@ -6,6 +6,8 @@
 // Regra ao criar página nova: acrescentar a rota neste mapa. Sem isso, a página cai no
 // texto padrão e o HTML publicado sai sem o meta dela.
 
+import { SERVICOS, rotaDoServico } from './conteudo.js'
+
 export const ORIGIN = 'https://www.ibaestudio.com'
 export const IMAGEM_OG = `${ORIGIN}/img/og-image.png`
 export const NOME_SITE = 'IBA Estúdio'
@@ -50,6 +52,14 @@ export const ROTAS = {
     descricao:
       'Matérias, lançamentos e atualizações do estúdio sobre IA aplicada à operação de empresas.'
   },
+  '/perguntas-frequentes': {
+    titulo: 'Perguntas frequentes | IBA Estúdio',
+    descricao:
+      'Quanto custa, quanto tempo demora, como funciona o pagamento e o suporte depois da entrega: respostas diretas sobre trabalhar com a IBA Estúdio.'
+  },
+  // Uma por frente de serviço (v7). Título e descrição moram em lib/conteudo.js, com o resto
+  // do texto do serviço.
+  ...Object.fromEntries(SERVICOS.map((s) => [rotaDoServico(s.id), s.seo])),
   '/politicas': {
     titulo: 'Política de privacidade e termos de uso | IBA Estúdio',
     descricao:

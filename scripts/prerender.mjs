@@ -6,13 +6,17 @@
  * (que não executa JavaScript) lia o título errado ao compartilhar o link.
  *
  * O que faz: para cada rota do mapa em src/lib/seo.js, grava dist/<rota>/index.html com
- * título, descrição, canonical e Open Graph daquela rota. O conteúdo continua sendo
- * montado pelo React normalmente; o arquivo só chega com o cabeçalho certo.
+ * título, descrição, canonical e Open Graph daquela rota E, desde a v7 (03/10/2026), com o
+ * conteúdo inteiro da página: o React renderiza a rota no Node (dist-ssr/entry-server.js,
+ * gerado pelo `vite build --ssr`) e o HTML entra no <div id="root">. Antes disso o corpo do
+ * HTML publicado tinha 1 caractere de texto (medido em /servicos): robô sem JavaScript não
+ * lia nada.
  *
  * Se algum marcador não for encontrado, o script falha em vez de publicar em silêncio.
  */
 import fs from 'node:fs'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { ORIGIN, IMAGEM_OG, NOME_SITE, ROTAS, arquivoDaRota } from '../src/lib/seo.js'
 
 const DIST = path.resolve('dist')
@@ -78,8 +82,36 @@ if (!fs.existsSync(BASE)) {
 const base = fs.readFileSync(BASE, 'utf8')
 const problemas = []
 
+const SSR = path.resolve('dist-ssr/entry-server.js')
+if (!fs.existsSync(SSR)) {
+  console.error(`[prerender] nao encontrei ${SSR}. Rode o vite build --ssr antes.`)
+  process.exit(1)
+}
+const { render } = await import(pathToFileURL(SSR).href)
+const RAIZ_VAZIA = '<div id="root"></div>'
+if (!base.includes(RAIZ_VAZIA)) {
+  console.error('[prerender] o index.html nao tem <div id="root"></div> para receber o conteudo')
+  process.exit(1)
+}
+
+// Texto visível do HTML, sem script nem estilo: é o que um robô sem JavaScript lê.
+const textoVisivel = (html) =>
+  html
+    .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
 for (const rota of Object.keys(ROTAS)) {
-  const { html, faltando } = comMeta(base, rota)
+  const comCabecalho = comMeta(base, rota)
+  const faltando = comCabecalho.faltando
+  let conteudo = ''
+  try {
+    conteudo = render(rota)
+  } catch (erro) {
+    problemas.push(`${rota}: o React nao renderizou no build (${erro.message})`)
+  }
+  const html = comCabecalho.html.replace(RAIZ_VAZIA, `<div id="root">${conteudo}</div>`)
   const destino = path.join(DIST, arquivoDaRota(rota))
   fs.mkdirSync(path.dirname(destino), { recursive: true })
   fs.writeFileSync(destino, html, 'utf8')
@@ -89,8 +121,13 @@ for (const rota of Object.keys(ROTAS)) {
   const gravado = fs.readFileSync(destino, 'utf8')
   const tituloOk = gravado.includes(`<title>${ROTAS[rota].titulo.replace(/&/g, '&amp;')}</title>`)
   if (!tituloOk) problemas.push(`${rota}: titulo nao ficou no arquivo`)
+  // Sensor do conteúdo: o corpo precisa ter um <h1> e texto de verdade.
+  const corpo = gravado.split('<body')[1] || ''
+  const letras = textoVisivel(corpo).length
+  if (!/<h1[\s>]/.test(corpo)) problemas.push(`${rota}: sem <h1> no HTML publicado`)
+  if (letras < 400) problemas.push(`${rota}: so ${letras} caracteres de texto no HTML publicado`)
   if (faltando.length) problemas.push(`${rota}: marcador ausente -> ${faltando.join(', ')}`)
-  console.log(`[prerender] ${rota.padEnd(12)} -> dist/${arquivoDaRota(rota)}`)
+  console.log(`[prerender] ${rota.padEnd(28)} -> dist/${arquivoDaRota(rota)}  (${letras} caracteres de texto)`)
 }
 
 // O 404 é estático (public/404.html) e não passa por aqui, mas o Vercel só usa o arquivo
@@ -104,4 +141,29 @@ if (problemas.length) {
   process.exit(1)
 }
 
-console.log(`[prerender] ${Object.keys(ROTAS).length} rotas com meta proprio e 404.html no lugar.`)
+// Sitemap gerado do mesmo mapa de rotas (v7): página nova entra sozinha, e não existe mais
+// um sitemap.xml escrito à mão que esquece rota. Data de hoje no fuso da IBA (-03).
+const hoje = new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10)
+const prioridade = (r) => (r === '/' ? '1.0' : r.startsWith('/servicos') ? '0.9' : r === '/politicas' ? '0.3' : '0.7')
+const urls = Object.keys(ROTAS)
+  .map((r) => `  <url>\n    <loc>${ORIGIN}${r === '/' ? '/' : r}</loc>\n    <lastmod>${hoje}</lastmod>\n    <priority>${prioridade(r)}</priority>\n  </url>`)
+  .join('\n')
+fs.writeFileSync(
+  path.join(DIST, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+  'utf8'
+)
+
+// Sensor: toda rota (menos a raiz) precisa de rewrite no vercel.json, senão o Vercel não acha
+// o index.html dela e devolve o 404 em produção, mesmo com o arquivo gerado aqui.
+const vercel = JSON.parse(fs.readFileSync(path.resolve('vercel.json'), 'utf8'))
+const comRewrite = new Set((vercel.rewrites || []).map((r) => r.source))
+for (const r of Object.keys(ROTAS)) {
+  if (r !== '/' && !comRewrite.has(r)) problemas.push(`${r}: sem rewrite no vercel.json`)
+}
+if (problemas.length) {
+  console.error('[prerender] FALHOU:\n  ' + problemas.join('\n  '))
+  process.exit(1)
+}
+
+console.log(`[prerender] ${Object.keys(ROTAS).length} rotas com meta proprio, conteudo no HTML, sitemap gerado e 404.html no lugar.`)
