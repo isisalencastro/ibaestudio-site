@@ -22,10 +22,6 @@
       "destination": "/perguntas-frequentes/index.html"
     },
     {
-      "source": "/praxe",
-      "destination": "/praxe/index.html"
-    },
-    {
       "source": "/sobre",
       "destination": "/sobre/index.html"
     },
@@ -39,6 +35,11 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/praxe",
+      "destination": "https://praxeskills.vercel.app/",
+      "permanent": false
+    },
     {
       "source": "/blog",
       "destination": "https://blog.ibaestudio.com/",

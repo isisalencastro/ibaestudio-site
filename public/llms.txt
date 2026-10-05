@@ -16,4 +16,4 @@
 
 ## Produtos
 
-- [Praxe](https://www.ibaestudio.com/praxe): as skills que a IBA usa na própria operação, empacotadas para agentes de código.
+- [Praxe](https://praxeskills.vercel.app): as skills que a IBA usa na própria operação, empacotadas para agentes de código.

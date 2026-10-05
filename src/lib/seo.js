@@ -32,11 +32,6 @@ export const ROTAS = {
     descricao:
       'Três frentes: desenvolvimento web e sistemas, IA integrada aos processos e automação de operações. Veja como funciona, o prazo e o investimento de cada uma.'
   },
-  '/praxe': {
-    titulo: 'Praxe | Packs de skills para agentes de código',
-    descricao:
-      'As skills que a IBA usa na própria operação, empacotadas: 32 skills em quatro packs, para o seu agente de código rodar prospecção, conteúdo e operação.'
-  },
   '/sobre': {
     titulo: 'Sobre a IBA Estúdio: quem faz e como trabalha',
     descricao:
