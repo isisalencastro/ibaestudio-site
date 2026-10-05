@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { EASE, NAVBAR, PRIMEIRA_TELA, movimentoLigado } from '../lib/motion'
+import { BLOG_URL } from '../lib/site'
 
 const links = [
   { to: '/servicos', label: 'Serviços' },
   { to: '/sobre', label: 'Sobre' },
   { to: '/perguntas-frequentes', label: 'Dúvidas' },
-  { to: '/blog', label: 'Blog' }
+  { href: BLOG_URL, label: 'Blog' }
 ]
 
 function Brand() {
@@ -93,7 +94,18 @@ export default function Header() {
           <Brand />
 
           <nav className="hidden md:flex items-center gap-1" aria-label="Navegação principal">
-            {links.map((l) => (
+            {links.map((l) => l.href ? (
+              // Endereco proprio (o blog): abre em aba nova, igual ao link dos jogos no rodape.
+              <a
+                key={l.href}
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative inline-flex items-center min-h-[44px] px-3.5 rounded-lg font-semibold transition-colors text-gray-600 hover:text-blue hover:bg-blue-soft2"
+              >
+                {l.label}
+              </a>
+            ) : (
               <NavLink
                 key={l.to}
                 to={l.to}
@@ -138,7 +150,17 @@ export default function Header() {
             aria-label="Navegação principal"
           >
             <div className="container-site flex flex-col gap-1 py-4 pb-6">
-              {links.map((l) => (
+              {links.map((l) => l.href ? (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative px-3.5 py-3 rounded-lg text-[1.05rem] font-semibold text-gray-600"
+                >
+                  {l.label}
+                </a>
+              ) : (
                 <NavLink
                   key={l.to}
                   to={l.to}

@@ -24,6 +24,11 @@ export const PRAXE_PAGINA = '/praxe'
 // proprios, entao o link abre em aba nova para nao tirar o visitante da pagina de servico.
 export const JOGOS_URL = 'https://jogos.ibaestudio.com'
 
+// Blog da IBA: desde 04/10/2026 vive em endereco proprio (repo blog-iba, site estatico). A antiga
+// pagina /blog do site, que so dizia "ainda nao tem texto", saiu; /blog redireciona para ca
+// (vercel.json). Mesma regra dos jogos: abre em aba nova.
+export const BLOG_URL = 'https://blog.ibaestudio.com'
+
 // Numeros conferidos nos arquivos do produto em 19/09/2026: 32 skills, 4 packs, 32 scripts.
 // Os tres avulsos somam R$ 291, que e a ancora do completo (rotulo honesto, sem preco riscado falso).
 export const PRAXE_PACKS = [
