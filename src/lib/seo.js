@@ -47,11 +47,6 @@ export const ROTAS = {
     descricao:
       'Conte o principal gargalo da sua operação e receba um caminho prático com IA. Atendimento direto por WhatsApp, e-mail ou formulário.'
   },
-  '/blog': {
-    titulo: 'Blog da IBA Estúdio',
-    descricao:
-      'Matérias, lançamentos e atualizações do estúdio sobre IA aplicada à operação de empresas.'
-  },
   '/perguntas-frequentes': {
     titulo: 'Perguntas frequentes | IBA Estúdio',
     descricao:

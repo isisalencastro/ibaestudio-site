@@ -57,7 +57,7 @@ caso de exceção.
 
 ## Estrutura
 
-- `src/pages/`: páginas (Home, Serviços, Praxe, Sobre, Contato, Blog, Políticas, 404)
+- `src/pages/`: páginas (Home, Serviços, Praxe, Sobre, Contato, Políticas, 404; o blog vive em `blog.ibaestudio.com`)
 - `src/components/`: Header, Footer, Seo, WhatsApp flutuante, Reveal, TituloRevelado, TransicaoPagina,
   LuzCartao, ícones
 - `src/lib/motion.js`: os números do movimento (fonte única)
@@ -98,7 +98,7 @@ curl -s https://www.ibaestudio.com/servicos | grep '<title>'
 
 ## Pendências conhecidas (verificadas em 20/09/2026)
 
-- Em página curta, como `/blog`, o botão flutuante do WhatsApp (`fixed right-5 bottom-5`, 56px) cobre
+- Em página curta, como `/blog` (que existia na época), o botão flutuante do WhatsApp (`fixed right-5 bottom-5`, 56px) cobre
   parte do link "Política de privacidade" do rodapé por volta de 1024px de largura. Medido com
   `document.elementFromPoint` em grade: 4 de 16 pontos do link caem sob o botão, o centro continua
   clicável. Não afeta celular (verificado a 360 e 390). Fica pendente porque corrigir mexe no

@@ -34,12 +34,20 @@
       "destination": "/contato/index.html"
     },
     {
-      "source": "/blog",
-      "destination": "/blog/index.html"
-    },
-    {
       "source": "/politicas",
       "destination": "/politicas/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/blog",
+      "destination": "https://blog.ibaestudio.com/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:caminho*",
+      "destination": "https://blog.ibaestudio.com/:caminho*",
+      "permanent": true
     }
   ]
 }
