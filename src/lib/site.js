@@ -16,9 +16,8 @@ export const REDES = [
 // Praxe: produto da IBA (packs de skills para agente de codigo). A marca IBA nao aparece na
 // pagina da Praxe, entao a ligacao entre as duas so existe deste lado. Desde 05/10/2026 os links
 // levam para a LP propria da Praxe (a vitrine /praxe do site saiu; /praxe redireciona, vercel.json).
-// O dominio praxeskills.com.br ainda nao tem DNS (conferido em 05/10/2026: nao resolve, e a Vercel
-// pede `A praxeskills.com.br 76.76.21.21`). Quando resolver, trocar aqui e no vercel.json.
-export const PRAXE_URL = 'https://praxeskills.vercel.app'
+// Dominio proprio desde 05/10/2026: praxeskills.com, no lugar do praxeskills.com.br.
+export const PRAXE_URL = 'https://praxeskills.com'
 
 // Jogos IBA: produto da IBA (jogos curtos para jogar no navegador). Desde 28/09/2026 vive em
 // endereco proprio do estudio, com a identidade visual da casa. O site tem publico e navegacao

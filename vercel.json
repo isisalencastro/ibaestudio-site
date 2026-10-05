@@ -37,7 +37,7 @@
   "redirects": [
     {
       "source": "/praxe",
-      "destination": "https://praxeskills.vercel.app/",
+      "destination": "https://praxeskills.com/",
       "permanent": false
     },
     {
