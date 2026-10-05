@@ -11,7 +11,6 @@ import Home from './pages/Home'
 import Servicos from './pages/Servicos'
 import ServicoDetalhe from './pages/ServicoDetalhe'
 import Perguntas from './pages/Perguntas'
-import Praxe from './pages/Praxe'
 import Sobre from './pages/Sobre'
 import Contato from './pages/Contato'
 import Politicas from './pages/Politicas'
@@ -65,7 +64,6 @@ export default function App() {
           <Route path="/servicos" element={<Servicos />} />
           <Route path="/servicos/:id" element={<ServicoDetalhe />} />
           <Route path="/perguntas-frequentes" element={<Perguntas />} />
-          <Route path="/praxe" element={<Praxe />} />
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/contato" element={<Contato />} />
           <Route path="/politicas" element={<Politicas />} />

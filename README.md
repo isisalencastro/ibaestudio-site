@@ -57,7 +57,7 @@ caso de exceção.
 
 ## Estrutura
 
-- `src/pages/`: páginas (Home, Serviços, Praxe, Sobre, Contato, Políticas, 404; o blog vive em `blog.ibaestudio.com`)
+- `src/pages/`: páginas (Home, Serviços, Sobre, Contato, Políticas, 404; o blog vive em `blog.ibaestudio.com` e a Praxe na LP própria)
 - `src/components/`: Header, Footer, Seo, WhatsApp flutuante, Reveal, TituloRevelado, TransicaoPagina,
   LuzCartao, ícones
 - `src/lib/motion.js`: os números do movimento (fonte única)
@@ -80,7 +80,7 @@ Antes de publicar, com o preview local de pé (`npm run build && npm run preview
 acessibilidade. Ele é local de propósito, não é rotina contra o site no ar:
 
 ```bash
-npm run gate -- --local 4173 / /servicos /praxe /sobre /contato
+npm run gate -- --local 4173 / /servicos /sobre /contato
 ```
 
 O push na branch principal publica sozinho na Vercel. Antes de considerar pronto, rodar o verificador

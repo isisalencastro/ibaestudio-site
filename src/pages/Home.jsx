@@ -10,7 +10,7 @@ import { EASE_CSS, ENCENACAO, INCLINA, REVELACAO, movimentoLigado, useMovimento 
 import FaixaConvite from '../components/FaixaConvite'
 import CampoPontos from '../components/CampoPontos'
 import FraseGiro from '../components/FraseGiro'
-import { waLink, WA_MESSAGES, PRAXE_PAGINA, JOGOS_URL } from '../lib/site'
+import { waLink, WA_MESSAGES, PRAXE_URL, JOGOS_URL } from '../lib/site'
 import { ArrowRightIcon } from '../components/Icons'
 import Processo from '../components/Processo'
 import { useSaidaHero } from '../lib/saida'
@@ -301,10 +301,10 @@ export default function Home() {
                 </p>
 
                 <div className="flex flex-wrap items-center gap-x-7 gap-y-3">
-                  <Link className="btn btn-secondary" to={PRAXE_PAGINA}>
+                  <a className="btn btn-secondary" href={PRAXE_URL} target="_blank" rel="noopener noreferrer">
                     Conhecer a Praxe
                     <ArrowRightIcon size={16} />
-                  </Link>
+                  </a>
                 </div>
               </div>
 

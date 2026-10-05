@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { waLink, mailLink, REDES, JOGOS_URL, BLOG_URL } from '../lib/site'
+import { waLink, mailLink, REDES, PRAXE_URL, JOGOS_URL, BLOG_URL } from '../lib/site'
 import { SERVICOS, rotaDoServico } from '../lib/conteudo'
 import Reveal from './Reveal'
 import MarcaRodape from './MarcaRodape'
@@ -33,7 +33,16 @@ export default function Footer() {
           <h3 className="text-[0.85rem] font-body font-bold uppercase tracking-wider text-gray-500 mb-4">Navegação</h3>
           <ul className="flex flex-col gap-2.5">
             <li><Link to="/servicos" className="text-gray-600 text-[0.95rem] hover:text-blue">Serviços</Link></li>
-            <li><Link to="/praxe" className="text-gray-600 text-[0.95rem] hover:text-blue">Praxe</Link></li>
+            <li>
+              <a
+                href={PRAXE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-600 text-[0.95rem] hover:text-blue"
+              >
+                Praxe
+              </a>
+            </li>
             <li>
               <a
                 href={JOGOS_URL}
