@@ -9,7 +9,7 @@ import { WhatsAppIcon, ClockIcon } from '../components/Icons'
 
 // Endereco que GRAVA o contato antes de abrir o WhatsApp (fluxo do n8n "Site - Contato").
 // Antes disso o formulario so abria o WhatsApp: quem preenchesse e desistisse no meio desaparecia sem rastro.
-const REGISTRO_URL = 'https://infra-iba-n8n.21mxr3.easypanel.host/webhook/site-contato'
+const REGISTRO_URL = 'https://ring-servidor-pc.tail703f26.ts.net:10000/webhook/site-contato'
 
 const projectTypes = [
   'Desenvolvimento web e sistemas',
@@ -20,7 +20,7 @@ const projectTypes = [
 ]
 
 export default function Contato() {
-  const [form, setForm] = useState({ nome: '', email: '', tipo: '', mensagem: '' })
+  const [form, setForm] = useState({ nome: '', email: '', tipo: '', mensagem: '', website: '' })
   const [error, setError] = useState(false)
 
   function update(field) {
@@ -61,7 +61,7 @@ export default function Contato() {
     try {
       fetch(REGISTRO_URL, {
         method: 'POST',
-        body: new URLSearchParams({ ...dados, origem: 'site', quando: new Date().toISOString() }),
+        body: new URLSearchParams({ ...dados, website: form.website, origem: 'site', quando: new Date().toISOString() }),
         keepalive: true
       }).catch(() => {})
     } catch (_) { /* registro e importante, mas nunca pode impedir o contato */ }
@@ -125,6 +125,8 @@ export default function Contato() {
 
           <Reveal delay={0.12}>
             <form id="contact-form" noValidate onSubmit={handleSubmit} className="bg-surface border border-gray-200 rounded-3xl p-6 sm:p-8 lg:p-10 shadow">
+              {/* Armadilha para robô: escondido de quem usa a página; o n8n descarta quem preencher. */}
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value={form.website} onChange={update('website')} style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
               <div className="mb-5">
                 <label htmlFor="nome" className="block font-semibold text-[0.92rem] mb-2">Nome</label>
                 <input type="text" id="nome" name="nome" required autoComplete="name" placeholder="Seu nome" value={form.nome} onChange={update('nome')} className={inputClass} />
