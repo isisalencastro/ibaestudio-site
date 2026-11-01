@@ -14,6 +14,3 @@
 - [Perguntas frequentes](https://www.ibaestudio.com/perguntas-frequentes): custo, prazo, pagamento e suporte.
 - [Contato](https://www.ibaestudio.com/contato): WhatsApp, e-mail (contato@ibaestudio.com) ou formulário. A primeira conversa é a sessão estratégica gratuita, de 30 minutos.
 
-## Produtos
-
-- [Praxe](https://praxeskills.vercel.app): as skills que a IBA usa na própria operação, empacotadas para agentes de código.

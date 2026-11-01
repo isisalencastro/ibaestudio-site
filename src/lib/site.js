@@ -19,6 +19,9 @@ export const REDES = [
 // O dominio praxeskills.com.br ainda nao tem DNS (conferido em 05/10/2026: nao resolve, e a Vercel
 // pede `A praxeskills.com.br 76.76.21.21`). Quando resolver, trocar aqui e no vercel.json.
 export const PRAXE_URL = 'https://praxeskills.vercel.app'
+// Praxe fora do site por enquanto (decisao da Isis em 01/11/2026). Para voltar: true aqui, a linha
+// da Praxe em public/404.html e public/llms.txt e o destino de /praxe no vercel.json.
+export const PRAXE_ATIVA = false
 
 // Jogos IBA: produto da IBA (jogos curtos para jogar no navegador). Desde 28/09/2026 vive em
 // endereco proprio do estudio, com a identidade visual da casa. O site tem publico e navegacao

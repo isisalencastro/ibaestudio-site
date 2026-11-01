@@ -10,7 +10,7 @@ import { EASE_CSS, ENCENACAO, INCLINA, REVELACAO, movimentoLigado, useMovimento 
 import FaixaConvite from '../components/FaixaConvite'
 import CampoPontos from '../components/CampoPontos'
 import FraseGiro from '../components/FraseGiro'
-import { waLink, WA_MESSAGES, PRAXE_URL, JOGOS_URL } from '../lib/site'
+import { waLink, WA_MESSAGES, PRAXE_URL, PRAXE_ATIVA, JOGOS_URL } from '../lib/site'
 import { ArrowRightIcon } from '../components/Icons'
 import Processo from '../components/Processo'
 import { useSaidaHero } from '../lib/saida'
@@ -289,6 +289,7 @@ export default function Home() {
       {/* Praxe e jogos são os dois produtos da casa e ficam juntos, a 24px um do outro, em vez de
           duas caixas cinzas iguais separadas por 144px. A Praxe é o principal (cinza, maior); os
           jogos vêm logo abaixo em faixa branca e mais baixa, para a hierarquia ficar visível. */}
+      {PRAXE_ATIVA && (
       <section className="secao pb-6 lg:pb-6" aria-labelledby="praxe-titulo">
         <div className="container-site">
           <Reveal>
@@ -321,12 +322,13 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+      )}
 
       {/* Frente de jogos da casa. Bloco de produto, no mesmo formato do bloco da Praxe (antetítulo, título,
           uma frase e um link), e de propósito fora da lista de serviços: jogos não são serviço vendido.
           O texto é medido, não inventado: o site tem um jogo no ar, o Nó do dia, tabuleiro 8x8 com oito
           peças que muda à meia-noite e é o mesmo para todo mundo. Sem número, sem métrica, sem depoimento. */}
-      <section className="secao pt-0 lg:pt-0" id="jogos" aria-labelledby="jogos-titulo">
+      <section className={PRAXE_ATIVA ? "secao pt-0 lg:pt-0" : "secao"} id="jogos" aria-labelledby="jogos-titulo">
         <div className="container-site">
           <Reveal>
             <div className="bg-surface border border-gray-200 rounded-3xl p-7 sm:p-10 lg:px-14 lg:py-10 flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-12">

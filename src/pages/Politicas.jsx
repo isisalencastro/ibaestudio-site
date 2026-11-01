@@ -3,7 +3,7 @@ import Page from '../components/Page'
 import Reveal from '../components/Reveal'
 import TituloRevelado from '../components/TituloRevelado'
 import Seo from '../components/Seo'
-import { mailLink } from '../lib/site'
+import { mailLink, PRAXE_ATIVA } from '../lib/site'
 
 const postura = [
   { title: 'Atendimento direto', text: 'Quem te atende é quem desenvolve. Sem intermediário, sem telemarketing.' },
@@ -129,8 +129,10 @@ export default function Politicas() {
             <h3 className="text-[1.15rem] mt-8 mb-2">Valores e propostas</h3>
             <p className="text-gray-600 mb-3.5">Os valores publicados no site, como o site institucional por R$ 1.000 de implantação mais R$ 197,90 por mês, são referências de partida para o escopo descrito. O valor final do seu projeto sai por escrito em proposta, antes de qualquer trabalho começar, e é a proposta que vale.</p>
 
+            {PRAXE_ATIVA && (<>
             <h3 className="text-[1.15rem] mt-8 mb-2">Compra de produtos digitais</h3>
             <p className="text-gray-600 mb-3.5">Os packs da Praxe são vendidos em plataforma de pagamento externa (Cakto). A compra, o pagamento, o acesso ao material e um eventual reembolso seguem as regras dessa plataforma, além do Código de Defesa do Consumidor.</p>
+            </>)}
 
             <h3 className="text-[1.15rem] mt-8 mb-2">Links para outros sites</h3>
             <p className="text-gray-600 mb-3.5">Este site tem links para páginas de terceiros, como WhatsApp, Instagram, LinkedIn e a plataforma de pagamento. Não respondemos pelo conteúdo nem pelas práticas desses sites.</p>
