@@ -46,6 +46,16 @@
       "permanent": true
     },
     {
+      "source": "/rss.xml",
+      "destination": "https://blog.ibaestudio.com/rss.xml",
+      "permanent": true
+    },
+    {
+      "source": "/feed.xml",
+      "destination": "https://blog.ibaestudio.com/rss.xml",
+      "permanent": true
+    },
+    {
       "source": "/blog/:caminho*",
       "destination": "https://blog.ibaestudio.com/:caminho*",
       "permanent": true
