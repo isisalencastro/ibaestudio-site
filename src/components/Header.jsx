@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { EASE, NAVBAR, PRIMEIRA_TELA, movimentoLigado } from '../lib/motion'
-import { BLOG_URL } from '../lib/site'
+import { JOGOS_URL } from '../lib/site'
 
 const links = [
   { to: '/servicos', label: 'Serviços' },
   { to: '/sobre', label: 'Sobre' },
   { to: '/perguntas-frequentes', label: 'Dúvidas' },
-  { href: BLOG_URL, label: 'Blog' }
+  { href: JOGOS_URL, label: 'Jogos' }
 ]
 
 function Brand() {
@@ -95,7 +95,7 @@ export default function Header() {
 
           <nav className="hidden md:flex items-center gap-1" aria-label="Navegação principal">
             {links.map((l) => l.href ? (
-              // Endereco proprio (o blog): abre em aba nova, igual ao link dos jogos no rodape.
+              // Endereco proprio (os mini games): abre em aba nova, igual ao link dos jogos no rodape.
               <a
                 key={l.href}
                 href={l.href}

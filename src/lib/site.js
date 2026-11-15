@@ -28,11 +28,6 @@ export const PRAXE_ATIVA = false
 // proprios, entao o link abre em aba nova para nao tirar o visitante da pagina de servico.
 export const JOGOS_URL = 'https://jogos.ibaestudio.com'
 
-// Blog da IBA: desde 04/10/2026 vive em endereco proprio (repo blog-iba, site estatico). A antiga
-// pagina /blog do site, que so dizia "ainda nao tem texto", saiu; /blog redireciona para ca
-// (vercel.json). Mesma regra dos jogos: abre em aba nova.
-export const BLOG_URL = 'https://blog.ibaestudio.com'
-
 export const WA_MESSAGES = {
   orcamento: 'Olá! Vim pelo site da IBA e quero pedir um orçamento.',
   geral: 'Olá! Vim pelo site da IBA e quero falar com vocês.',

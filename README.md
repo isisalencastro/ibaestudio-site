@@ -57,7 +57,7 @@ caso de exceção.
 
 ## Estrutura
 
-- `src/pages/`: páginas (Home, Serviços, Sobre, Contato, Políticas, 404; o blog vive em `blog.ibaestudio.com` e a Praxe na LP própria)
+- `src/pages/`: páginas (Home, Serviços, Sobre, Contato, Políticas, 404; a Praxe vive na LP própria)
 - `src/components/`: Header, Footer, Seo, WhatsApp flutuante, Reveal, TituloRevelado, TransicaoPagina,
   LuzCartao, ícones
 - `src/lib/motion.js`: os números do movimento (fonte única)
