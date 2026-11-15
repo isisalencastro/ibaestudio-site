@@ -1,88 +1,72 @@
 /**
- * Conteúdo do site em um lugar só (v7, 03/10/2026).
+ * Conteúdo do site em um lugar só (v8, 14/11/2026: estúdio de jogos e animação).
  *
  * Antes cada página guardava o seu pedaço: os serviços em Servicos.jsx, as perguntas em
  * Politicas.jsx, os passos e os compromissos em Home.jsx. Com as páginas novas (uma por
  * serviço e a de perguntas frequentes), o mesmo texto passou a aparecer em mais de um
  * lugar, e texto copiado diverge na primeira edição. Daqui ele é lido por todas.
  *
- * Regra da casa: nada aqui é inventado. Preço, prazo e exemplo são os que já estavam
- * publicados no site; caso é sempre "exemplo", nunca cliente.
+ * Regra da casa: nada aqui é inventado. Prazo e escopo vêm do catálogo do estúdio
+ * (iba-estudio docs/negocio/catalogo.md); preço só entra aqui depois que a Isis aprovar o
+ * catálogo (14/11/2026 ainda é estimativa). Caso é sempre situação comum, nunca cliente.
  */
 import { WA_MESSAGES } from './site.js'
 
 export const SERVICOS = [
   {
-    id: 'web-e-sistemas',
+    id: 'jogos-para-marcas',
     num: '01',
-    nome: 'Desenvolvimento web e sistemas',
-    titulo: 'Sites, portais e sistemas que crescem com a operação',
-    resumo: 'Site institucional no ar em até 10 dias úteis. Portal e sistema sob medida com escopo fechado por escrito.',
+    nome: 'Jogos para marcas',
+    titulo: 'Um jogo curto com a cara da sua marca',
+    resumo: 'Jogo no navegador que abre por link ou QR code, sem instalar nada. Termina com cupom, cadastro ou botão para o seu WhatsApp.',
     paras: [
-      'O site é onde o seu cliente decide se vai chamar você ou seguir para o concorrente. E quando a empresa cresce, um sistema sob medida organiza cadastros, processos e dados do jeito que o seu time já trabalha, sem obrigar ninguém a mudar a rotina.'
-    ],
-    mensagem: WA_MESSAGES.desenvolvimento,
-    ficha: [
-      ['Para quem é', 'Quem precisa de um site que passe confiança, ou de um sistema no lugar da planilha que ninguém mais entende.'],
-      ['O que entra', 'Site institucional, portal ou sistema sob medida.'],
-      ['Como funciona', 'Conteúdo, design e desenvolvimento por nossa conta. Você aprova cada etapa.'],
-      ['Investimento', 'Site institucional: R$ 1.000 de implantação + R$ 197,90/mês de manutenção'],
-      ['Prazo e pagamento', 'Até 10 dias úteis depois de receber o material. Metade na aprovação, metade na entrega, com o primeiro mês de manutenção já incluído. Portais e sistemas sob medida saem por escopo e valor por escrito.']
-    ],
-    seo: {
-      titulo: 'Sites e sistemas sob medida | IBA Estúdio',
-      descricao:
-        'Site institucional no ar em até 10 dias úteis e sistema sob medida que organiza cadastros, processos e dados da sua operação. Escopo e prazo por escrito.'
-    }
-  },
-  {
-    id: 'ia-integrada',
-    num: '02',
-    nome: 'IA integrada aos processos',
-    titulo: 'IA treinada no contexto da sua empresa',
-    resumo: 'Atendimento no WhatsApp, dados organizados sem trabalho manual e agentes que conhecem os documentos da empresa.',
-    paras: [
-      'Um caso comum: o cliente manda mensagem às 22h, a IA responde com as informações que você definiu, pergunta o que falta para o orçamento e deixa o pedido registrado para o time de manhã. Nada vai ao ar antes de você testar.'
+      'O cliente escaneia o QR code no balcão, joga um minuto no celular e ganha um cupom. O jogo leva o seu logo, as suas cores e os seus textos, abre em poucos segundos no 4G e roda em celular básico.'
     ],
     exemplos: [
-      'Atendimento no WhatsApp que qualifica e encaminha',
-      'Relatórios e dados atualizados sem trabalho manual',
-      'Agentes treinados nos seus documentos e processos'
+      'Jogo de campanha com cupom no fim (Black Friday, Natal, lançamento)',
+      'Atração no totem ou no celular do visitante em feira e evento',
+      'Jogo no link da bio, para o cliente voltar e chamar os amigos'
     ],
-    mensagem: WA_MESSAGES.iaProcessos,
+    mensagem: WA_MESSAGES.jogos,
     ficha: [
-      ['Para quem é', 'Quem recebe mais mensagem do que consegue responder, ou gasta horas montando relatório à mão.'],
-      ['O que entra', 'Atendimento automatizado, análise de dados e agentes de IA treinados nos documentos da empresa.'],
-      ['Como funciona', 'Mapeamos o processo atual, treinamos a IA no contexto e testamos junto com o seu time.'],
-      ['Investimento', 'R$ 2.000 de implantação + R$ 900/mês de operação'],
-      ['Prazo e pagamento', 'Até 20 dias úteis. Metade na aprovação, metade na entrega. A mensalidade cobre os ajustes que você pedir, o acompanhamento e o relatório do mês.']
+      ['Para quem é', 'Marca local com Instagram ativo, marca em campanha ou lançamento, agência que quer oferecer jogo sem montar equipe, estande de feira.'],
+      ['O que entra', 'Um modelo do estúdio (clicker, corrida, quiz ou memória) com a sua marca, ou um jogo com personagem, fases e cadastro de participantes. Link próprio e hospedagem inclusos.'],
+      ['Como funciona', 'Você manda logo, cores e a ideia. A gente mostra a versão jogável, você pede os ajustes e o jogo vai ao ar.'],
+      ['Prazo', 'Jogo com modelo do estúdio em 7 dias úteis. Jogo de campanha, com fases e personagem, em 15 dias úteis. Mecânica nova, a combinar.'],
+      ['Preço e pagamento', 'Pacote fechado por escrito antes de começar. 50% para começar e 50% na entrega, por Pix.']
     ],
     seo: {
-      titulo: 'IA integrada aos processos da empresa | IBA Estúdio',
+      titulo: 'Jogos para marcas (advergames) | IBA Estúdio',
       descricao:
-        'Atendimento no WhatsApp, relatórios sem trabalho manual e agentes de IA treinados nos documentos da sua empresa. Implantação em até 20 dias úteis.'
+        'Jogo curto no navegador com a cara da sua marca, aberto por link ou QR code. Termina com cupom ou WhatsApp. Pronto em 7 dias úteis, preço fechado antes.'
     }
   },
   {
-    id: 'automacao',
-    num: '03',
-    nome: 'Automação de operações',
-    titulo: 'Tarefas repetitivas rodando sozinhas',
-    resumo: 'As ferramentas que você já usa passando informação uma para a outra, sem ninguém redigitar o mesmo pedido três vezes.',
+    id: 'animacao',
+    num: '02',
+    nome: 'Animação cartoon',
+    titulo: 'Um personagem para a sua marca, e ele em movimento',
+    resumo: 'Mascote da marca, Reels e comerciais curtos, figurinhas para o WhatsApp e animações leves para site e app.',
     paras: [
-      'Um caso comum: o pedido que entra pelo formulário do site vai sozinho para a planilha e para o financeiro, e o responsável recebe o aviso. Ninguém redigita nada.'
+      'Primeiro nasce o mascote: um personagem vetorial com 3 vistas, 6 expressões e paleta. Depois ele aparece nos Reels, vira figurinha no WhatsApp dos seus clientes e entra no jogo da marca.'
     ],
-    mensagem: WA_MESSAGES.automacaoOperacoes,
+    exemplos: [
+      'Mascote da marca com folha de referência',
+      'Reels de 15 s e comercial de 30 s em MP4',
+      'Figurinhas animadas para o WhatsApp'
+    ],
+    mensagem: WA_MESSAGES.animacao,
     ficha: [
-      ['Para quem é', 'Quem copia a mesma informação de um sistema para outro todo dia.'],
-      ['O que entra', 'Integração entre as ferramentas que você já usa, com as tarefas repetidas rodando sozinhas.'],
-      ['Como funciona', 'Mapeamos o fluxo, integramos as ferramentas e automatizamos as tarefas repetitivas.'],
-      ['Investimento', 'Sob consulta, com escopo, prazo e valor formalizados por escrito.']
+      ['Para quem é', 'Marca que quer ser lembrada pelo rosto, não só pelo logo, e quem precisa de vídeo curto toda semana sem gravar nada.'],
+      ['O que entra', 'Mascote em SVG e PNG, Reels e comerciais curtos em MP4 (9:16 ou 16:9), 6 figurinhas animadas em WebP e animação web em SVG ou Lottie.'],
+      ['Como funciona', 'Rascunho do personagem, ajuste, arte final. Os vídeos usam o mascote ou a arte que a sua marca já tem.'],
+      ['Prazo', 'Mascote em 7 dias úteis. Reels de 15 s e figurinhas em 5 dias úteis. Comercial de 30 s em 7 dias úteis.'],
+      ['Preço e pagamento', 'Pacote fechado por escrito antes de começar, com plano mensal para quem quer Reels toda semana. 50% para começar e 50% na entrega, por Pix.']
     ],
     seo: {
-      titulo: 'Automação de operações e integrações | IBA Estúdio',
+      titulo: 'Animação cartoon: mascote, Reels e figurinhas | IBA Estúdio',
       descricao:
-        'Integração entre as ferramentas que a sua empresa já usa, com as tarefas repetitivas rodando sozinhas. Escopo, prazo e valor formalizados por escrito.'
+        'Mascote vetorial da sua marca, Reels e comerciais curtos em cartoon, figurinhas animadas para o WhatsApp e animação para site. Preço fechado antes de começar.'
     }
   }
 ]
@@ -90,35 +74,36 @@ export const SERVICOS = [
 export const servicoPorId = (id) => SERVICOS.find((s) => s.id === id)
 export const rotaDoServico = (id) => `/servicos/${id}`
 
-/** "Onde a operação trava, e o que entra no lugar." Cada frase vem do texto já publicado. */
+/** "Onde a marca passa batido, e o que entra no lugar." Situação comum, nunca cliente nem número. */
 export const ONDE_TRAVA = [
-  { frente: 'Atendimento', hoje: 'A mensagem chega fora do horário e espera até o dia seguinte.', depois: 'Resposta na hora, com as informações que você definiu, e o pedido registrado.', servico: 'ia-integrada' },
-  { frente: 'Vendas', hoje: 'O orçamento depende de alguém lembrar de responder.', depois: 'Atendimento que qualifica e encaminha para quem fecha.', servico: 'ia-integrada' },
-  { frente: 'Dados', hoje: 'Relatório montado à mão, copiando de uma planilha para outra.', depois: 'Relatórios e dados atualizados sem trabalho manual.', servico: 'ia-integrada' },
-  { frente: 'Processos', hoje: 'O mesmo pedido redigitado em três sistemas.', depois: 'As ferramentas que você já usa passando informação uma para a outra.', servico: 'automacao' },
-  { frente: 'Presença', hoje: 'Um site que não passa a confiança que a empresa tem.', depois: 'Site institucional no ar em até 10 dias úteis, com escopo por escrito.', servico: 'web-e-sistemas' }
+  { frente: 'Engajamento', hoje: 'O post sai, ninguém comenta e no dia seguinte ninguém lembra.', depois: 'Um jogo que o cliente joga no celular e manda para os amigos.', servico: 'jogos-para-marcas' },
+  { frente: 'Campanha', hoje: 'Black Friday com o mesmo cartaz de desconto de todo mundo.', depois: 'Jogo de campanha que entrega o cupom para quem joga.', servico: 'jogos-para-marcas' },
+  { frente: 'Evento', hoje: 'Estande que entrega panfleto e torce para alguém parar.', depois: 'Jogo no totem ou no celular do visitante, aberto por QR code.', servico: 'jogos-para-marcas' },
+  { frente: 'Identidade', hoje: 'Uma marca sem rosto, que se confunde com a do vizinho.', depois: 'Um mascote cartoon que vira a cara da marca.', servico: 'animacao' },
+  { frente: 'Vídeo', hoje: 'Reels feito às pressas, com imagem de banco.', depois: 'Reels animado com o seu personagem, sem gravar nada.', servico: 'animacao' }
 ]
 
 export const PASSOS = [
-  { num: '01', titulo: 'Conversa', texto: 'Você conta onde a operação trava. A gente pergunta como as coisas funcionam hoje, antes de sugerir qualquer ferramenta.' },
-  { num: '02', titulo: 'Proposta', texto: 'Escopo, prazo e valor por escrito. O que não está na proposta não aparece na fatura.' },
-  { num: '03', titulo: 'Desenvolvimento', texto: 'Por etapas. Você vê e aprova cada uma antes da próxima começar.' },
-  { num: '04', titulo: 'Entrega', texto: 'Vai ao ar com você junto. Depois, a gente continua no mesmo WhatsApp para ajustes.' }
+  { num: '01', titulo: 'Briefing', texto: 'Você conta a ideia, manda logo e cores e diz onde o jogo ou o vídeo vai aparecer.' },
+  { num: '02', titulo: 'Proposta', texto: 'Pacote, prazo e preço por escrito. O que não está na proposta não aparece na cobrança.' },
+  { num: '03', titulo: 'Produção', texto: 'Você vê o rascunho e a versão jogável ou animada, e pede os ajustes antes do final.' },
+  { num: '04', titulo: 'Entrega', texto: 'O jogo vai ao ar com link e QR code, o vídeo chega em MP4. A gente segue no mesmo WhatsApp.' }
 ]
 
 export const COMPROMISSOS = [
-  { titulo: 'Escopo e prazo por escrito', texto: 'Antes de começar, você recebe o que vai ser feito, em quanto tempo e por quanto.' },
-  { titulo: 'Você fala com quem faz', texto: 'Quem atende é quem desenvolve. Ninguém no meio repassando recado.' },
-  { titulo: 'Ajuste depois da entrega', texto: 'Depois que vai ao ar, a gente continua disponível para ajuste e dúvida.' }
+  { titulo: 'Preço fechado antes de começar', texto: 'Você recebe o pacote, o prazo e o preço por escrito. Sem hora extra surpresa.' },
+  { titulo: 'Você fala com quem faz', texto: 'Quem atende é quem produz e testa. Ninguém no meio repassando recado.' },
+  { titulo: 'Arte própria', texto: 'Cartoon vetorial desenhado para a sua marca. Nada copiado de jogo ou personagem de terceiros.' }
 ]
 
 export const PERGUNTAS = [
-  { q: 'Quanto custa?', a: 'Depende do escopo e das frentes que a sua operação precisa. Trabalhamos com implantação única e valor mensal por frente, sempre formalizado por escrito antes de começar.' },
-  { q: 'Quanto tempo demora?', a: 'Depende do escopo. O prazo é combinado por escrito na proposta e você acompanha cada etapa do desenvolvimento.' },
-  { q: 'O que eu preciso para começar?', a: 'Só uma conversa. Você conta como a operação funciona hoje e a gente desenha a solução em cima do seu processo.' },
-  { q: 'Vocês atendem a distância?', a: 'Sim. Todo o atendimento é remoto, pelo WhatsApp e por videochamada.' },
-  { q: 'Como funciona o pagamento?', a: 'Projetos de implantação começam com 50% de entrada e o restante ao longo da entrega. Frentes mensais (conteúdo, anúncios, atendimento ou automação) têm valor recorrente, formalizado por escrito.' },
-  { q: 'Preciso entender de tecnologia?', a: 'Não. A gente explica tudo em linguagem simples e cuida da parte técnica por você.' },
-  { q: 'O que é automação com IA?', a: 'São fluxos que respondem clientes e executam tarefas repetitivas sozinhos, como atender pelo WhatsApp a qualquer hora.' },
-  { q: 'Tem suporte depois que fica pronto?', a: 'Sim. Seguimos por perto para ajustes e dúvidas após a entrega.' }
+  { q: 'Quanto custa?', a: 'Depende do pacote. Cada um tem escopo, prazo e preço fechados, e você recebe o valor por escrito antes de começar. Pergunte no WhatsApp com a sua ideia que a gente responde com o pacote certo.' },
+  { q: 'Quanto tempo demora?', a: 'Um jogo com modelo do estúdio fica pronto em 7 dias úteis; um jogo de campanha, em 15. Mascote em 7 dias úteis, Reels de 15 s em 5. O prazo conta a partir do briefing completo e da entrada paga.' },
+  { q: 'O cliente precisa instalar alguma coisa?', a: 'Não. O jogo abre no navegador, por link ou QR code, e roda em celular básico.' },
+  { q: 'O que eu preciso mandar para começar?', a: 'Logo, cores, os textos que devem aparecer e a ideia do que o jogo ou o vídeo tem que fazer: dar cupom, levar para o WhatsApp, divulgar um lançamento.' },
+  { q: 'Como funciona o pagamento?', a: '50% para começar e 50% na entrega, por Pix. O plano mensal de animação é cobrado por mês, com mínimo de 3 meses.' },
+  { q: 'Vocês usam IA?', a: 'Sim, na produção: código, animação e texto saem mais rápido com IA. A arte é cartoon vetorial feita para a sua marca, nunca imagem gerada por IA no lugar da ilustração.' },
+  { q: 'Vocês fazem jogo para App Store, jogo 3D ou sorteio?', a: 'Não. O estúdio faz jogo curto para navegador, em 2D. Também não faz aposta, sorteio com dinheiro nem mecânica de cassino.' },
+  { q: 'O jogo fica no ar por quanto tempo?', a: 'A hospedagem vem inclusa no pacote por alguns meses, combinados na proposta. Depois disso, dá para renovar por mês.' },
+  { q: 'Vocês atendem a distância?', a: 'Sim. O estúdio fica em Porto Alegre e todo o atendimento é remoto, pelo WhatsApp e por videochamada.' }
 ]

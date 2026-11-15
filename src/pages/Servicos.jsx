@@ -41,9 +41,9 @@ export default function Servicos() {
           <Reveal>
             <p className="eyebrow">Serviços</p>
           </Reveal>
-          <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Desenvolvimento, IA e automação para a sua operação</TituloRevelado>
+          <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Jogos e animação para marcas</TituloRevelado>
           <Reveal delay={0.08}>
-            <p className="lede max-w-[62ch]">São três frentes. Dá para contratar uma só e chamar as outras depois, quando fizer sentido.</p>
+            <p className="lede max-w-[62ch]">São duas frentes que se completam: o mascote da animação entra no jogo, e o jogo ganha Reels para ser divulgado. Dá para começar por uma só.</p>
           </Reveal>
         </SaiAoRolar>
       </section>
@@ -74,7 +74,7 @@ export default function Servicos() {
                   {s.aside.map(([dt, dd]) => (
                     <div key={dt}>
                       <dt className="font-mono text-[0.8rem] font-bold tracking-wider uppercase text-gray-500 mb-1.5">{dt}</dt>
-                      <dd className={`text-gray-600 text-[0.98rem] ${dt === 'Investimento' ? 'font-display text-[1.3rem] text-ink' : ''}`}>{dd}</dd>
+                      <dd className={`text-gray-600 text-[0.98rem] ${dt === 'Preço e pagamento' ? 'font-display text-[1.3rem] text-ink' : ''}`}>{dd}</dd>
                     </div>
                   ))}
                 </dl>
@@ -86,10 +86,10 @@ export default function Servicos() {
 
       <FaixaConvite
         className="pt-16 lg:pt-24"
-        titulo="Ainda sem saber por onde começar"
-        texto="Agende uma sessão estratégica gratuita. Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar. Sem compromisso."
-        cta="Agendar sessão estratégica"
-        href={waLink(WA_MESSAGES.diagnostico)}
+        titulo="Tem uma ideia para a sua marca"
+        texto="Mande a ideia no WhatsApp. A gente responde em até 1 dia útil com o pacote, o prazo e o preço por escrito."
+        cta="Contar a minha ideia"
+        href={waLink(WA_MESSAGES.orcamento)}
       />
     </Page>
   )

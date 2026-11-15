@@ -6,16 +6,12 @@
       "destination": "/servicos/index.html"
     },
     {
-      "source": "/servicos/web-e-sistemas",
-      "destination": "/servicos/web-e-sistemas/index.html"
+      "source": "/servicos/jogos-para-marcas",
+      "destination": "/servicos/jogos-para-marcas/index.html"
     },
     {
-      "source": "/servicos/ia-integrada",
-      "destination": "/servicos/ia-integrada/index.html"
-    },
-    {
-      "source": "/servicos/automacao",
-      "destination": "/servicos/automacao/index.html"
+      "source": "/servicos/animacao",
+      "destination": "/servicos/animacao/index.html"
     },
     {
       "source": "/perguntas-frequentes",
@@ -58,6 +54,21 @@
     {
       "source": "/blog/:caminho*",
       "destination": "https://blog.ibaestudio.com/:caminho*",
+      "permanent": true
+    },
+    {
+      "source": "/servicos/web-e-sistemas",
+      "destination": "/servicos",
+      "permanent": true
+    },
+    {
+      "source": "/servicos/ia-integrada",
+      "destination": "/servicos",
+      "permanent": true
+    },
+    {
+      "source": "/servicos/automacao",
+      "destination": "/servicos",
       "permanent": true
     }
   ]

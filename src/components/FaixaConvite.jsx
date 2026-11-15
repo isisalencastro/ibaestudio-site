@@ -1,5 +1,5 @@
 /**
- * Faixa azul do convite (sessão estratégica). Entra como caixa, com o raio de 24px e recuo
+ * Faixa azul do convite (contar a ideia no WhatsApp). Entra como caixa, com o raio de 24px e recuo
  * dos lados, e se abre até a largura inteira da tela conforme sobe. É o fecho da página:
  * o movimento maior fica reservado para o momento em que a pessoa decide.
  *

@@ -1,6 +1,5 @@
 /**
- * Página de cada frente de serviço (v7): /servicos/web-e-sistemas, /servicos/ia-integrada e
- * /servicos/automacao. Antes as três dividiam uma página só, e a busca por "automação de
+ * Página de cada frente de serviço (v7; v8: /servicos/jogos-para-marcas e /servicos/animacao). Antes as três dividiam uma página só, e a busca por "automação de
  * processos" ou "site institucional" caía num endereço que falava de tudo. Agora cada uma
  * tem título, descrição, dados estruturados (Service) e trilha próprios.
  *
@@ -19,7 +18,7 @@ import Processo from '../components/Processo'
 import FaixaConvite from '../components/FaixaConvite'
 import NaoEncontrada from './NaoEncontrada'
 import { useMagnetico } from '../lib/magnetismo'
-import { waLink, WA_MESSAGES } from '../lib/site'
+import { waLink, WA_MESSAGES, JOGOS_URL } from '../lib/site'
 import { ORIGIN, NOME_SITE } from '../lib/seo'
 import { SERVICOS, PERGUNTAS, servicoPorId, rotaDoServico } from '../lib/conteudo'
 import { ArrowRightIcon, CheckIcon } from '../components/Icons'
@@ -63,7 +62,7 @@ export default function ServicoDetalhe() {
             <p className="lede text-[1.12rem] max-w-[60ch] mb-8">{s.paras[0]}</p>
             <div className="flex flex-wrap gap-3">
               <a ref={cta} className="btn btn-primary" href={waLink(s.mensagem)} target="_blank" rel="noopener noreferrer">Quero um orçamento</a>
-              <a className="btn btn-secondary" href={waLink(WA_MESSAGES.diagnostico)} target="_blank" rel="noopener noreferrer">Agendar sessão estratégica</a>
+              <a className="btn btn-secondary" href={JOGOS_URL} target="_blank" rel="noopener noreferrer">Jogar um jogo da casa</a>
             </div>
           </Reveal>
         </SaiAoRolar>
@@ -76,7 +75,7 @@ export default function ServicoDetalhe() {
             {s.ficha.map(([dt, dd]) => (
               <LinhaPlanta key={dt} className="grid sm:grid-cols-[11rem_1fr] gap-x-8 gap-y-1 py-6">
                 <dt className="font-mono text-[0.8rem] font-semibold uppercase tracking-wider text-gray-500 pt-1">{dt}</dt>
-                <dd className={dt === 'Investimento' ? 'font-display font-extrabold text-[1.35rem] leading-snug text-ink' : 'text-[1.05rem] text-ink'}>{dd}</dd>
+                <dd className={dt === 'Preço e pagamento' ? 'font-display font-extrabold text-[1.35rem] leading-snug text-ink' : 'text-[1.05rem] text-ink'}>{dd}</dd>
               </LinhaPlanta>
             ))}
           </dl>
@@ -130,7 +129,7 @@ export default function ServicoDetalhe() {
 
       <section className="secao" aria-labelledby="outras-titulo">
         <div className="container-site">
-          <h2 id="outras-titulo" className="text-[1.4rem] mb-8">As outras frentes</h2>
+          <h2 id="outras-titulo" className="text-[1.4rem] mb-8">{outros.length > 1 ? 'As outras frentes' : 'A outra frente'}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {outros.map((o) => (
               <article key={o.id} className="cartao-elevavel relative isolate border border-gray-200 rounded-3xl p-7 sm:p-9 flex flex-col gap-3">
@@ -147,10 +146,10 @@ export default function ServicoDetalhe() {
       </section>
 
       <FaixaConvite
-        titulo="Ainda sem saber por onde começar"
-        texto="Agende uma sessão estratégica gratuita. Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar. Sem compromisso."
-        cta="Agendar sessão estratégica"
-        href={waLink(WA_MESSAGES.diagnostico)}
+        titulo="Tem uma ideia para a sua marca"
+        texto="Mande a ideia no WhatsApp. A gente responde em até 1 dia útil com o pacote, o prazo e o preço por escrito."
+        cta="Contar a minha ideia"
+        href={waLink(WA_MESSAGES.orcamento)}
       />
     </Page>
   )

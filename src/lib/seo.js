@@ -14,38 +14,38 @@ export const NOME_SITE = 'IBA Estúdio'
 
 // Texto padrão das rotas sem meta próprio. Não é texto de 404: o 404 tem o dele.
 export const PADRAO = {
-  titulo: 'IBA Estúdio | Desenvolvimento e IA para a operação',
+  titulo: 'IBA Estúdio | Jogos e animação para marcas',
   descricao:
-    'Sites, sistemas e integrações de IA que fazem a operação da sua empresa rodar: atendimento, vendas, dados e processos internos.'
+    'Estúdio de Porto Alegre que cria jogos web e animações cartoon para marcas: jogo por link ou QR code, mascote, Reels e figurinhas. Preço fechado antes.'
 }
 
 // Título e descrição de cada página publicada. O título fica abaixo de 60 caracteres e a
 // descrição entre 120 e 160, que é o que o resultado de busca mostra sem cortar.
 export const ROTAS = {
   '/': {
-    titulo: 'IBA Estúdio | Desenvolvimento e IA para a sua operação',
+    titulo: 'IBA Estúdio | Jogos e animação para marcas',
     descricao:
-      'Sites, sistemas e integrações de IA que fazem a operação rodar: atendimento, vendas, dados e processos internos. Atendimento direto e prazos por escrito.'
+      'Estúdio de Porto Alegre que cria jogos web e animações cartoon para marcas: jogo por link ou QR code, mascote, Reels e figurinhas. Preço fechado antes.'
   },
   '/servicos': {
-    titulo: 'Serviços: sites, sistemas, IA e automação | IBA Estúdio',
+    titulo: 'Serviços: jogos para marcas e animação | IBA Estúdio',
     descricao:
-      'Três frentes: desenvolvimento web e sistemas, IA integrada aos processos e automação de operações. Veja como funciona, o prazo e o investimento de cada uma.'
+      'Duas frentes: jogos web para marcas (advergames) e animação cartoon (mascote, Reels, figurinhas). Veja como funciona, o prazo e o que entra em cada pacote.'
   },
   '/sobre': {
     titulo: 'Sobre a IBA Estúdio: quem faz e como trabalha',
     descricao:
-      'Estúdio de desenvolvimento fundado em Porto Alegre por Isis Alencastro. Integramos IA na operação de empresas e usamos IA na nossa própria operação.'
+      'Estúdio indie de jogos e animação fundado em Porto Alegre por Isis Alencastro. Produção com IA, arte cartoon vetorial feita para cada marca.'
   },
   '/contato': {
     titulo: 'Fale com a IBA Estúdio | WhatsApp e e-mail',
     descricao:
-      'Conte o principal gargalo da sua operação e receba um caminho prático com IA. Atendimento direto por WhatsApp, e-mail ou formulário.'
+      'Conte a ideia do jogo ou da animação da sua marca e receba pacote, prazo e preço por escrito. Atendimento direto por WhatsApp, e-mail ou formulário.'
   },
   '/perguntas-frequentes': {
     titulo: 'Perguntas frequentes | IBA Estúdio',
     descricao:
-      'Quanto custa, quanto tempo demora, como funciona o pagamento e o suporte depois da entrega: respostas diretas sobre trabalhar com a IBA Estúdio.'
+      'Quanto custa, quanto tempo demora, se precisa instalar, como funciona o pagamento e se o estúdio usa IA: respostas diretas sobre a IBA Estúdio.'
   },
   // Uma por frente de serviço (v7). Título e descrição moram em lib/conteudo.js, com o resto
   // do texto do serviço.

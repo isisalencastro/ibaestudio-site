@@ -26,7 +26,7 @@ export default function Footer() {
             />
             </picture>
           </Link>
-          <p className="text-gray-600 text-[0.95rem] mt-4 max-w-[34ch]">Desenvolvimento web, sistemas e IA para a operação da sua empresa.</p>
+          <p className="text-gray-600 text-[0.95rem] mt-4 max-w-[34ch]">Estúdio de jogos web e animação cartoon para marcas, em Porto Alegre.</p>
         </div>
 
         <nav className="footer-col" aria-label="Navegação do rodapé">

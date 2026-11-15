@@ -1,5 +1,5 @@
 /**
- * As três frentes como pilha de cartões (v7). Cada cartão fica preso no topo da tela
+ * As frentes como pilha de cartões (v7). Cada cartão fica preso no topo da tela
  * (position: sticky) enquanto o seguinte sobe por cima dele, e o de baixo recua um pouco
  * (escala), como uma pilha de fichas. É o "Recepta / Felipe aqui" da referência, com o
  * conteúdo da IBA.
@@ -18,11 +18,10 @@ import { CheckIcon, ArrowRightIcon } from './Icons'
 // Estilo de cada cartão: o primeiro (a frente principal) no azul da marca, os outros nas
 // superfícies do tema. Nada de cor nova.
 const VISUAL = {
-  'ia-integrada': { caixa: 'bg-blue text-white border-transparent', apoio: 'text-white/90', rotulo: 'text-[#D1DEF0]', link: 'text-white hover:text-white', icone: 'text-white' },
-  'web-e-sistemas': { caixa: 'bg-surface text-ink border-gray-200', apoio: 'text-gray-600', rotulo: 'text-blue', link: 'text-blue hover:text-blue-dark', icone: 'text-blue' },
-  automacao: { caixa: 'bg-blue-soft text-ink border-blue-soft2', apoio: 'text-gray-600', rotulo: 'text-blue', link: 'text-blue hover:text-blue-dark', icone: 'text-blue' }
+  'jogos-para-marcas': { caixa: 'bg-blue text-white border-transparent', apoio: 'text-white/90', rotulo: 'text-[#D1DEF0]', link: 'text-white hover:text-white', icone: 'text-white' },
+  animacao: { caixa: 'bg-blue-soft text-ink border-blue-soft2', apoio: 'text-gray-600', rotulo: 'text-blue', link: 'text-blue hover:text-blue-dark', icone: 'text-blue' }
 }
-const ORDEM = ['ia-integrada', 'web-e-sistemas', 'automacao']
+const ORDEM = ['jogos-para-marcas', 'animacao']
 const RECUO = 0.05 // quanto cada cartão de baixo encolhe por cartão que passa por cima
 
 function Cartao({ s, i, n, progresso, anima, largo }) {

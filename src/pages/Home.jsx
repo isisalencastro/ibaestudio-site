@@ -22,13 +22,14 @@ import { COMPROMISSOS, ONDE_TRAVA, servicoPorId, rotaDoServico } from '../lib/co
 // presa à classe `movimento`. Por CSS e não por framer: o HTML pré-renderizado e a hidratação
 // saem iguais, e sem JavaScript o hero aparece inteiro.
 
-// Exemplo do hero. É um fluxo típico do serviço de IA no atendimento, apresentado como
-// exemplo: sem nome de cliente, sem número de resultado.
+// Exemplo do hero: o caminho típico de um jogo de marca no balcão, apresentado como exemplo:
+// sem nome de cliente, sem número de resultado. `ia` marca as etapas do jogo (selo azul e o
+// "digitando" da encenação).
 const fluxoExemplo = [
-  { hora: '22h07', quem: 'Cliente', texto: 'Chega uma mensagem no WhatsApp pedindo orçamento.' },
-  { hora: '22h07', quem: 'IA', ia: true, texto: 'A IA responde na hora, com as informações que você definiu.' },
-  { hora: '22h09', quem: 'IA', ia: true, texto: 'Ela pergunta o que falta para orçar e registra o pedido na sua planilha.' },
-  { hora: '8h00', quem: 'Seu time', texto: 'Seu time abre o dia com o pedido completo, pronto para fechar.' }
+  { hora: '0:00', quem: 'Cliente', texto: 'Escaneia o QR code no balcão da loja.' },
+  { hora: '0:03', quem: 'Jogo', ia: true, texto: 'O jogo abre no celular, com o logo e as cores da marca.' },
+  { hora: '1:10', quem: 'Jogo', ia: true, texto: 'Fim da partida: aparece o cupom e o botão para o WhatsApp da loja.' },
+  { hora: '1:30', quem: 'Cliente', texto: 'Manda o link para os amigos baterem o recorde dele.' }
 ]
 
 const packsPraxe = [
@@ -128,7 +129,7 @@ function ExemploFluxo() {
       className="registro relative rounded-3xl p-7 sm:p-9 font-mono"
       data-hero-item=""
     >
-      <figcaption className="flex flex-wrap justify-between gap-x-4 gap-y-1 pb-4 mb-6 border-b border-white/15 text-[0.75rem] uppercase tracking-wider text-[#A9C3EA]"><span>Registro · exemplo</span><span>Um pedido fora do horário</span></figcaption>
+      <figcaption className="flex flex-wrap justify-between gap-x-4 gap-y-1 pb-4 mb-6 border-b border-white/15 text-[0.75rem] uppercase tracking-wider text-[#A9C3EA]"><span>Partida · exemplo</span><span>Um jogo no balcão</span></figcaption>
       <ol className="relative list-none flex flex-col gap-6">
         {fluxoExemplo.map(({ hora, quem, texto, ia }, i) => {
           const acesa = i < visiveis
@@ -199,17 +200,17 @@ export default function Home() {
         <CampoPontos />
         <motion.div style={saida} className="relative container-site grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center origin-top">
           <div>
-            <TituloRevelado as="h1" destaque="operação" className="text-[clamp(2.3rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] mb-6">
-              A gente coloca a IA para trabalhar na operação da sua empresa
+            <TituloRevelado as="h1" destaque="marca" className="text-[clamp(2.3rem,5vw,3.8rem)] leading-[1.05] tracking-[-0.02em] mb-6">
+              Jogos e animações com a cara da sua marca
             </TituloRevelado>
 
             <p data-hero-item="" style={{ '--hi': 1 }} className="text-gray-600 text-[1.12rem] max-w-[50ch] mb-8">
-              Atendimento que responde fora do horário e relatório que se monta sem ninguém copiar planilha. A IBA faz a parte técnica e continua por perto depois que vai ao ar.
+              Jogo curto no navegador, que o cliente abre por link ou QR code, e mascote cartoon para Reels e figurinhas. Preço fechado antes de começar e entrega em dias, não em meses.
             </p>
 
             <div data-hero-item="" style={{ '--hi': 2 }} className="flex flex-wrap gap-3">
-              <a ref={ctaSessaoGratuita} className="btn btn-primary" href="#diagnostico">Sessão estratégica gratuita</a>
-              <a ref={ctaFalarComIba} className="btn btn-secondary" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
+              <a ref={ctaSessaoGratuita} className="btn btn-primary" href={waLink(WA_MESSAGES.jogos)} target="_blank" rel="noopener noreferrer">Quero um jogo para a minha marca</a>
+              <a ref={ctaFalarComIba} className="btn btn-secondary" href={JOGOS_URL} target="_blank" rel="noopener noreferrer">Jogar um jogo da casa</a>
             </div>
           </div>
 
@@ -220,7 +221,7 @@ export default function Home() {
       <section className="border-y border-gray-200 bg-surface" aria-labelledby="compromissos-titulo">
         <div className="container-site grid md:grid-cols-[minmax(0,0.8fr)_minmax(0,2.2fr)] gap-x-14 gap-y-8 py-12">
           <Reveal>
-            <h2 id="compromissos-titulo" className="text-[1.3rem] leading-snug">O que combinamos em todo projeto</h2>
+            <h2 id="compromissos-titulo" className="text-[1.3rem] leading-snug">O que vem em todo projeto</h2>
           </Reveal>
 
           <dl className="grid sm:grid-cols-3 gap-x-10 gap-y-7">
@@ -236,14 +237,14 @@ export default function Home() {
 
       <FraseGiro />
 
-      {/* A "planta": onde a operação trava hoje e o que entra no lugar. Cada linha se desenha e
+      {/* A "planta": onde a marca passa batido hoje e o que entra no lugar. Cada linha se desenha e
           acende quando a leitura chega nela (LinhaPlanta). Texto de lib/conteudo.js. */}
       <section className="secao" id="onde-trava" aria-labelledby="onde-trava-titulo">
         <div className="container-site">
           <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
-            <TituloRevelado as="h2" id="onde-trava-titulo" className="text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.02] tracking-[-0.03em] max-w-[15ch]">Onde a operação trava, e o que entra no lugar</TituloRevelado>
+            <TituloRevelado as="h2" id="onde-trava-titulo" className="text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.02] tracking-[-0.03em] max-w-[15ch]">Onde a marca passa batido, e o que entra no lugar</TituloRevelado>
             <Reveal delay={0.08}>
-              <p className="text-gray-600 max-w-[38ch]">A conversa começa pelo que trava na sua operação, não pela ferramenta.</p>
+              <p className="text-gray-600 max-w-[38ch]">A conversa começa pelo que a sua marca precisa que o cliente faça, não pelo tipo de jogo.</p>
             </Reveal>
           </div>
           <div>
@@ -272,7 +273,7 @@ export default function Home() {
 
       <section className="secao" id="servicos" aria-labelledby="servicos-titulo">
         <div className="container-site">
-          <TituloRevelado as="h2" id="servicos-titulo" className="text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.02] tracking-[-0.03em] mb-10">O que a IBA faz</TituloRevelado>
+          <TituloRevelado as="h2" id="servicos-titulo" className="text-[clamp(2rem,4.4vw,3.6rem)] leading-[1.02] tracking-[-0.03em] mb-10">O que o estúdio faz</TituloRevelado>
 
           <PilhaFrentes />
         </div>
@@ -325,18 +326,18 @@ export default function Home() {
       )}
 
       {/* Frente de jogos da casa. Bloco de produto, no mesmo formato do bloco da Praxe (antetítulo, título,
-          uma frase e um link), e de propósito fora da lista de serviços: jogos não são serviço vendido.
-          O texto é medido, não inventado: o site tem um jogo no ar, o Nó do dia, tabuleiro 8x8 com oito
-          peças que muda à meia-noite e é o mesmo para todo mundo. Sem número, sem métrica, sem depoimento. */}
+          uma frase e um link), e de propósito fora da lista de serviços: os jogos próprios
+          não são serviço vendido, são a vitrine do estúdio. O texto é medido, não inventado: os três jogos
+          diários no ar em jogos.ibaestudio.com (conferido em 14/11/2026). Sem número, sem métrica, sem depoimento. */}
       <section className={PRAXE_ATIVA ? "secao pt-0 lg:pt-0" : "secao"} id="jogos" aria-labelledby="jogos-titulo">
         <div className="container-site">
           <Reveal>
             <div className="bg-surface border border-gray-200 rounded-3xl p-7 sm:p-10 lg:px-14 lg:py-10 flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-12">
               <div className="flex-1">
-                <p className="eyebrow">Nossos jogos</p>
-                <h2 id="jogos-titulo" className="text-[clamp(1.35rem,2.2vw,1.6rem)] mb-3">A gente constrói e publica os próprios jogos</h2>
+                <p className="eyebrow">Jogos próprios</p>
+                <h2 id="jogos-titulo" className="text-[clamp(1.35rem,2.2vw,1.6rem)] mb-3">Antes do jogo da sua marca, os nossos</h2>
                 <p className="text-gray-600 text-[1.02rem] max-w-[54ch]">
-                  O jogo da casa hoje é o Nó do dia: tabuleiro 8x8, oito peças, uma por linha, uma por coluna e uma por região. Muda à meia-noite, o mesmo desafio para todo mundo, e abre no navegador sem instalar nada.
+                  Os Jogos IBA são três desafios diários: o Nó do dia, a Conta do dia e o Retângulo do dia. Mudam à meia-noite, são os mesmos para todo mundo e abrem no navegador sem instalar nada.
                 </p>
               </div>
 
@@ -353,10 +354,10 @@ export default function Home() {
 
       {/* Um convite só, no fim da página: a faixa que se abre até a largura da tela. */}
       <FaixaConvite
-        titulo="Sessão estratégica gratuita"
-        texto="Em 30 minutos, a gente mapeia sua operação e mostra onde a IA pode entrar: atendimento, conteúdo, anúncios ou processos. Sem compromisso."
-        cta="Agendar sessão estratégica"
-        href={waLink(WA_MESSAGES.diagnostico)}
+        titulo="Tem uma ideia para a sua marca"
+        texto="Mande a ideia no WhatsApp. A gente responde em até 1 dia útil com o pacote, o prazo e o preço por escrito."
+        cta="Contar a minha ideia"
+        href={waLink(WA_MESSAGES.orcamento)}
         simbolo
       />
 

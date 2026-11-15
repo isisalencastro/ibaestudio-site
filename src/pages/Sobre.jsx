@@ -7,9 +7,9 @@ import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES } from '../lib/site'
 
 const values = [
-  { title: 'Simplicidade', text: 'Explicamos tudo em linguagem clara, sem jargão. Você decide com informação, não com promessa.' },
-  { title: 'Honestidade', text: 'Se algo não vale a pena para o seu caso, a gente avisa. Preferimos perder um contrato a vender o que você não precisa.' },
-  { title: 'Entrega', text: 'Prazo combinado é prazo cumprido. E se algo mudar no caminho, você fica sabendo antes, não depois.' }
+  { title: 'Diversão com estrutura', text: 'O cartoon fica na arte. Proposta, prazo e contrato são claros e por escrito.' },
+  { title: 'Original', text: 'Nada copiado de jogo, personagem ou marca de terceiros. Cada personagem nasce para a marca que vai usar.' },
+  { title: 'Leve', text: 'Jogo que abre rápido no 4G e roda em celular básico. Se o cliente da sua marca não consegue jogar, o jogo não serviu.' }
 ]
 
 function SectionLabel({ children }) {
@@ -37,11 +37,11 @@ export default function Sobre() {
             <TituloRevelado as="h1" className="text-[clamp(2rem,4.5vw,3.2rem)] mb-5">Um estúdio pequeno, de propósito</TituloRevelado>
             <Reveal delay={0.16}>
               <p className="lede text-[1.15rem] max-w-[62ch]">
-                A IBA é um estúdio de desenvolvimento de Porto Alegre. A gente faz site, sistema e automação com IA para empresas, e usa as mesmas ferramentas aqui dentro: atendimento, prospecção, conteúdo e gestão da IBA rodam com IA antes de qualquer coisa ser oferecida a um cliente.
+                A IBA Estúdio é um estúdio indie de Porto Alegre que cria jogos web e animações cartoon para marcas. A produção usa IA de ponta a ponta, no código, na animação e no texto, e é por isso que um jogo de marca sai em dias. A arte continua desenhada para cada marca, em vetor.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
-              <p className="text-gray-500 text-[0.95rem] mt-7">Fundada em 2026 · por Isis Alencastro</p>
+              <p className="text-gray-500 text-[0.95rem] mt-7">Fundado em 2026 · por Isis Alencastro</p>
             </Reveal>
           </div>
         </div>
@@ -55,10 +55,10 @@ export default function Sobre() {
 
           <div className="max-w-[65ch]">
             <Reveal>
-              <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-7">Nascida de um problema que toda operação conhece</h2>
-              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Quem gere uma empresa costuma ter a mesma história: já tentou resolver sozinho, já contratou errado uma vez e agora quer alguém que explique direito e entregue o que promete. A IBA existe para essa pessoa.</p>
-              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">A IBA começou em 2026 e continua enxuta de propósito. Você fala direto com quem desenvolve, do primeiro contato até a entrega. Sem gerente de conta que repassa recado, sem atendimento em série.</p>
-              <p className="text-gray-600 text-[1.08rem] leading-relaxed">Tecnologia boa, para a gente, é a que ninguém precisa lembrar que existe. O pedido chega organizado, a resposta sai na hora, e o time gasta o dia com o que precisa de gente.</p>
+              <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-7">Feito para a marca que não tem verba de agência grande</h2>
+              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Jogo de marca e personagem animado costumavam ser coisa de campanha grande, com orçamento de meses. A padaria, a loja e a agência pequena ficavam de fora. O estúdio existe para elas.</p>
+              <p className="text-gray-600 text-[1.08rem] leading-relaxed mb-5">Trabalhamos com modelos testados de jogo e com pacotes de escopo, prazo e preço fechados. Você fala direto com quem produz e testa, do primeiro contato até a entrega.</p>
+              <p className="text-gray-600 text-[1.08rem] leading-relaxed">Os nossos próprios jogos, os Jogos IBA diários, são o laboratório: o que funciona neles vira modelo para o jogo da sua marca.</p>
             </Reveal>
           </div>
         </div>
@@ -84,15 +84,15 @@ export default function Sobre() {
 
             <div>
               <Reveal>
-                <h3 className="text-[1.35rem] mb-2">Nós de automação</h3>
-                <p className="text-gray-600 mb-8">Cada fluxo que montamos é feito de nós: um passo atende, o outro organiza, o outro responde. A gente amarra essas pontas para a sua operação rodar sozinha.</p>
+                <h3 className="text-[1.35rem] mb-2">O nó do desafio</h3>
+                <p className="text-gray-600 mb-8">Todo bom jogo tem um nó para desatar. O Nó do dia, primeiro jogo da casa, leva o nome dele.</p>
               </Reveal>
               <Reveal delay={0.1}>
                 <h3 className="text-[1.35rem] mb-2">O polvo</h3>
-                <p className="text-gray-600 mb-8">Oito braços, cada um no seu lugar. O Nó representa a versatilidade de quem segura várias frentes ao mesmo tempo sem soltar nenhuma.</p>
+                <p className="text-gray-600 mb-8">Oito braços, cada um numa tarefa: desenhar, animar, programar, testar. O Nó aparece nos Reels do estúdio como companheiro de aventura.</p>
               </Reveal>
               <Reveal delay={0.18}>
-                <p className="font-display font-extrabold text-blue text-[1.15rem]">a IBA dá um nó nos seus processos</p>
+                <p className="font-display font-extrabold text-blue text-[1.15rem]">a IBA dá um nó na cabeça do seu cliente, do jeito bom</p>
               </Reveal>
             </div>
           </div>
@@ -107,7 +107,7 @@ export default function Sobre() {
           {/* A frase acende palavra por palavra com a rolagem: é a única frase do Sobre lida
               devagar de propósito. */}
           <FraseAcesa className="text-white text-[clamp(1.9rem,3.8vw,3rem)] leading-tight max-w-[24ch]">
-            Colocar a IA para trabalhar na rotina das empresas, em entregas que o time usa de verdade no dia seguinte.
+            Dar a marcas pequenas e médias um jogo ou um personagem que as pessoas querem jogar, assistir e compartilhar.
           </FraseAcesa>
         </div>
       </section>
@@ -149,8 +149,8 @@ export default function Sobre() {
               />
               <div className="pt-1">
                 <h2 id="fundadora-titulo" className="text-[1.5rem] mb-1">Isis Alencastro</h2>
-                <p className="text-gray-500">fundadora, à frente da IBA desde 2026</p>
-                <p className="text-gray-600 mt-3 max-w-[52ch]">É ela quem desenvolve, atende e decide. Na IBA, quem você chama é quem resolve.</p>
+                <p className="text-gray-500">fundadora, à frente do estúdio desde 2026</p>
+                <p className="text-gray-600 mt-3 max-w-[52ch]">É ela quem atende, testa cada jogo e aprova cada animação. Na IBA, quem você chama é quem resolve.</p>
               </div>
             </div>
           </Reveal>
@@ -160,8 +160,8 @@ export default function Sobre() {
       <section className="secao text-center">
         <div className="container-site max-w-[560px]">
           <Reveal>
-            <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Os serviços, com preço e prazo</h2>
-            <p className="text-gray-600 mb-8">A página de serviços mostra as três frentes, com o investimento e o prazo de cada uma.</p>
+            <h2 className="text-[clamp(1.7rem,3vw,2.3rem)] mb-4">Os pacotes, com prazo e o que entra</h2>
+            <p className="text-gray-600 mb-8">A página de serviços mostra as duas frentes, jogos e animação, com o prazo e o que entra em cada pacote.</p>
             <div className="flex flex-wrap gap-3 justify-center">
               <a className="btn btn-primary" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">Falar com a IBA</a>
               <Link to="/servicos" className="btn btn-secondary">Ver serviços</Link>

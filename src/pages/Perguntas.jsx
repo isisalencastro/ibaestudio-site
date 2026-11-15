@@ -44,7 +44,7 @@ export default function Perguntas() {
           <Trilha itens={ITENS_TRILHA} />
           <TituloRevelado as="h1" className="text-[clamp(2.2rem,5.4vw,4.2rem)] leading-[1.02] tracking-[-0.03em] max-w-[16ch] mb-5">Perguntas frequentes</TituloRevelado>
           <Reveal delay={0.08}>
-            <p className="lede text-[1.12rem]">Custo, prazo, pagamento e o que acontece depois da entrega, em respostas diretas. Se a sua dúvida não estiver aqui, pergunte no WhatsApp.</p>
+            <p className="lede text-[1.12rem]">Preço, prazo, pagamento e o que o estúdio faz e não faz, em respostas diretas. Se a sua dúvida não estiver aqui, pergunte no WhatsApp.</p>
           </Reveal>
         </SaiAoRolar>
       </section>
@@ -64,9 +64,9 @@ export default function Perguntas() {
 
       <FaixaConvite
         titulo="Prefere perguntar direto"
-        texto="Em 30 minutos de sessão estratégica gratuita, a gente responde o que é específico da sua operação. Sem compromisso."
-        cta="Agendar sessão estratégica"
-        href={waLink(WA_MESSAGES.diagnostico)}
+        texto="Mande a sua dúvida ou a sua ideia no WhatsApp. Quem responde é quem produz."
+        cta="Perguntar no WhatsApp"
+        href={waLink(WA_MESSAGES.geral)}
       />
     </Page>
   )

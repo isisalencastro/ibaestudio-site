@@ -7,15 +7,11 @@ import Seo from '../components/Seo'
 import { waLink, WA_MESSAGES, mailLink, WA_NUMBER, EMAIL, INSTAGRAM_URL, LINKEDIN_URL } from '../lib/site'
 import { WhatsAppIcon, ClockIcon } from '../components/Icons'
 
-// Endereco que GRAVA o contato antes de abrir o WhatsApp (fluxo do n8n "Site - Contato").
-// Antes disso o formulario so abria o WhatsApp: quem preenchesse e desistisse no meio desaparecia sem rastro.
-const REGISTRO_URL = 'https://ring-servidor-pc.tail703f26.ts.net:10000/webhook/site-contato'
-
 const projectTypes = [
-  'Desenvolvimento web e sistemas',
-  'IA integrada aos processos',
-  'Automação de operações',
-  'Sessão estratégica gratuita',
+  'Jogo para a minha marca',
+  'Mascote da marca',
+  'Reels ou comercial animado',
+  'Figurinhas animadas',
   'outro projeto'
 ]
 
@@ -55,17 +51,9 @@ export default function Contato() {
     const dados = validar()
     if (!dados) return
 
-    // Grava PRIMEIRO, abre o WhatsApp depois. O envio e simples de proposito (form-urlencoded, sem cabecalho
-    // proprio) para nao disparar preflight de CORS, e nao bloqueia nada: se a rede falhar, a pessoa ainda chega
-    // no WhatsApp. Quem preencheu ja demonstrou interesse: o registro tem que existir antes.
-    try {
-      fetch(REGISTRO_URL, {
-        method: 'POST',
-        body: new URLSearchParams({ ...dados, website: form.website, origem: 'site', quando: new Date().toISOString() }),
-        keepalive: true
-      }).catch(() => {})
-    } catch (_) { /* registro e importante, mas nunca pode impedir o contato */ }
-
+    // O registro no n8n ("Site - Contato") saiu com a IBA antiga em 14/11/2026: o fluxo foi apagado e o
+    // endereco respondia 404. A conversa chega pelo WhatsApp da IBA, que o painel do estudio ja recebe.
+    if (form.website) return
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(resumo(dados))}`, '_blank', 'noopener')
   }
 
@@ -90,7 +78,7 @@ export default function Contato() {
           </Reveal>
           <TituloRevelado as="h1" className="text-[clamp(1.9rem,4vw,2.7rem)] max-w-[22ch] mb-4">Vamos conversar sobre o seu projeto</TituloRevelado>
           <Reveal delay={0.16}>
-            <p className="lede max-w-[62ch]">Conte onde a sua operação trava. A gente responde com uma sugestão concreta de por onde começar.</p>
+            <p className="lede max-w-[62ch]">Conte a ideia: o que a sua marca quer que o cliente faça, jogue ou assista. A gente responde com o pacote, o prazo e o preço.</p>
           </Reveal>
         </div>
       </section>
@@ -99,7 +87,7 @@ export default function Contato() {
         <div className="container-site grid md:grid-cols-2 gap-14 items-start">
           <Reveal>
             <h2 className="text-[clamp(1.5rem,2.6vw,2rem)] mb-4">Fale direto com a gente</h2>
-            <p className="lede">Você fala com quem desenvolve e entende do seu projeto do início ao fim, sem atravessador.</p>
+            <p className="lede">Você fala com quem produz e testa o seu jogo ou a sua animação, do início ao fim, sem atravessador.</p>
 
             <div className="my-6">
               <a className="btn btn-whatsapp" href={waLink(WA_MESSAGES.geral)} target="_blank" rel="noopener noreferrer">
@@ -125,7 +113,7 @@ export default function Contato() {
 
           <Reveal delay={0.12}>
             <form id="contact-form" noValidate onSubmit={handleSubmit} className="bg-surface border border-gray-200 rounded-3xl p-6 sm:p-8 lg:p-10 shadow">
-              {/* Armadilha para robô: escondido de quem usa a página; o n8n descarta quem preencher. */}
+              {/* Armadilha para robô: escondido de quem usa a página; o envio para quem preencher. */}
               <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value={form.website} onChange={update('website')} style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
               <div className="mb-5">
                 <label htmlFor="nome" className="block font-semibold text-[0.92rem] mb-2">Nome</label>
@@ -149,7 +137,7 @@ export default function Contato() {
 
               <div className="mb-5">
                 <label htmlFor="mensagem" className="block font-semibold text-[0.92rem] mb-2">Mensagem</label>
-                <textarea id="mensagem" name="mensagem" required placeholder="Conte um pouco sobre o que você precisa" value={form.mensagem} onChange={update('mensagem')} className={`${inputClass} min-h-[120px] resize-y`} />
+                <textarea id="mensagem" name="mensagem" required placeholder="Conte a ideia e onde ela vai aparecer" value={form.mensagem} onChange={update('mensagem')} className={`${inputClass} min-h-[120px] resize-y`} />
               </div>
 
               <AnimatePresence>

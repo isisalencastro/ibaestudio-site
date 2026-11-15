@@ -59,7 +59,7 @@ export default function Politicas() {
         <div className="container-site grid lg:grid-cols-[0.35fr_1fr] gap-10">
           <SectionLabel>Perguntas frequentes</SectionLabel>
           <p className="text-gray-600 max-w-[62ch]">
-            Custo, prazo, pagamento e suporte depois da entrega estão em{' '}
+            Preço, prazo, pagamento e o que o estúdio faz estão em{' '}
             <Link to="/perguntas-frequentes" className="text-blue font-semibold hover:underline">perguntas frequentes</Link>.
           </p>
         </div>
